@@ -1,0 +1,7 @@
+Bin
+build-naosdk_toolchain/sdk/bin
+build-naosdk_toolchain/config
+build-naosdk_toolchain/NiTE2
+build-naosdk_toolchain/CMakeFiles
+build-naosdk_toolchain/CMakeCache.txt
+build-naosdk_toolchain/cmake_install.cmake

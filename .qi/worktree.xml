@@ -1,0 +1,4 @@
+<worktree>
+  <project src="src" />
+  <project src="." />
+</worktree>

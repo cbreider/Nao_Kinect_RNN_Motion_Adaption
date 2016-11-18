@@ -1,0 +1,96 @@
+##
+# Copyright (c) 2011 Aldebaran Robotics. All Rights Reserved.
+
+cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
+
+#handling of relative paths by link_directories() is defined by CMP0015 policy
+cmake_policy(SET CMP0015 NEW)
+
+# Give a name to the project.
+project(Nao_AdaptiveMotion)
+# This include enable you to use our CMake framework
+find_package(qibuild)
+find_package(OpenGL REQUIRED)
+
+
+LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/lib)
+
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/fnnlib/include)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/NiTE2)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/OpenNI2)
+INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../NAO_SDK/naoqi-sdk/include)
+
+#Nao linking not required. All necessary stuff is provided by qibuild
+#
+
+
+#set source files
+#-----------------------------------------------------
+set(_src
+ src/Kinect.cpp
+ src/Nao.cpp
+ src/UserSkeleton.cpp
+ src/main.cpp
+
+ #fnnlib/src/ActivationFunction.cpp
+ #fnnlib/src/Adaptation.cpp
+ #fnnlib/src/BPTT.cpp
+ #fnnlib/src/CBPTT.cpp
+ #fnnlib/src/DataSource.cpp
+ #fnnlib/src/ESN.cpp
+ #fnnlib/src/ESNLayer.cpp
+ #fnnlib/src/ESNTrainingAlgorithm.cpp
+ #fnnlib/src/Initialization.cpp
+ #fnnlib/src/Layer.cpp
+ #fnnlib/src/LayerErrorData.cpp
+ #fnnlib/src/NetworkErrorData.cpp
+ #fnnlib/src/NeuralNetwork.cpp
+ #fnnlib/src/RNN.cpp
+ #fnnlib/src/RNNTrainingAlgorithm.cpp
+)
+#---------------------------------------------------------
+
+# Create an executable named Nao_AdaptiveMotion from sources
+qi_create_bin(Nao_AdaptiveMotion ${_src})
+
+
+#target_link_libraries (Nao_AdaptiveMotion libNiTE2.jni.so)
+# Tell CMake that movehead depends on ALCOMMON and ALPROXIES
+# This will set the libraries to link movehead with,
+# the include paths, and so on
+qi_use_lib(Nao_AdaptiveMotion ALCOMMON ALPROXIES)
+
+#link other libs
+#--------------------------------------------------------------------
+target_link_libraries (Nao_AdaptiveMotion libOpenNI2.so)
+target_link_libraries(Nao_AdaptiveMotion libNiTE2.so)
+target_link_libraries(Nao_AdaptiveMotion ${OPENGL_LIBRARIES} )
+target_link_libraries(Nao_AdaptiveMotion libGLEW.so)
+target_link_libraries(Nao_AdaptiveMotion libglut.so )
+#------------------------------------------------------------------------
+
+#copy dependencies to build
+#----------------------------------------------------------------------
+#copy libraries to bin folder
+add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
+                  COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_SOURCE_DIR}/lib $<TARGET_FILE_DIR:Nao_AdaptiveMotion>)
+
+#copy config folder to build folder for debugging
+add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/config ${CMAKE_SOURCE_DIR}/build-naosdk_toolchain/config)
+
+#copy config folder to bin folder
+add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/config $<TARGET_FILE_DIR:Nao_AdaptiveMotion>/config)
+
+#copy NiTE2 folder to build for debugging
+add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/lib/NiTE2 ${CMAKE_SOURCE_DIR}/build-naosdk_toolchain/NiTE2)
+#------------------------------------------------------------------------------------------------------------

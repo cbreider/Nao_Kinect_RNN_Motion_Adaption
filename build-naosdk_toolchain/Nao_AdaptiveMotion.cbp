@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Nao_AdaptiveMotion" />
+		<Option makefile_is_custom="1" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="CMake Files/;CMake Files/../;CMake Files/../../;CMake Files/../../.local/;CMake Files/../../.local/share/;CMake Files/../../.local/share/qi/;CMake Files/../../.local/share/qi/toolchains/;CMake Files/../../.local/share/qi/toolchains/naosdk_toolchain/;CMake Files/../../../;CMake Files/../../../../;CMake Files/../../../../usr/;CMake Files/../../../../usr/local/;CMake Files/../../../../usr/local/share/;CMake Files/../../../../usr/local/share/cmake/;CMake Files/../../../../usr/local/share/cmake/qibuild/;CMake Files/../../../../usr/local/share/cmake/qibuild/internal/;CMake Files/build-naosdk_toolchain/;" />
+		<Build>
+			<Target title="all">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 all' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Nao_AdaptiveMotion">
+				<Option output="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/sdk/bin/Nao_AdaptiveMotion" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/christian/BachelorProject/Mainline/../Kinect/NiTE-Linux-x64-2.2/Include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/../Kinect/OpenNI-Linux-x64-2.2/Include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/include" />
+					<Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Nao_AdaptiveMotion/fast">
+				<Option output="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/sdk/bin/Nao_AdaptiveMotion" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="/home/christian/BachelorProject/Mainline/../Kinect/NiTE-Linux-x64-2.2/Include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/../Kinect/OpenNI-Linux-x64-2.2/Include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/include" />
+					<Add directory="/home/christian/BachelorProject/Mainline/include" />
+					<Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
+				</Compiler>
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion/fast' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 edit_cache' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install/local' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 list_install_components' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option type="4" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 rebuild_cache' />
+					<CompileFile command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;' />
+					<Clean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<DistClean command='/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean' />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/codegen.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/find.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/flags.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/general.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/gettext.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/git.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/install.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/glob.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/install.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/layout.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/list.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/list.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/stage.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/tests.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/uselib.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/log.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/option.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/python.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/qibuild-config.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/set.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/stage.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/subdirectory.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/submodule.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/target.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/tests.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../../../usr/local/share/cmake/qibuild/version.cmake">
+			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/" />
+		</Unit>
+		<Unit filename="../../../.local/share/qi/toolchains/naosdk_toolchain/toolchain-naosdk_toolchain.cmake">
+			<Option virtualFolder="CMake Files/../../.local/share/qi/toolchains/naosdk_toolchain/" />
+		</Unit>
+		<Unit filename="../CMakeLists.txt">
+			<Option virtualFolder="CMake Files/" />
+		</Unit>
+		<Unit filename="../include/Kinect.hpp" />
+		<Unit filename="../include/Nao.hpp" />
+		<Unit filename="../include/UserSkeleton.hpp" />
+		<Unit filename="../src/Kinect.cpp" />
+		<Unit filename="../src/Nao.cpp" />
+		<Unit filename="../src/UserSkeleton.cpp" />
+		<Unit filename="../src/main.cpp" />
+		<Unit filename="dependencies.cmake">
+			<Option virtualFolder="CMake Files/build-naosdk_toolchain/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
