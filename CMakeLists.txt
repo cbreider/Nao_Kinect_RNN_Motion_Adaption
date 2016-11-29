@@ -11,7 +11,7 @@ project(Nao_AdaptiveMotion)
 # This include enable you to use our CMake framework
 find_package(qibuild)
 find_package(OpenGL REQUIRED)
-
+find_package(LAPACK REQUIRED)
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/lib)
 
@@ -22,6 +22,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/NiTE2)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/OpenNI2)
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../NAO_SDK/naoqi-sdk/include)
+INCLUDE_DIRECTORIES(${ARMADILLO_INCLUDE_DIRS})
 
 #Nao linking not required. All necessary stuff is provided by qibuild
 #
@@ -35,21 +36,6 @@ set(_src
  src/UserSkeleton.cpp
  src/main.cpp
 
- #fnnlib/src/ActivationFunction.cpp
- #fnnlib/src/Adaptation.cpp
- #fnnlib/src/BPTT.cpp
- #fnnlib/src/CBPTT.cpp
- #fnnlib/src/DataSource.cpp
- #fnnlib/src/ESN.cpp
- #fnnlib/src/ESNLayer.cpp
- #fnnlib/src/ESNTrainingAlgorithm.cpp
- #fnnlib/src/Initialization.cpp
- #fnnlib/src/Layer.cpp
- #fnnlib/src/LayerErrorData.cpp
- #fnnlib/src/NetworkErrorData.cpp
- #fnnlib/src/NeuralNetwork.cpp
- #fnnlib/src/RNN.cpp
- #fnnlib/src/RNNTrainingAlgorithm.cpp
 )
 #---------------------------------------------------------
 
@@ -65,11 +51,14 @@ qi_use_lib(Nao_AdaptiveMotion ALCOMMON ALPROXIES)
 
 #link other libs
 #--------------------------------------------------------------------
-target_link_libraries (Nao_AdaptiveMotion libOpenNI2.so)
+target_link_libraries(Nao_AdaptiveMotion libOpenNI2.so)
 target_link_libraries(Nao_AdaptiveMotion libNiTE2.so)
-target_link_libraries(Nao_AdaptiveMotion ${OPENGL_LIBRARIES} )
+target_link_libraries(Nao_AdaptiveMotion ${OPENGL_LIBRARIES})
 target_link_libraries(Nao_AdaptiveMotion libGLEW.so)
 target_link_libraries(Nao_AdaptiveMotion libglut.so )
+target_link_libraries(Nao_AdaptiveMotion ${ARMADILLO_LIBRARIES})
+target_link_libraries(Nao_AdaptiveMotion ${LAPACK_LIBRARIES})
+#target_link_libraries(Nao_AdaptiveMotion ${BLAS_LIBRARIES})
 #------------------------------------------------------------------------
 
 #copy dependencies to build
@@ -77,16 +66,16 @@ target_link_libraries(Nao_AdaptiveMotion libglut.so )
 #copy libraries to bin folder
 add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                    ${CMAKE_SOURCE_DIR}/lib $<TARGET_FILE_DIR:Nao_AdaptiveMotion>)
+                   ${CMAKE_SOURCE_DIR}/lib $<TARGET_FILE_DIR:Nao_AdaptiveMotion>)
 
 #copy config folder to build folder for debugging
 add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/config ${CMAKE_SOURCE_DIR}/build-naosdk_toolchain/config)
+                      ${CMAKE_SOURCE_DIR}/config ${CMAKE_SOURCE_DIR}/build-naosdk_toolchain/config)
 
 #copy config folder to bin folder
 add_custom_command(TARGET Nao_AdaptiveMotion PRE_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                  COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/config $<TARGET_FILE_DIR:Nao_AdaptiveMotion>/config)
 
 #copy NiTE2 folder to build for debugging

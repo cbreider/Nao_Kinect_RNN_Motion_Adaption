@@ -157,9 +157,6 @@
 		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/list.cmake">
 			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
 		</Unit>
-		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/list.cmake">
-			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
-		</Unit>
 		<Unit filename="../../../../../usr/local/share/cmake/qibuild/internal/stage.cmake">
 			<Option virtualFolder="CMake Files/../../../../usr/local/share/cmake/qibuild/internal/" />
 		</Unit>
@@ -211,6 +208,37 @@
 		<Unit filename="../include/Kinect.hpp" />
 		<Unit filename="../include/Nao.hpp" />
 		<Unit filename="../include/UserSkeleton.hpp" />
+		<Unit filename="../rnnlib/include/ActivationFunction.hpp" />
+		<Unit filename="../rnnlib/include/Adaptation.hpp" />
+		<Unit filename="../rnnlib/include/BPTT.hpp" />
+		<Unit filename="../rnnlib/include/CBPTT.hpp" />
+		<Unit filename="../rnnlib/include/CtrnnAlgorithm.hpp" />
+		<Unit filename="../rnnlib/include/DataSource.hpp" />
+		<Unit filename="../rnnlib/include/ESN.hpp" />
+		<Unit filename="../rnnlib/include/ESNLayer.hpp" />
+		<Unit filename="../rnnlib/include/ESNTrainingAlgorithm.hpp" />
+		<Unit filename="../rnnlib/include/Initialization.hpp" />
+		<Unit filename="../rnnlib/include/Layer.hpp" />
+		<Unit filename="../rnnlib/include/LayerErrorData.hpp" />
+		<Unit filename="../rnnlib/include/NetworkErrorData.hpp" />
+		<Unit filename="../rnnlib/include/NeuralNetwork.hpp" />
+		<Unit filename="../rnnlib/include/RNN.hpp" />
+		<Unit filename="../rnnlib/include/RNNTrainingAlgorithm.hpp" />
+		<Unit filename="../rnnlib/src/ActivationFunction.cpp" />
+		<Unit filename="../rnnlib/src/Adaptation.cpp" />
+		<Unit filename="../rnnlib/src/BPTT.cpp" />
+		<Unit filename="../rnnlib/src/CBPTT.cpp" />
+		<Unit filename="../rnnlib/src/DataSource.cpp" />
+		<Unit filename="../rnnlib/src/ESN.cpp" />
+		<Unit filename="../rnnlib/src/ESNLayer.cpp" />
+		<Unit filename="../rnnlib/src/ESNTrainingAlgorithm.cpp" />
+		<Unit filename="../rnnlib/src/Initialization.cpp" />
+		<Unit filename="../rnnlib/src/Layer.cpp" />
+		<Unit filename="../rnnlib/src/LayerErrorData.cpp" />
+		<Unit filename="../rnnlib/src/NetworkErrorData.cpp" />
+		<Unit filename="../rnnlib/src/NeuralNetwork.cpp" />
+		<Unit filename="../rnnlib/src/RNN.cpp" />
+		<Unit filename="../rnnlib/src/RNNTrainingAlgorithm.cpp" />
 		<Unit filename="../src/Kinect.cpp" />
 		<Unit filename="../src/Nao.cpp" />
 		<Unit filename="../src/UserSkeleton.cpp" />

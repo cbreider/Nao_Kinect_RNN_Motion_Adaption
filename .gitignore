@@ -5,3 +5,4 @@ build-naosdk_toolchain/NiTE2
 build-naosdk_toolchain/CMakeFiles
 build-naosdk_toolchain/CMakeCache.txt
 build-naosdk_toolchain/cmake_install.cmake
+.qi/worktree.xml
