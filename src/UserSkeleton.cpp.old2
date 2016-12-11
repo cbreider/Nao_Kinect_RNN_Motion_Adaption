@@ -1,0 +1,305 @@
+#include "UserSkeleton.h"
+#include "NiTE.h"
+#include "OpenNI.h"
+#include <stdio.h>
+#include <math.h>
+
+#include <vector>
+
+using namespace nite;
+using namespace std;
+
+int UserSkeleton::Init(openni::Device &dev)
+{
+	printf("Initialize NiTE... \n ");
+	niteRc = NiTE::initialize();
+	if (niteRc != nite::STATUS_OK)
+	{
+		printf("Initializing NiTE failed\n");
+		return 1;
+	}
+	
+	printf("Creating UserTracker... \n");
+	niteRc = userTracker.create();
+	if (niteRc != nite::STATUS_OK)
+	{
+		printf("Couldn't create user tracker\n");
+		return 1;
+	}
+	printf("UserTracker successfully created \n ");
+
+	g_visibleUsers = false;
+	g_skeletonStates = nite::SKELETON_NONE;
+
+	return 0;
+}
+
+std::vector<float> UserSkeleton::GetRightArmAngles()
+{
+	return calculateArmAngles(1, &RShoulder, &RElbow, &RHand);
+}
+
+std::vector<float> UserSkeleton::GetLeftArmAngles()
+{
+	return calculateArmAngles(-1, &LShoulder, &LElbow, &LHand);
+}
+
+float UserSkeleton::GetRightArmPositionConfidence()
+{
+	float m = min(RShoulder.getPositionConfidence(), min(RElbow.getPositionConfidence(), RHand.getPositionConfidence()));
+	return m;
+}
+
+float UserSkeleton::GetLeftArmPositionConfidence()
+{
+	return min(LShoulder.getPositionConfidence(), min(LElbow.getPositionConfidence(), LHand.getPositionConfidence()));
+}
+
+nite::SkeletonState UserSkeleton::Update()
+{
+	niteRc = userTracker.readFrame(&userTrackerFrame);
+	if (niteRc != nite::STATUS_OK)
+	{
+		printf("Get next frame failed\n");
+		return SKELETON_NONE;
+	}
+
+	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
+
+	nite::SkeletonState state = SKELETON_NONE;
+	unsigned long long ts = userTrackerFrame.getTimestamp();
+
+	if (users.getSize() > 0)
+	{
+		const nite::UserData& user = users[0];
+		
+		state = updateUserState(user,userTrackerFrame.getTimestamp());
+		
+		if (user.isNew())
+		{
+			userTracker.startSkeletonTracking(user.getId());
+		}
+		else if (user.getSkeleton().getState() == nite::SKELETON_TRACKED)
+		{
+			this->calculateUserOrientationAndTranforationMatrix(user.getSkeleton().getJoint(nite::JOINT_NECK), user.getSkeleton().getJoint(nite::JOINT_RIGHT_HIP), user.getSkeleton().getJoint(nite::JOINT_LEFT_HIP)); 
+			RShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
+			RElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
+			RHand = user.getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
+
+			LShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
+			LElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
+			LHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
+		}
+	}
+	return state;
+}
+
+vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoint *shoulder, SkeletonJoint *elbow, SkeletonJoint *hand)
+{
+	float elbowRoll;
+	float elbowYaw;
+	float shoulderRoll;
+	float shoulderPitch; 
+	
+	//elbow Roll
+	vector<float> shoulderToElbow = getTransformedVector(elbow, shoulder);
+	vector<float> elbowToHand =  getTransformedVector(hand, elbow);	
+	elbowRoll = -acos(shoulderToElbow[0] * elbowToHand[0] + shoulderToElbow[1] * elbowToHand[1] + shoulderToElbow[2] * elbowToHand[2]); 
+
+
+	//shoulder Roll
+	vector<float> crossP(3);
+	crossP[0] = _userOrientationY[1] * _userOrientationZ[2] - _userOrientationY[2] * _userOrientationZ[1];
+	crossP[1] = _userOrientationY[2] * _userOrientationZ[0] - _userOrientationY[0] * _userOrientationZ[2];
+	crossP[2] = _userOrientationY[0] * _userOrientationZ[1] - _userOrientationY[1] * _userOrientationZ[0];
+	float lenghtCross =  sqrt(pow(crossP[0], 2) + pow(crossP[1], 2) + pow(crossP[2], 2));
+	crossP[0] = crossP[0] / lenghtCross;
+	crossP[1] = crossP[1] / lenghtCross;
+	crossP[2] = crossP[2] / lenghtCross;
+
+	shoulderRoll = -(M_PI /2 - acos(crossP[0] * shoulderToElbow[0] + crossP[1] * shoulderToElbow[1] + crossP[2] * shoulderToElbow[2]));
+
+
+	//shoulder Pitch 
+	shoulderPitch = - atan(shoulderToElbow[2] / shoulderToElbow[0]);
+	//shoulderPitch = -asin(shoulderToElbow[0] * _userOrientationY[0] + shoulderToElbow[1] * _userOrientationY[1] + shoulderToElbow[2] * _userOrientationY[2]);
+	//elbowYaw ... a bit more complicated
+	vector<float> tAB1(3);
+	tAB1[0] =  cos(shoulderRoll) * cos(shoulderPitch);
+	tAB1[1] = - sin(shoulderRoll);
+	tAB1[2] = cos(shoulderRoll) * sin(shoulderPitch);
+	vector<float> tAB2(3);
+	tAB2[0] = sin(shoulderRoll) * cos(shoulderPitch);
+	tAB2[1] = cos(shoulderRoll);
+	tAB2[2] = sin(shoulderRoll) * sin(shoulderPitch);
+	vector<float> tAB3(3);
+	tAB3[0] = - sin(shoulderPitch);
+	tAB3[1] = 0;
+	tAB3[2] = cos(shoulderPitch);
+
+	vector<float> b(3);
+	b[0] = tAB1[0] * _userOrientationZ[0] +  tAB1[1] * _userOrientationZ[1] +  tAB1[2] * _userOrientationZ[2];
+	b[1] = tAB2[0] * _userOrientationZ[0] +  tAB2[1] * _userOrientationZ[1] +  tAB2[2] * _userOrientationZ[2];
+	b[2] = tAB3[0] * _userOrientationZ[0] +  tAB3[1] * _userOrientationZ[1] +  tAB3[2] * _userOrientationZ[2];
+	float lenghtB =  sqrt(pow(b[0], 2) + pow(b[1], 2) + pow(b[2], 2));
+	b[0] = b[0] / lenghtB;
+	b[1] = b[1] / lenghtB;
+	b[2] = b[2] / lenghtB;
+
+	crossP[0] = shoulderToElbow[1] * elbowToHand[2] - shoulderToElbow[2] * elbowToHand[1];
+	crossP[1] = shoulderToElbow[2] * elbowToHand[0] - shoulderToElbow[0] * elbowToHand[2];
+	crossP[2] = shoulderToElbow[0] * elbowToHand[1] - shoulderToElbow[1] * elbowToHand[0];
+	lenghtCross =  sqrt(pow(crossP[0], 2) + pow(crossP[1], 2) + pow(crossP[2], 2));
+	crossP[0] = crossP[0] / lenghtCross;
+	crossP[1] = crossP[1] / lenghtCross;
+	crossP[2] = crossP[2] / lenghtCross;
+
+	elbowYaw = -( M_PI /2 - acos(b[0] * crossP[0] + b[1] * crossP[1] + b[2] * crossP[2]));
+
+	vector<float> angles(4);
+	angles[0] = elbowRoll;
+	angles[1] = elbowYaw;
+	angles[2] = shoulderRoll;
+	angles[3] = shoulderPitch;
+
+	return angles;
+}
+
+vector<float> UserSkeleton::getTransformedVector(nite::SkeletonJoint *first, nite::SkeletonJoint *second)
+{
+	vector<float> vec(3);
+	vec[0] = first->getPosition().x - second->getPosition().x;
+	vec[1] = first->getPosition().y - second->getPosition().y;
+	vec[2] = first->getPosition().z - second->getPosition().z;
+
+	vector<float> vecT(3);
+	vecT[0] = this->_tMatrixX[0] * vec[0] + this->_tMatrixX[1] * vec[1] +this->_tMatrixX[2] * vec[2];
+	vecT[1] = this->_tMatrixY[0] * vec[0] + this->_tMatrixY[1] * vec[1] +this->_tMatrixY[2] * vec[2];
+	vecT[2] = this->_tMatrixZ[0] * vec[0] + this->_tMatrixZ[1] * vec[1] +this->_tMatrixZ[2] * vec[2];
+	
+	float lenght =  sqrt(pow(vecT[0], 2) + pow(vecT[1], 2) + pow(vecT[2], 2));
+	vecT[0] = vecT[0] / lenght;
+	vecT[1] = vecT[1] / lenght;
+	vecT[2] = vecT[2] / lenght;
+
+	return vecT;
+}
+
+nite::SkeletonState UserSkeleton::updateUserState(const nite::UserData& user, unsigned long long ts)
+{
+	if (user.isNew())
+		USER_MESSAGE("New")
+	else if (user.isVisible() && !g_visibleUsers)
+		USER_MESSAGE("Visible")
+	else if (!user.isVisible() && g_visibleUsers)
+		USER_MESSAGE("Out of Scene")
+	else if (user.isLost())
+		USER_MESSAGE("Lost")
+
+		g_visibleUsers = user.isVisible();
+
+
+	if (g_skeletonStates != user.getSkeleton().getState())
+	{
+		switch (g_skeletonStates = user.getSkeleton().getState())
+		{
+			case nite::SKELETON_NONE:
+				USER_MESSAGE("Stopped tracking.")
+					return SKELETON_NONE;
+					break;
+			case nite::SKELETON_CALIBRATING:
+				USER_MESSAGE("Calibrating...")
+					return SKELETON_CALIBRATING;
+					break;
+			case nite::SKELETON_TRACKED:
+				USER_MESSAGE("Tracking!")
+					return nite::SKELETON_TRACKED;
+					break;
+			case nite::SKELETON_CALIBRATION_ERROR_NOT_IN_POSE:
+			case nite::SKELETON_CALIBRATION_ERROR_HANDS:
+			case nite::SKELETON_CALIBRATION_ERROR_LEGS:
+			case nite::SKELETON_CALIBRATION_ERROR_HEAD:
+			case nite::SKELETON_CALIBRATION_ERROR_TORSO:
+				USER_MESSAGE("Calibration Failed... :-|")
+					return nite::SKELETON_NONE;
+					break;
+		}
+	}
+	return g_skeletonStates;
+}
+
+void UserSkeleton::calculateUserOrientationAndTranforationMatrix(nite::SkeletonJoint neck, nite::SkeletonJoint rHip, nite::SkeletonJoint lHip)
+{
+	//To get a orientation system relative to the user some basic vector geometry is done by using the trangle between neck and the two hips. 
+
+	vector<float> xAxis(3);
+	vector<float> yAxis(3);
+	vector<float> zAxis(3);
+
+	//xAxis as vector between the two hips
+	xAxis[0] = rHip.getPosition().x - lHip.getPosition().x;
+	xAxis[1] = rHip.getPosition().y - lHip.getPosition().y;
+	xAxis[2] = rHip.getPosition().z - lHip.getPosition().z;
+
+	//zAxis as the vector orthogonal to the triangle
+	vector<float> vRhipNeck(3);
+	vRhipNeck[0] = rHip.getPosition().x - neck.getPosition().x;
+	vRhipNeck[1] = rHip.getPosition().y - neck.getPosition().y;
+	vRhipNeck[2] = rHip.getPosition().z - neck.getPosition().z;
+
+	zAxis[0] = xAxis[1] * vRhipNeck[2] - xAxis[2] * vRhipNeck[1];
+	zAxis[1] = xAxis[2] * vRhipNeck[0] - xAxis[0] * vRhipNeck[2];
+	zAxis[2] = xAxis[0] * vRhipNeck[1] - xAxis[1] * vRhipNeck[0];
+
+	//yAxis as the vector orthogonal to x- and zAxis
+	yAxis[0] = zAxis[1] * xAxis[2] - zAxis[2] * xAxis[1];
+	yAxis[1] = zAxis[2] * xAxis[0] - zAxis[0] * xAxis[2];
+	yAxis[2] = zAxis[0] * xAxis[1] - zAxis[1] * xAxis[0];
+
+	//normalize those vectors
+	float xLenght = sqrt(pow(xAxis[0], 2) + pow(xAxis[1], 2) + pow(xAxis[2], 2));
+	float yLenght = sqrt(pow(yAxis[0], 2) + pow(yAxis[1], 2) + pow(yAxis[2], 2));
+	float zLenght = sqrt(pow(zAxis[0], 2) + pow(zAxis[1], 2) + pow(zAxis[2], 2));
+	
+	xAxis[0] = xAxis[0] / xLenght;
+	xAxis[1] = xAxis[1] / xLenght;
+	xAxis[2] = xAxis[2] / xLenght;
+
+	yAxis[0] = yAxis[0] / yLenght;
+	yAxis[1] = yAxis[1] / yLenght;
+	yAxis[2] = yAxis[2] / yLenght;
+
+	zAxis[0] = zAxis[0] / zLenght;
+	zAxis[1] = zAxis[1] / zLenght;
+	zAxis[2] = zAxis[2] / zLenght;
+
+	this->_userOrientationX = xAxis;
+	this->_userOrientationY = yAxis;
+	this->_userOrientationZ = zAxis;
+
+	//calculate tranformation matrix
+	vector<float> tX(3);
+	tX[0]= xAxis[0] * xAxis[0] + xAxis[1] * xAxis[1] + xAxis[2] * xAxis[2];
+	tX[1]= xAxis[0] * yAxis[0] + xAxis[1] * yAxis[1] + xAxis[2] * yAxis[2];
+	tX[2]= xAxis[0] * zAxis[0] + xAxis[1] * zAxis[1] + xAxis[2] * zAxis[2];
+
+	vector<float> tY(3);
+	tY[0]= yAxis[0] * xAxis[0] + yAxis[1] * xAxis[1] + yAxis[2] * xAxis[2];
+	tY[1]= yAxis[0] * yAxis[0] + yAxis[1] * yAxis[1] + yAxis[2] * yAxis[2];
+	tY[2]= yAxis[0] * zAxis[0] + yAxis[1] * zAxis[1] + yAxis[2] * zAxis[2];
+
+	vector<float> tZ(3);
+	tZ[0]= zAxis[0] * xAxis[0] + zAxis[1] * xAxis[1] + zAxis[2] * xAxis[2];
+	tZ[1]= zAxis[0] * yAxis[0] + zAxis[1] * yAxis[1] + zAxis[2] * yAxis[2];
+	tZ[2]= zAxis[0] * zAxis[0] + zAxis[1] * zAxis[1] + zAxis[2] * zAxis[2];
+
+	this->_tMatrixX = tX;
+	this->_tMatrixY = tY;
+	this->_tMatrixZ = tZ;
+}
+
+void UserSkeleton::Close()
+{
+	this->userTracker.destroy();
+	NiTE::shutdown();
+}

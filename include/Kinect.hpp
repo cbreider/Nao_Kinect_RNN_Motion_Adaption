@@ -2,8 +2,9 @@
 #ifndef KINECT_H
 #define KINECT_H
 
-#include "OpenNI.h"
+
 #include "UserSkeleton.hpp"
+#include <iostream>
 
 class Kinect
 {

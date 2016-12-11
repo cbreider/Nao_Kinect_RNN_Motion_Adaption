@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <vector>
-
+#include <iostream>
+#include <fstream>
 using namespace std;
 using namespace nite;
 
@@ -21,7 +22,7 @@ class UserSkeleton
 public:
 	UserSkeleton()
 	{
-	};
+	}
 
 	int Init(openni::Device &dev);
 
@@ -37,7 +38,9 @@ public:
 
 
 private:
-
+    ofstream myfile;
+    bool sample;
+    int counter;
 	Status niteRc;
 	UserTrackerFrameRef userTrackerFrame;
 	nite::SkeletonState g_skeletonStates;

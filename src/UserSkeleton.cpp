@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <vector>
-
+#include <iostream>
+#include <fstream>
 using namespace nite;
 using namespace std;
 
@@ -29,18 +30,21 @@ int UserSkeleton::Init(openni::Device &dev)
 
 	g_visibleUsers = false;
 	g_skeletonStates = nite::SKELETON_NONE;
+    myfile.open("sample.txt");
+    counter = 0;
+    sample = false;
 
 	return 0;
 }
 
 std::vector<float> UserSkeleton::GetRightArmAngles()
 {
-	return calculateArmAngles(1, &rShoulder, &rElbow, &rHand, &torso);
+    return calculateArmAngles(1, &rShoulder, &rElbow, &rHand, &torso);
 }
 
 std::vector<float> UserSkeleton::GetLeftArmAngles()
 {
-	return calculateArmAngles(-1, &lShoulder, &lElbow, &lHand, &torso);
+    return calculateArmAngles(-1, &lShoulder, &lElbow, &lHand, &torso);
 }
 
 float UserSkeleton::GetRightArmPositionConfidence()
@@ -79,16 +83,29 @@ nite::SkeletonState UserSkeleton::Update()
 		}
 		else if (user.getSkeleton().getState() == nite::SKELETON_TRACKED)
 		{
-			this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
+            // NiTE2.2 x64 under Linux seems to have a bug. Right and left joints are interchanged. So here left = right and vise versa
+			this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
 
-			rShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
-			rElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
-			rHand = user.getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
-
-			lShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
-			lElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
-			lHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
-
+            lShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
+            lElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
+            lHand = user.getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
+                        //printf("%0.3f, %0.3f \n", lHand.getPosition().x, lHand.getPosition().y);
+            rShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
+            rElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
+            rHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
+            counter ++;
+            if((lHand.getPosition().y - user.getSkeleton().getJoint(nite::JOINT_HEAD).getPosition().y) > 0  && counter >150)
+            {
+                //printf("%0.3f \n", user.getSkeleton().getJoint(nite::JOINT_HEAD).getPosition().y -  rHand.getPosition().y);
+                printf("Sample \n ");
+                sample = !sample;
+                counter =0;
+            }
+            if(rHand.getPosition().y < user.getSkeleton().getJoint(nite::JOINT_LEFT_FOOT).getPosition().y)
+            {
+                printf("close \n");
+                myfile.close();
+            }
 			torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
 		}
 	}
@@ -100,8 +117,8 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 	vector<float> upperArm = getVector(elbow, shoulder);
 	vector<float> lowerArm = getVector(hand, elbow);
 
-	float shoulderPitch = - asin(upperArm[0] * _userOrientationY[0] + upperArm[1] *  _userOrientationY[1] + upperArm[2] * _userOrientationY[2]);
-	float shoulderRoll =  asin(upperArm[0] * _userOrientationX[0] + upperArm[1] * _userOrientationX[1] + upperArm[2] * _userOrientationX[2]);
+  float shoulderPitch =  -asin(upperArm[0] * _userOrientationY[0] + upperArm[1] * _userOrientationY[1] + upperArm[2] *  _userOrientationY[2]);
+  float shoulderRoll =  asin(upperArm[0] *  _userOrientationX[0] + upperArm[1] *  _userOrientationX[1] + upperArm[2] *  _userOrientationX[2]);
 	float elbowRoll = rightOrLeft * acos(upperArm[0] * lowerArm[0] + upperArm[1] * lowerArm[1] + upperArm[2] * lowerArm[2]);
 
 	vector<float> shoulderTorso = getVector(shoulder, torso);
@@ -109,32 +126,44 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 	vector<float> crossArms = getCrossproduct(upperArm, lowerArm);
 	float elbowYaw = rightOrLeft * (acos(crossTorsoArm[0] * crossArms[0] + crossTorsoArm[1] * crossArms[1] + crossTorsoArm[2] * crossArms[2]) );
 
-	if(rightOrLeft == 1)
+    if(rightOrLeft == 1)
 	{
 		if(elbowRoll > 1.55) elbowRoll = 1.5446;
 		if(elbowRoll < 0.03) elbowRoll = 0.0349;
-		if(elbowYaw > 2.0857) elbowRoll = 2.0857;
-		if(elbowYaw < -2.0857) elbowRoll = -2.0857;
-		if(shoulderRoll < -1.3265) elbowRoll = -1.3265;
-		if(shoulderRoll > 0.3142) elbowRoll = 0.3142;
+        if(elbowYaw > 2.0857) elbowYaw = 2.0857;
+        if(elbowYaw < -2.0857) elbowYaw = -2.0857;
+        if(shoulderRoll < -1.3265) shoulderRoll = -1.3265;
+        if(shoulderRoll > 0.3142) shoulderRoll = 0.3142;
 	}
 
 	if(rightOrLeft == -1)
 	{
 		if(elbowRoll < -1.55) elbowRoll = -1.5446;
 		if(elbowRoll > -0.03) elbowRoll = -0.0349;
-		if(elbowYaw > 2.0857) elbowRoll = 2.0857;
-		if(elbowYaw < -2.0857) elbowRoll = -2.0857;
-		if(shoulderRoll > 1.3265) elbowRoll = 1.3265;
-		if(shoulderRoll < -0.3142) elbowRoll = -0.3142;
-	}
+        if(elbowYaw > 2.0857) elbowYaw = 2.0857;
+        if(elbowYaw < -2.0857) elbowYaw = -2.0857;
+        if(shoulderRoll > 1.3265) shoulderRoll = 1.3265;
+        if(shoulderRoll < -0.3142) shoulderRoll = -0.3142;
+    }
 
 	std::vector<float> angles(4);
 	angles[0] = shoulderPitch;
 	angles[1] = shoulderRoll;
 	angles[2] = elbowRoll;
 	angles[3] = elbowYaw;
-	//if(rightOrLeft == 1) printf("%0.3f, %0.3f \n", shoulderPitch, shoulderRoll);
+
+    if(rightOrLeft == 1 && sample)
+    {
+       // string out = angles[0]  + " " angles[1] + " " angles[2] +  " " angles[3] + "\n";
+        myfile << angles[0];
+        myfile << " ";
+        myfile << angles[1];
+        myfile << " ";
+        myfile << angles[2];
+        myfile << " ";
+        myfile << angles[3];
+        myfile << "\n";
+    }
 
 	return angles;
 }

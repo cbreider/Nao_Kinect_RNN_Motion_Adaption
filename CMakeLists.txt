@@ -26,16 +26,25 @@ INCLUDE_DIRECTORIES(${ARMADILLO_INCLUDE_DIRS})
 
 #Nao linking not required. All necessary stuff is provided by qibuild
 #
+FILE(GLOB_RECURSE header "include/*.hpp")
+add_custom_target(headers SOURCES ${header})
 
+FILE(GLOB_RECURSE headerNN "rnnlib/include/*.hpp")
+add_custom_target(nnH SOURCES ${headerNN})
+
+FILE(GLOB_RECURSE srcNN "rnnlib/src/*.cpp")
+add_custom_target(nnS SOURCES ${srcNN})
 
 #set source files
 #-----------------------------------------------------
 set(_src
  src/Kinect.cpp
  src/Nao.cpp
+ src/Connectom.cpp
  src/UserSkeleton.cpp
  src/main.cpp
 
+fnnlib.hpp
 )
 #---------------------------------------------------------
 

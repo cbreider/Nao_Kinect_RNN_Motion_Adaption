@@ -151,6 +151,69 @@ Nao_AdaptiveMotion/preinstall:
 	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/preinstall
 .PHONY : Nao_AdaptiveMotion/preinstall
 
+#=============================================================================
+# Target rules for targets named headers
+
+# Build rule for target.
+headers: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 headers
+.PHONY : headers
+
+# fast build rule for target.
+headers/fast:
+	$(MAKE) -f CMakeFiles/headers.dir/build.make CMakeFiles/headers.dir/build
+.PHONY : headers/fast
+
+#=============================================================================
+# Target rules for targets named nnH
+
+# Build rule for target.
+nnH: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nnH
+.PHONY : nnH
+
+# fast build rule for target.
+nnH/fast:
+	$(MAKE) -f CMakeFiles/nnH.dir/build.make CMakeFiles/nnH.dir/build
+.PHONY : nnH/fast
+
+#=============================================================================
+# Target rules for targets named nnS
+
+# Build rule for target.
+nnS: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nnS
+.PHONY : nnS
+
+# fast build rule for target.
+nnS/fast:
+	$(MAKE) -f CMakeFiles/nnS.dir/build.make CMakeFiles/nnS.dir/build
+.PHONY : nnS/fast
+
+src/Connectom.o: src/Connectom.cpp.o
+.PHONY : src/Connectom.o
+
+# target to build an object file
+src/Connectom.cpp.o:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Connectom.cpp.o
+.PHONY : src/Connectom.cpp.o
+
+src/Connectom.i: src/Connectom.cpp.i
+.PHONY : src/Connectom.i
+
+# target to preprocess a source file
+src/Connectom.cpp.i:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Connectom.cpp.i
+.PHONY : src/Connectom.cpp.i
+
+src/Connectom.s: src/Connectom.cpp.s
+.PHONY : src/Connectom.s
+
+# target to generate assembly for a file
+src/Connectom.cpp.s:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Connectom.cpp.s
+.PHONY : src/Connectom.cpp.s
+
 src/Kinect.o: src/Kinect.cpp.o
 .PHONY : src/Kinect.o
 
@@ -255,10 +318,16 @@ help:
 	@echo "... depend"
 	@echo "... Nao_AdaptiveMotion"
 	@echo "... edit_cache"
+	@echo "... headers"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... list_install_components"
+	@echo "... nnH"
+	@echo "... nnS"
 	@echo "... rebuild_cache"
+	@echo "... src/Connectom.o"
+	@echo "... src/Connectom.i"
+	@echo "... src/Connectom.s"
 	@echo "... src/Kinect.o"
 	@echo "... src/Kinect.i"
 	@echo "... src/Kinect.s"

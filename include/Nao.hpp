@@ -5,8 +5,9 @@
 #include <alproxies/almotionproxy.h>
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
+#include "../include/Connectom.hpp"
 
-
+//class Connectom;
 
 class Nao
 {
@@ -18,6 +19,7 @@ public:
 	int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion);
 	int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy motion);
 
+    int TrainNaosBrain(std::vector<float> arm);
 	int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
 	int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
 
@@ -27,7 +29,7 @@ public:
 	int SetMotionStiffness(AL::ALMotionProxy &motion);
 
 private:
-
+    Connectom naosNeuralNetwork;
 	float fractionMaxSpeedH;
 	float fractionMaxSpeedA;
 

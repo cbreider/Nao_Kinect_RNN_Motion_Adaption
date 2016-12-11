@@ -14,7 +14,7 @@ int Kinect::InitKinect()
 		printf("Initialize failed\n%s\n", OpenNI::getExtendedError());
 		//return 1;
 	}
-	//rc = device.open(openni::ANY_DEVICE);
+	rc = device.open(openni::ANY_DEVICE);
 	if (rc != openni::STATUS_OK)
 	{
 		printf("Kinect not found !\n%s\n", OpenNI::getExtendedError());
@@ -25,7 +25,6 @@ int Kinect::InitKinect()
 
 	//device.setImageRegistrationMode(IMAGE_REGISTRATION_DEPTH_TO_COLOR);
 	//device.setDepthColorSyncEnabled(true);
-
 	std::cout << "Kinect opened" << endl;
 
 	/*color.create(device, SENSOR_COLOR);
@@ -42,7 +41,7 @@ int Kinect::InitKinect()
 	video.setPixelFormat(PIXEL_FORMAT_RGB888);
 	color.setVideoMode(video);*/
 
-	int status = _userSkeleton.Init(device);
+  int status = _userSkeleton.Init(device);
 	if(status != 0)
 	{
 		return 1;

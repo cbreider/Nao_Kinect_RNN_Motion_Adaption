@@ -33,7 +33,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-	printf("Nao movement from Kinect - Simple test Kinect \n \n");
+	printf("Nao MotionAdaption from human demonstration, with Kinect and Recurrent Neural Network");
 	printf("TH-Koeln - Cologne University of Applied Sciences \n" );
 	printf("Faculty of Computer Science and Engineering Science \n");
 	printf("Institute for Automation and IT \n \n");
@@ -94,8 +94,8 @@ int main(int argc, char* argv[])
 
 
 	// Nao should say some phrase for introduction
-	nao.SayIntroductionPhrase(tts);
-	nao.SetMotionStiffness(motion);
+    //nao.SayIntroductionPhrase(tts);
+    nao.SetMotionStiffness(motion);
 	//run
 	while(!wasKeyboardHit())
 	{
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 			else if(userState == nite::SKELETON_CALIBRATING && first )
 			{
 				first = false;
-				nao.SayInstructionPhrase(tts);
+                //nao.SayInstructionPhrase(tts);
 			}
 			else if(userState == nite::SKELETON_TRACKED)
 			{
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 	}
 
 	// Close Nao and kinect and exit
-	//nao.Close(motion);
+    nao.Close(motion);
 	kinect.CleanUpAndClose();
 	return 0;
 }

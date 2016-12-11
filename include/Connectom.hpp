@@ -1,19 +1,24 @@
 #ifndef CONNECTOM_HPP
 #define CONNECTOM_HPP
 
-#include "../fnnlib.hpp"
+class RNN;
+class Layer;
 
-/*class Connectom
+class Connectom
 {
-  public:
-    Connectom()
-    {};
+    public:
+        Connectom()
+        {};
 
-    int Init();
-    int StartNewTrainCyclus();
-    int Reset();
+        int Init();
+        int StartNewTrainCyclus();
+        int Reset();
 
-};*/
+
+    private:
+        RNN* neuralnetwork;
+        Layer** layers;
+};
 
 
 #endif

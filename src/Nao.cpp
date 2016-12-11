@@ -3,21 +3,26 @@
 #include <alproxies/almotionproxy.h>
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
-
-
+#include "../include/Connectom.hpp"
 
 int Nao::Init(AL::ALMotionProxy &motion)
 {
-	jointNamesRightArm = AL::ALValue::array("RShoulderPitch", "RShoulderRoll", "RElbowRoll", "RElbowYaw");
-	jointNamesLeftArm = AL::ALValue::array("LShoulderPitch", "LShoulderRoll", "LElbowRoll", "LElbowYaw");
+    jointNamesRightArm = AL::ALValue::array("RShoulderPitch", "RShoulderRoll", "RElbowRoll", "RElbowYaw");
+    jointNamesLeftArm = AL::ALValue::array("LShoulderPitch", "LShoulderRoll", "LElbowRoll", "LElbowYaw");
+    //jointNamesLeftArm = AL::ALValue::array("LShoulderPitch");
+    //jointNamesRightArm = AL::ALValue::array("RShoulderPitch");
 	jointNamesHead = AL::ALValue::array("HeadPitch", "HeadYaw");
 	timeSt = 1.0f;
-	stiffnessForMotion = AL::ALValue::array(0.3f, 0.3f, 0.1f, 0.1f);
+    stiffnessForMotion = AL::ALValue::array(0.8f, 0.4f, 0.4f, 0.4f);
 	stiffnessForHead = AL::ALValue::array(0.5f, 0.5f);
 	fractionMaxSpeedH = 0.2f;
 	fractionMaxSpeedA = 1.0f;
 	int status = setMotionStiffness(motion);
-	return status;
+    motion.openHand("RHand");
+    motion.openHand("LHand");
+	//naosNeuralNetwork = new Connectom();
+    //status = naosNeuralNetwork.Init();
+    return status;
 }
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion)
@@ -27,6 +32,7 @@ int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion)
 		//printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
 		AL::ALValue targetAngles = AL::ALValue::array(rArm[0], rArm[1], rArm[2], rArm[3]);
 		motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
+
 		return 0;
 	}
 	catch(const AL::ALError& e)
@@ -126,5 +132,7 @@ int Nao::Close(AL::ALMotionProxy &motion)
     AL::ALValue time = 1.0f;
     motion.stiffnessInterpolation(jointNamesRightArm, stiffness, time);
 	motion.stiffnessInterpolation(jointNamesLeftArm, stiffness, time);
+    motion.closeHand("RHand");
+    motion.closeHand("LHand");
 	return 0;
 }
