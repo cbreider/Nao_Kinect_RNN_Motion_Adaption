@@ -43,8 +43,9 @@ set(_src
  src/Connectom.cpp
  src/UserSkeleton.cpp
  src/main.cpp
+ src/SampleWriter.cpp
 
-fnnlib.hpp
+ fnnlib.hpp
 )
 #---------------------------------------------------------
 

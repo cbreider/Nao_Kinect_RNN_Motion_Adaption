@@ -8,6 +8,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "SampleWriter.hpp";
+
 using namespace std;
 using namespace nite;
 
@@ -38,9 +40,9 @@ public:
 
 
 private:
-    ofstream myfile;
-    bool sample;
-    int counter;
+
+    bool _shouldCapture;
+    SampleWriter sampler;
 	Status niteRc;
 	UserTrackerFrameRef userTrackerFrame;
 	nite::SkeletonState g_skeletonStates;
@@ -52,6 +54,7 @@ private:
 	vector<float> _userOrientationZ;
 
 	SkeletonJoint torso;
+    SkeletonJoint head;
 
 	SkeletonJoint rShoulder;
 	SkeletonJoint rElbow;

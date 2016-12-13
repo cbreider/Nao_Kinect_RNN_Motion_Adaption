@@ -30,16 +30,17 @@ int UserSkeleton::Init(openni::Device &dev)
 
 	g_visibleUsers = false;
 	g_skeletonStates = nite::SKELETON_NONE;
-    myfile.open("sample.txt");
-    counter = 0;
-    sample = false;
+    _shouldCapture = false;
+    sampler.Init();
 
 	return 0;
 }
 
 std::vector<float> UserSkeleton::GetRightArmAngles()
 {
-    return calculateArmAngles(1, &rShoulder, &rElbow, &rHand, &torso);
+    std::vector<float> ang = calculateArmAngles(1, &rShoulder, &rElbow, &rHand, &torso);
+
+    return ang;
 }
 
 std::vector<float> UserSkeleton::GetLeftArmAngles()
@@ -93,19 +94,8 @@ nite::SkeletonState UserSkeleton::Update()
             rShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
             rElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
             rHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
-            counter ++;
-            if((lHand.getPosition().y - user.getSkeleton().getJoint(nite::JOINT_HEAD).getPosition().y) > 0  && counter >150)
-            {
-                //printf("%0.3f \n", user.getSkeleton().getJoint(nite::JOINT_HEAD).getPosition().y -  rHand.getPosition().y);
-                printf("Sample \n ");
-                sample = !sample;
-                counter =0;
-            }
-            if(rHand.getPosition().y < user.getSkeleton().getJoint(nite::JOINT_LEFT_FOOT).getPosition().y)
-            {
-                printf("close \n");
-                myfile.close();
-            }
+
+            head = user.getSkeleton().getJoint(nite::JOINT_HEAD);
 			torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
 		}
 	}
@@ -152,17 +142,9 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 	angles[2] = elbowRoll;
 	angles[3] = elbowYaw;
 
-    if(rightOrLeft == 1 && sample)
+    if(rightOrLeft == 1)
     {
-       // string out = angles[0]  + " " angles[1] + " " angles[2] +  " " angles[3] + "\n";
-        myfile << angles[0];
-        myfile << " ";
-        myfile << angles[1];
-        myfile << " ";
-        myfile << angles[2];
-        myfile << " ";
-        myfile << angles[3];
-        myfile << "\n";
+        sampler.UpdateOnlyUser(angles, lHand.getPosition().y > head.getPosition().y);
     }
 
 	return angles;
