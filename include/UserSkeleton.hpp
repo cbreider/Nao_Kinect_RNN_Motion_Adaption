@@ -8,7 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "SampleWriter.hpp";
+#include "SampleWriter.hpp"
 
 using namespace std;
 using namespace nite;
@@ -33,7 +33,7 @@ public:
 
 	float GetRightArmPositionConfidence();
 	float GetLeftArmPositionConfidence();
-
+	std::vector<float> object;
 	SkeletonState Update();
 
 	void Close();

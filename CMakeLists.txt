@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
 
 #handling of relative paths by link_directories() is defined by CMP0015 policy
 cmake_policy(SET CMP0015 NEW)
+find_package(OpenCV REQUIRED )
 
 # Give a name to the project.
 project(Nao_AdaptiveMotion)
@@ -14,6 +15,7 @@ find_package(OpenGL REQUIRED)
 find_package(LAPACK REQUIRED)
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/lib)
+LINK_DIRECTORIES(/usr/lib/x86_64-linux-gnu)
 
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
@@ -23,7 +25,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/OpenNI2)
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/../NAO_SDK/naoqi-sdk/include)
 INCLUDE_DIRECTORIES(${ARMADILLO_INCLUDE_DIRS})
-
+INCLUDE_DIRECTORIES(${OPENCV_INCLUDE})
 #Nao linking not required. All necessary stuff is provided by qibuild
 #
 FILE(GLOB_RECURSE header "include/*.hpp")
@@ -44,7 +46,7 @@ set(_src
  src/UserSkeleton.cpp
  src/main.cpp
  src/SampleWriter.cpp
-
+ src/ObjectTracker.cpp
  fnnlib.hpp
 )
 #---------------------------------------------------------
@@ -52,6 +54,7 @@ set(_src
 # Create an executable named Nao_AdaptiveMotion from sources
 qi_create_bin(Nao_AdaptiveMotion ${_src})
 
+target_link_libraries( Nao_AdaptiveMotion ${OpenCV_LIBS} )
 
 #target_link_libraries (Nao_AdaptiveMotion libNiTE2.jni.so)
 # Tell CMake that movehead depends on ALCOMMON and ALPROXIES
@@ -68,6 +71,7 @@ target_link_libraries(Nao_AdaptiveMotion libGLEW.so)
 target_link_libraries(Nao_AdaptiveMotion libglut.so )
 target_link_libraries(Nao_AdaptiveMotion ${ARMADILLO_LIBRARIES})
 target_link_libraries(Nao_AdaptiveMotion ${LAPACK_LIBRARIES})
+
 #target_link_libraries(Nao_AdaptiveMotion ${BLAS_LIBRARIES})
 #------------------------------------------------------------------------
 

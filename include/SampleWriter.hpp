@@ -14,13 +14,11 @@ using namespace std;
 
 class SampleWriter
 {
-
   public:
     int Init();
     int Update(std::vector<float> angles, std::vector<float> object, bool caputerFlag);
     int UpdateOnlyUser(std::vector<float> angles, bool captureFlag);
     int Finalize();
-
 
     int WriteCostumFile(string output, string filename);
 
@@ -37,9 +35,11 @@ class SampleWriter
     bool _lastFlag;
     bool _flag;
     bool _firstFrame;
-    int _sampleNr = 0;
+    int _sampleNr;
+    int startCounter = 0;
     string _foldername;
 
+    std::vector<float> _lastObjectPosition;
 };
 
 #endif

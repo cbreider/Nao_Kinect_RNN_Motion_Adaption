@@ -5,43 +5,13 @@
       <Option title="Nao_AdaptiveMotion" />
       <Option makefile_is_custom="1" />
       <Option compiler="gcc" />
-      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\internal\;CMake Files\build-naosdk_toolchain\;" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\NAO_SDK\;CMake Files\..\NAO_SDK\naoqi-sdk\;CMake Files\..\NAO_SDK\naoqi-sdk\share\;CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\internal\;CMake Files\build-naosdk_toolchain\;" />
       <Build>
       <Target title="all">
          <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
          <Option type="4" />
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 all" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="rebuild_cache">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 rebuild_cache" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="install/local">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install/local" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="install/strip">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install/strip" />
             <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
@@ -60,6 +30,7 @@
             <Add directory="/home/christian/BachelorProject/Mainline/include/NiTE2" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
+            <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion" />
@@ -81,49 +52,10 @@
             <Add directory="/home/christian/BachelorProject/Mainline/include/NiTE2" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
+            <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="nnS">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 nnS" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="list_install_components">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 list_install_components" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="install">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="nnH">
-         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 nnH" />
             <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
@@ -149,1584 +81,1135 @@
             <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
+      <Target title="install">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 install/local" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 list_install_components" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="nnH">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 nnH" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="nnS">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 nnS" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
       </Build>
-      <Unit filename="/home/christian/BachelorProject/Mainline/fnnlib.hpp">
-         <Option target="Nao_AdaptiveMotion"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/Connectom.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/Kinect.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/Nao.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/SampleWriter.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/UserSkeleton.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/BaseCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/BaseCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Base_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Base_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Col_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Col_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Cube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Cube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenSpecialiser.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Gen_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Gen_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GlueCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GlueCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Glue_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Glue_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Mat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Mat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/OpCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/OpCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Op_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Op_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Proxy.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/ProxyCube.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Row_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Row_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeMat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeMat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpBase_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpBase_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpCol_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpCol_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpGlue_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpGlue_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_iterators_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpOp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpOp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpProxy.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpRow_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpRow_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_iterators_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpValProxy_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpValProxy_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/access.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_cmath.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_config.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_forward.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_ostream_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_ostream_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng_cxx11.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng_cxx98.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_static_check.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_str.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_version.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arrayops_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arrayops_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/auxlib_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/auxlib_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/compiler_setup.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/compiler_setup_post.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/cond_rel_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/cond_rel_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/config.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/constants.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/constants_old.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/debug.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_arpack.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_atlas.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_blas.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_hdf5.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_lapack.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_superlu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagmat_proxy.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagview_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagview_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diskio_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diskio_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/distr_param.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlueCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlueCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlue_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlue_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOpCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOpCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eglue_core_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eglue_core_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_aux.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_core_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_core_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fft_engine.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/field_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/field_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_accu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_all.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_any.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_approx_equal.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_as_scalar.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_chol.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_clamp.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cond.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_conv.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_conv_to.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cor.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cov.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cross.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cumprod.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cumsum.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_det.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diagmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diagvec.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diff.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_dot.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_gen.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_pair.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_sym.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eigs_gen.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eigs_sym.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_elem.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eps.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_expmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eye.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_fft.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_fft2.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_find.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_find_unique.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_flip.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_hist.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_histc.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_index_max.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_index_min.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inplace_strans.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inplace_trans.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_interp1.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inv.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_join.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_kmeans.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_kron.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_log_det.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_logmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_lu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_max.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_mean.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_median.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_min.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_misc.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_n_unique.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_nonzeros.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_norm.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_normalise.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_numel.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_ones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_orth_null.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_pinv.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_princomp.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_prod.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_qr.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_qz.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randg.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randi.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randn.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_rank.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_regspace.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_repmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_reshape.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_resize.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_schur.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_shift.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_shuffle.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_size.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_solve.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sort.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sort_index.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_speye.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_spones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sprandn.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sprandu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_spsolve.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sqrtmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_stddev.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_strans.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sum.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_svd.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_svds.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_syl_lyap.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_symmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_toeplitz.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trace.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trans.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trapz.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trig.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trimat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trunc_exp.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trunc_log.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_unique.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_var.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_vectorise.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_zeros.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_conv_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_conv_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cor_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cor_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cov_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cov_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cross_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cross_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_hist_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_hist_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_histc_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_histc_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_join_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_join_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_kron_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_kron_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_max_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_max_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_min_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_min_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_mixed_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_mixed_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_relational_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_relational_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_solve_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_solve_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_times_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_times_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_toeplitz_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_toeplitz_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_trapz_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_trapz_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_diag_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_diag_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_misc_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_misc_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/hdf5_misc.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_atlas.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_hdf5.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_superlu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/injector_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/injector_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/memory.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlueCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlueCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlue_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlue_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOpCube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOpCube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtSpOp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtSpOp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemm.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemm_mixed.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemv.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_herk.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_syrk.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DenseGenMatProd_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DenseGenMatProd_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DoubleShiftQR_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DoubleShiftQR_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_EigsSelect.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_GenEigsSolver_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_GenEigsSolver_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SortEigenvalue.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SparseGenMatProd_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SparseGenMatProd_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SymEigsSolver_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SymEigsSolver_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_TridiagEigen_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_TridiagEigen_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_cx_attrib.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_all_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_all_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_any_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_any_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_chol_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_chol_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_clamp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_clamp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cor_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cor_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cov_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cov_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumprod_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumprod_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumsum_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumsum_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cx_scalar_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cx_scalar_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagvec_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagvec_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diff_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diff_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dot_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dot_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dotext_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dotext_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_expmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_expmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_fft_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_fft_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_unique_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_unique_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_flip_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_flip_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_hist_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_hist_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_htrans_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_htrans_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_max_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_max_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_min_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_min_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_inv_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_inv_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_logmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_logmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_max_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_max_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_mean_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_mean_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_median_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_median_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_min_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_min_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_misc_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_misc_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_nonzeros_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_nonzeros_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_norm_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_norm_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_normalise_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_normalise_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_orth_null_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_orth_null_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_pinv_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_pinv_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_princomp_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_princomp_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_prod_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_prod_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_relational_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_relational_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_repmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_repmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_reshape_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_reshape_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_resize_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_resize_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shift_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shift_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shuffle_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shuffle_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_index_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_index_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sqrtmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sqrtmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_stddev_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_stddev_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_strans_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_strans_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sum_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sum_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_symmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_symmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_toeplitz_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_toeplitz_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_trimat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_trimat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_unique_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_unique_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_var_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_var_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_vectorise_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_vectorise_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_div.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_minus.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_plus.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_relational.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_schur.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_times.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_div.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_minus.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_ostream.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_plus.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_relational.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_schur.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_times.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/podarray_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/podarray_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/promote_type.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/restrictors.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_vec_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_vec_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/sp_auxlib_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/sp_auxlib_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/span.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spdiagview_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spdiagview_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_join_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_join_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_minus_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_minus_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_plus_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_plus_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_times_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_times_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_diagmat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_diagmat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_htrans_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_htrans_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_max_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_max_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_mean_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_mean_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_min_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_min_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_misc_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_misc_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_strans_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_strans_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_sum_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_sum_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_var_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_var_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/strip.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_each_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_each_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_each_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_each_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem1_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem1_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem2_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem2_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_field_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_field_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/traits.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_elem.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_elem_check.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_mat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_mat_fixed.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap_cube.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap_spmat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/upgrade_val.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wall_clock_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wall_clock_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_arpack.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_atlas.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_blas.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_lapack.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_superlu.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xtrans_mat_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xtrans_mat_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xvec_htrans_bones.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xvec_htrans_meat.hpp">
-         <Option target="headers"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ActivationFunction.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Adaptation.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/BPTT.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CBPTT.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CtrnnAlgorithm.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/DataSource.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESN.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNLayer.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNTrainingAlgorithm.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Initialization.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Layer.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/LayerErrorData.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NetworkErrorData.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NeuralNetwork.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNN.hpp">
-         <Option target="nnH"/>
-      </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNNTrainingAlgorithm.hpp">
-         <Option target="nnH"/>
-      </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ActivationFunction.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Adaptation.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/BPTT.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/CBPTT.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/DataSource.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESN.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESNLayer.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESNTrainingAlgorithm.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Initialization.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Layer.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/LayerErrorData.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/NetworkErrorData.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/NeuralNetwork.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/RNN.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/RNNTrainingAlgorithm.cpp">
-         <Option target="nnS"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/Connectom.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/Kinect.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/Nao.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/src/ObjectTracker.cpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/SampleWriter.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/UserSkeleton.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/main.cpp">
-         <Option target="Nao_AdaptiveMotion"/>
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/fnnlib.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/Connectom.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/Kinect.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/Nao.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/ObjectTracker.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/SampleWriter.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/UserSkeleton.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/BaseCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/BaseCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Base_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Base_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Col_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Col_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Cube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Cube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GenSpecialiser.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Gen_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Gen_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GlueCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/GlueCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Glue_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Glue_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Mat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Mat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/OpCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/OpCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Op_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Op_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Proxy.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/ProxyCube.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Row_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/Row_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeMat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SizeMat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpBase_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpBase_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpCol_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpCol_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpGlue_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpGlue_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_iterators_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpMat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpOp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpOp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpProxy.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpRow_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpRow_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_iterators_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpSubview_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpValProxy_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/SpValProxy_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/access.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_cmath.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_config.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_forward.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_ostream_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_ostream_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng_cxx11.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_rng_cxx98.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_static_check.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_str.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arma_version.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arrayops_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/arrayops_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/auxlib_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/auxlib_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/compiler_setup.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/compiler_setup_post.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/cond_rel_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/cond_rel_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/config.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/constants.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/constants_old.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/debug.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_arpack.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_atlas.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_blas.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_hdf5.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_lapack.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/def_superlu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagmat_proxy.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagview_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diagview_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diskio_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/diskio_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/distr_param.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlueCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlueCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlue_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eGlue_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOpCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOpCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eOp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eglue_core_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eglue_core_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_aux.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_core_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/eop_core_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fft_engine.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/field_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/field_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_accu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_all.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_any.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_approx_equal.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_as_scalar.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_chol.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_clamp.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cond.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_conv.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_conv_to.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cor.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cov.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cross.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cumprod.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_cumsum.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_det.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diagmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diagvec.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_diff.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_dot.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_gen.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_pair.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eig_sym.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eigs_gen.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eigs_sym.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_elem.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eps.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_expmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_eye.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_fft.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_fft2.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_find.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_find_unique.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_flip.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_hist.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_histc.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_index_max.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_index_min.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inplace_strans.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inplace_trans.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_interp1.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_inv.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_join.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_kmeans.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_kron.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_log_det.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_logmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_lu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_max.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_mean.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_median.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_min.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_misc.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_n_unique.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_nonzeros.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_norm.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_normalise.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_numel.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_ones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_orth_null.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_pinv.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_princomp.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_prod.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_qr.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_qz.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randg.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randi.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randn.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_randu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_rank.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_regspace.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_repmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_reshape.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_resize.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_schur.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_shift.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_shuffle.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_size.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_solve.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sort.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sort_index.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_speye.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_spones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sprandn.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sprandu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_spsolve.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sqrtmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_stddev.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_strans.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_sum.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_svd.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_svds.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_syl_lyap.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_symmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_toeplitz.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trace.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trans.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trapz.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trig.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trimat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trunc_exp.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_trunc_log.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_unique.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_var.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_vectorise.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/fn_zeros.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_conv_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_conv_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cor_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cor_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cov_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cov_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cross_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_cross_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_hist_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_hist_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_histc_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_histc_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_join_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_join_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_kron_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_kron_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_max_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_max_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_min_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_min_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_mixed_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_mixed_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_relational_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_relational_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_solve_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_solve_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_times_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_times_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_toeplitz_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_toeplitz_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_trapz_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/glue_trapz_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_diag_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_diag_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_misc_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/gmm_misc_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/hdf5_misc.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_atlas.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_hdf5.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/include_superlu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/injector_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/injector_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/memory.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlueCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlueCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlue_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtGlue_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOpCube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOpCube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtOp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtSpOp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mtSpOp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemm.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemm_mixed.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_gemv.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_herk.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/mul_syrk.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DenseGenMatProd_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DenseGenMatProd_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DoubleShiftQR_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_DoubleShiftQR_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_EigsSelect.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_GenEigsSolver_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_GenEigsSolver_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SortEigenvalue.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SparseGenMatProd_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SparseGenMatProd_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SymEigsSolver_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_SymEigsSolver_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_TridiagEigen_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_TridiagEigen_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergEigen_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergQR_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/newarp_cx_attrib.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_all_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_all_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_any_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_any_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_chol_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_chol_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_clamp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_clamp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cor_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cor_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cov_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cov_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumprod_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumprod_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumsum_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cumsum_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cx_scalar_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_cx_scalar_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagvec_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diagvec_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diff_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_diff_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dot_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dot_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dotext_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_dotext_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_expmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_expmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_fft_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_fft_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_unique_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_find_unique_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_flip_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_flip_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_hist_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_hist_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_htrans_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_htrans_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_max_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_max_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_min_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_index_min_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_inv_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_inv_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_logmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_logmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_max_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_max_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_mean_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_mean_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_median_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_median_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_min_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_min_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_misc_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_misc_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_nonzeros_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_nonzeros_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_norm_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_norm_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_normalise_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_normalise_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_orth_null_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_orth_null_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_pinv_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_pinv_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_princomp_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_princomp_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_prod_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_prod_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_relational_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_relational_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_repmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_repmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_reshape_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_reshape_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_resize_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_resize_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shift_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shift_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shuffle_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_shuffle_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_index_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_index_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sort_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sqrtmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sqrtmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_stddev_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_stddev_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_strans_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_strans_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sum_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_sum_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_symmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_symmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_toeplitz_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_toeplitz_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_trimat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_trimat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_unique_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_unique_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_var_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_var_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_vectorise_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/op_vectorise_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_div.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_minus.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_plus.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_relational.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_schur.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_cube_times.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_div.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_minus.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_ostream.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_plus.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_relational.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_schur.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/operator_times.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/podarray_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/podarray_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/promote_type.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/restrictors.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_vec_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/running_stat_vec_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/sp_auxlib_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/sp_auxlib_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/span.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spdiagview_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spdiagview_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_join_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_join_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_minus_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_minus_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_plus_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_plus_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_times_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spglue_times_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_diagmat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_diagmat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_htrans_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_htrans_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_max_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_max_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_mean_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_mean_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_min_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_min_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_misc_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_misc_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_strans_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_strans_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_sum_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_sum_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_var_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/spop_var_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/strip.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_each_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_each_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_cube_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_each_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_each_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem1_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem1_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem2_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_elem2_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_field_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_field_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/subview_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/traits.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_elem.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_elem_check.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_mat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/typedef_mat_fixed.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap_cube.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/unwrap_spmat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/upgrade_val.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wall_clock_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wall_clock_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_arpack.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_atlas.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_blas.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_lapack.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/wrapper_superlu.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xtrans_mat_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xtrans_mat_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xvec_htrans_bones.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xvec_htrans_meat.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ActivationFunction.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Adaptation.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/BPTT.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CBPTT.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CtrnnAlgorithm.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/DataSource.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESN.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNLayer.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNTrainingAlgorithm.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Initialization.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Layer.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/LayerErrorData.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NetworkErrorData.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NeuralNetwork.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNN.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNNTrainingAlgorithm.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/cmake/qibuild/qibuild-config.cmake">
           <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\" />

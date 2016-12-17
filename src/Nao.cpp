@@ -20,9 +20,14 @@ int Nao::Init(AL::ALMotionProxy &motion)
 	int status = setMotionStiffness(motion);
     motion.openHand("RHand");
     motion.openHand("LHand");
-	//naosNeuralNetwork = new Connectom();
-    //status = naosNeuralNetwork.Init();
+    //naosNeuralNetwork = new Connectom();
+    status = naosNeuralNetwork.Init();
     return status;
+}
+
+int Nao::Train()
+{
+    return naosNeuralNetwork.StartNewTrainCyclus();
 }
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion)

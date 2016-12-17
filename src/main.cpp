@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 
 
 	Kinect kinect;
-    //Nao nao;
+  Nao nao;
 
 	//Initialize nao
 	printf("Initializing Nao... \n");
@@ -67,12 +67,12 @@ int main(int argc, char* argv[])
 	printf("\n \n");
 
 	// Setting Nao's proxies for motion and speech
-    //AL::ALMotionProxy motion(ip, 9559);
-    //AL::ALTextToSpeechProxy tts(ip, 9559);
+  AL::ALMotionProxy motion(ip, 9559);
+  AL::ALTextToSpeechProxy tts(ip, 9559);
 
 	//status = nao.Init(motion);
 	//nao.Close(motion);
-    /*status = nao.Init(motion);
+    status = nao.Init(motion);
     status = 0;
 	if(status == 1)
 	{
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 	else
 	{
 		printf("Nao succesfully initialized \n");
-    }*/
+  }
 
 	//Initialize kinect
 	status = kinect.InitKinect();
@@ -99,8 +99,13 @@ int main(int argc, char* argv[])
 	//run
 	while(!wasKeyboardHit())
 	{
+		int key = cv::waitKey(1);
+        if(key==27)
+        {
+            break;
+        }
 		//Update and get the user
-		userState = kinect.GetUser()->Update();
+		userState = kinect.UpdateAll();
 
 			// check user state
 			if(userState == nite::SKELETON_NONE)
@@ -123,25 +128,22 @@ int main(int argc, char* argv[])
 				if(lConfidence > 0.5)
 				{
 					//apply user arm angles to nao
-                    kinect.GetUser()->GetLeftArmAngles();
-                    //nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
+                    //kinect.GetUser()->GetLeftArmAngles();
+                    nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
 				}
 
 				//same for the right arm
 				if(rConfidence > 0.5)
 				{
-                    kinect.GetUser()->GetRightArmAngles();
-                    //nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
+                    //kinect.GetUser()->GetRightArmAngles();
+                    nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
 				}
 			}
 
 	}
 
 	// Close Nao and kinect and exit
-    //nao.Close(motion);
+  nao.Close(motion);
 	kinect.CleanUpAndClose();
 	return 0;
 }
-
-
-

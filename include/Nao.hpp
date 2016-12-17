@@ -19,7 +19,6 @@ public:
 	int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion);
 	int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy motion);
 
-    int TrainNaosBrain(std::vector<float> arm);
 	int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
 	int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
 
@@ -27,6 +26,8 @@ public:
 
 	int Close(AL::ALMotionProxy &motion);
 	int SetMotionStiffness(AL::ALMotionProxy &motion);
+
+    int Train();
 
 private:
     Connectom naosNeuralNetwork;

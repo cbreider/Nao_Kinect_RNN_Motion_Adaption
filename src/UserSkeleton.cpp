@@ -85,7 +85,7 @@ nite::SkeletonState UserSkeleton::Update()
 		else if (user.getSkeleton().getState() == nite::SKELETON_TRACKED)
 		{
             // NiTE2.2 x64 under Linux seems to have a bug. Right and left joints are interchanged. So here left = right and vise versa
-			this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
+						this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
 
             lShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
             lElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
@@ -96,7 +96,7 @@ nite::SkeletonState UserSkeleton::Update()
             rHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
 
             head = user.getSkeleton().getJoint(nite::JOINT_HEAD);
-			torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
+						torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
 		}
 	}
 	return state;
@@ -144,7 +144,7 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 
     if(rightOrLeft == 1)
     {
-        sampler.UpdateOnlyUser(angles, lHand.getPosition().y > head.getPosition().y);
+        sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y);
     }
 
 	return angles;
