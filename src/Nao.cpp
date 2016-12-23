@@ -4,24 +4,44 @@
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
 #include "../include/Connectom.hpp"
+#include "UserInterface.hpp"
 
-int Nao::Init(AL::ALMotionProxy &motion)
+int Nao::Init(std::string ip, AL::ALMotionProxy &motion)
 {
+    IPAddress = ip;
+
+
     jointNamesRightArm = AL::ALValue::array("RShoulderPitch", "RShoulderRoll", "RElbowRoll", "RElbowYaw");
     jointNamesLeftArm = AL::ALValue::array("LShoulderPitch", "LShoulderRoll", "LElbowRoll", "LElbowYaw");
     //jointNamesLeftArm = AL::ALValue::array("LShoulderPitch");
     //jointNamesRightArm = AL::ALValue::array("RShoulderPitch");
+
 	jointNamesHead = AL::ALValue::array("HeadPitch", "HeadYaw");
 	timeSt = 1.0f;
     stiffnessForMotion = AL::ALValue::array(0.8f, 0.4f, 0.4f, 0.4f);
 	stiffnessForHead = AL::ALValue::array(0.5f, 0.5f);
 	fractionMaxSpeedH = 0.2f;
 	fractionMaxSpeedA = 1.0f;
-	int status = setMotionStiffness(motion);
+
+    int status = setMotionStiffness(motion);
     motion.openHand("RHand");
     motion.openHand("LHand");
     //naosNeuralNetwork = new Connectom();
-    status = naosNeuralNetwork.Init();
+
+    UserMessage::WriteBlankLine();
+
+    status = naosNeuralNetwork.InitRNNPB();
+    if(status == 1)
+    {
+        UserMessage::WriteMessage("Failed to initialize Nao ", UserMessage::Error);
+    }
+    else
+    {
+        UserMessage::WriteMessage("Nao succesfully initialized ", UserMessage::OK);
+    }
+    UserMessage::WriteBlankLine();
+    UserMessage::WriteBlankLine();
+
     return status;
 }
 
@@ -30,7 +50,7 @@ int Nao::Train()
     return naosNeuralNetwork.StartNewTrainCyclus();
 }
 
-int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion)
+int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
 {
 	try
 	{
@@ -46,7 +66,7 @@ int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion)
 	}
 }
 
-int Nao::SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy motion)
+int Nao::SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion)
 {
 	try
 	{
@@ -66,7 +86,9 @@ int Nao::SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts)
 	{
 		tts.say("Hey Buddy");
 		tts.say("Stand in front of the camera");
-		tts.say("Then Start moving around so That I can detect you");
+        tts.say("And show me how you move your arms ");
+        tts.say("I will imitate your motions");
+        //tts.say("Then Start moving around so That I can detect you");
 		return 0;
 	}
 	catch(const AL::ALError& e)

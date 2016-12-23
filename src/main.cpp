@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include "../include/OniSampleUtilities.h"
+#include "UserInterface.hpp"
 
 using namespace openni;
 using namespace nite;
@@ -33,11 +34,19 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 
-	printf("Nao MotionAdaption from human demonstration, with Kinect and Recurrent Neural Network");
-	printf("TH-Koeln - Cologne University of Applied Sciences \n" );
-	printf("Faculty of Computer Science and Engineering Science \n");
-	printf("Institute for Automation and IT \n \n");
-	printf("Author: Christian Breiderhoff. \n \n \n");
+     UserMessage::WriteMessage("_______________________________________________________________________________________________________", UserMessage::Info);
+     UserMessage::WriteMessage("                                                                                                                                                                   ", UserMessage::Info);
+     UserMessage::WriteMessage("                  Nao MotionAdaption from human demonstration, with Kinect and Recurrent Neural Network        ", UserMessage::Info);
+     UserMessage::WriteMessage("                                         TH-Koeln - Cologne University of Applied Sciences                                           ", UserMessage::Info );
+     UserMessage::WriteMessage("                                        Faculty of Computer Science and Engineering Science                                     ", UserMessage::Info);
+     UserMessage::WriteMessage("                                                    Institute for Automation and IT                                                              ", UserMessage::Info);
+     UserMessage::WriteMessage("                                                                                                                                                                   ", UserMessage::Info);
+     UserMessage::WriteMessage("                                                    Author: Christian Breiderhoff.                                                              ", UserMessage::Info);
+     UserMessage::WriteMessage("                                                                                                                                                                   ", UserMessage::Info);
+     UserMessage::WriteMessage("______________________________________________________________________________________________________", UserMessage::Info);
+     UserMessage::WriteBlankLine();
+     UserMessage::WriteBlankLine();
+
 
 	bool first = true;
 	int status = 1;
@@ -46,43 +55,33 @@ int main(int argc, char* argv[])
 	float lConfidence = 0.0f;
 	std::string ip;
 
-
-
 	Kinect kinect;
-  Nao nao;
-
-	//Initialize nao
-	printf("Initializing Nao... \n");
+    Nao nao;
 
 	// Loading Nao's IP-Address from .txt
 	//For Debug \build-nao_toolchain1\config\IPAddr.txt
-	//For .exe \build-nao_toolchain1\sdk\bin\config\IPAddr.txt
+    //For bin \build-nao_toolchain1\sdk\bin\config\IPAddr.txt
 	std::ifstream file;
 	file.open("config/IPAddr.txt");
 	std::getline(file, ip);
 	file.close();
 
-	std::cout<<"Nao's IP-Address: ";
-	std::cout<<ip<< endl;
-	printf("\n \n");
-
-	// Setting Nao's proxies for motion and speech
-  AL::ALMotionProxy motion(ip, 9559);
-  AL::ALTextToSpeechProxy tts(ip, 9559);
+    //Initialize nao
+    UserMessage::WriteMessage("Initializing Nao... ", UserMessage::NewProcedure);
+    // Setting Nao's proxies for motion and speech
+    std::string text = "Nao's IP-Address: "  + ip;
+    UserMessage::WriteMessage(text, UserMessage::NewProcedure);
+    AL::ALMotionProxy motion(ip, 9559);
+    AL::ALTextToSpeechProxy tts(ip, 9559);
 
 	//status = nao.Init(motion);
 	//nao.Close(motion);
-    status = nao.Init(motion);
+    status = nao.Init(ip, motion);
     status = 0;
 	if(status == 1)
 	{
-		printf("Failed to initialize Nao \n");
 		return 1;
 	}
-	else
-	{
-		printf("Nao succesfully initialized \n");
-  }
 
 	//Initialize kinect
 	status = kinect.InitKinect();
@@ -97,7 +96,7 @@ int main(int argc, char* argv[])
     //nao.SayIntroductionPhrase(tts);
     //nao.SetMotionStiffness(motion);
 	//run
-	while(!wasKeyboardHit())
+    while(true)
 	{
 		int key = cv::waitKey(1);
         if(key==27)
@@ -116,7 +115,7 @@ int main(int argc, char* argv[])
 			else if(userState == nite::SKELETON_CALIBRATING && first )
 			{
 				first = false;
-                //nao.SayInstructionPhrase(tts);
+               // nao.SayInstructionPhrase(tts);
 			}
 			else if(userState == nite::SKELETON_TRACKED)
 			{

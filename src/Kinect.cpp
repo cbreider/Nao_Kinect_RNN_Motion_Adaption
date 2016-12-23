@@ -3,6 +3,7 @@
 #include <iostream>
 #include "ObjectTracker.hpp"
 #include "NiTE.h"
+#include "UserInterface.hpp"
 
 using namespace nite;
 using namespace openni;
@@ -10,50 +11,55 @@ using namespace std;
 
 int Kinect::InitKinect()
 {
-    std::cout << " \n \nKinect initialization..." << endl;
+    UserMessage::WriteMessage("Kinect initialization...", UserMessage::NewProcedure);
     int status = _userSkeleton.Init(device);
+    if(status == 0)
+    {
+        openni::Status rc = OpenNI::initialize();
+        status = rc;
+        if (rc != openni::STATUS_OK)
+        {
+            UserMessage::WriteError("OpenNI initialisation failed!:", OpenNI::getExtendedError());
+        }
+        if(status == 0)
+        {
+            rc = device.open(openni::ANY_DEVICE);
+            if (rc != openni::STATUS_OK)
+            {
+                UserMessage::WriteError("Kinect not found!:", OpenNI::getExtendedError());
+                return 1;
+            }
 
-	openni::Status rc = OpenNI::initialize();
-	if (rc != openni::STATUS_OK)
+            //device.setImageRegistrationMode(IMAGE_REGISTRATION_DEPTH_TO_COLOR);
+            //device.setDepthColorSyncEnabled(true);
+            UserMessage::WriteMessage("Kinect opened!", UserMessage::OK);
+            color.create(device, SENSOR_COLOR); color.start();
+            UserMessage::WriteMessage("Camera ok!", UserMessage::OK);
+            depth.create(device, SENSOR_DEPTH); depth.start();
+            UserMessage::WriteMessage("Camera ok!", UserMessage::OK);
+            UserMessage::WriteMessage("Depth sensor  ok!", UserMessage::OK);
+            openni::VideoMode video;
+            video.setResolution(640, 480); video.setFps(30);
+            video.setPixelFormat(PIXEL_FORMAT_DEPTH_100_UM);
+            depth.setVideoMode(video);
+            video.setPixelFormat(PIXEL_FORMAT_RGB888);
+            color.setVideoMode(video);
+        }
+    }
+    UserMessage::WriteBlankLine();
+    if(status == 0)
 	{
-		printf("Initialize failed\n%s\n", OpenNI::getExtendedError());
-		//return 1;
+        _objectTracker.Init();
+      UserMessage::WriteMessage("Kinect successfully initialized!", UserMessage::OK);
 	}
-	rc = device.open(openni::ANY_DEVICE);
-	if (rc != openni::STATUS_OK)
-	{
-		printf("Kinect not found !\n%s\n", OpenNI::getExtendedError());
-		openni::OpenNI::getExtendedError();
-		std::cout << "Press ESC to exit" << endl;
-		return 1;
-	}
+    else
+    {
+         UserMessage::WriteMessage("Failed to initialize Kinect", UserMessage::Error);
+    }
 
-	//device.setImageRegistrationMode(IMAGE_REGISTRATION_DEPTH_TO_COLOR);
-	//device.setDepthColorSyncEnabled(true);
-	std::cout << "Kinect opened" << endl;
-
-	color.create(device, SENSOR_COLOR);
-	color.start();
-	std::cout << "Camera ok" << endl;
-	depth.create(device, SENSOR_DEPTH);
-	depth.start();
-	std::cout << "Depth sensor ok" << endl;
-	openni::VideoMode video;
-	video.setResolution(640, 480);
-	video.setFps(30);
-	video.setPixelFormat(PIXEL_FORMAT_DEPTH_100_UM);
-	//depth.setVideoMode(video);
-	video.setPixelFormat(PIXEL_FORMAT_RGB888);
-	color.setVideoMode(video);
-
-
-	if(status != 0)
-	{
-		return 1;
-	}
-  _objectTracker.Init();
-	std::cout << "Kinect successfully initialized! \n \n \n " << endl;
-	return 0;
+    UserMessage::WriteBlankLine();
+    UserMessage::WriteBlankLine();
+    return status;
 }
 
 SkeletonState Kinect::UpdateAll()

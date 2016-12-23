@@ -6,27 +6,28 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "UserInterface.hpp"
 using namespace nite;
 using namespace std;
 
 int UserSkeleton::Init(openni::Device &dev)
 {
-	printf("Initialize NiTE... \n ");
+    UserMessage::WriteMessage("Initialize NiTE...", UserMessage::NewProcedure);
 	niteRc = NiTE::initialize();
 	if (niteRc != nite::STATUS_OK)
 	{
-		printf("Initializing NiTE failed\n");
+        UserMessage::WriteMessage("nitializing NiTE failed!", UserMessage::Error);
 		return 1;
 	}
 
-	printf("Creating UserTracker... \n");
+    UserMessage::WriteMessage("Creating UserTracker...", UserMessage::NewProcedure);
 	niteRc = userTracker.create();
 	if (niteRc != nite::STATUS_OK)
 	{
-		printf("Couldn't create user tracker\n");
+        UserMessage::WriteMessage("Couldn't create user tracker!", UserMessage::Error);
 		return 1;
 	}
-	printf("UserTracker successfully created \n ");
+    UserMessage::WriteMessage("UserTracker successfully created!", UserMessage::OK);
 
 	g_visibleUsers = false;
 	g_skeletonStates = nite::SKELETON_NONE;
@@ -67,38 +68,47 @@ nite::SkeletonState UserSkeleton::Update()
 		return SKELETON_NONE;
 	}
 
-	const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
+    const nite::Array<nite::UserData>& users = userTrackerFrame.getUsers();
 
-	nite::SkeletonState state = SKELETON_NONE;
-	unsigned long long ts = userTrackerFrame.getTimestamp();
+    nite::SkeletonState state = SKELETON_NONE;
+    unsigned long long ts = userTrackerFrame.getTimestamp();
 
-	if (users.getSize() > 0)
-	{
-		const nite::UserData& user = users[0];
+    if (users.getSize() > 0)
+    {
+        const nite::UserData& user = users[0];
+        for (int i = 0; i < users.getSize(); ++i)
+        {
+            const nite::UserData& user = users[i];
+            if(users[i].getId() ==1)
+            {
 
-		state = updateUserState(user,userTrackerFrame.getTimestamp());
 
-		if (user.isNew())
-		{
-			userTracker.startSkeletonTracking(user.getId());
-		}
-		else if (user.getSkeleton().getState() == nite::SKELETON_TRACKED)
-		{
-            // NiTE2.2 x64 under Linux seems to have a bug. Right and left joints are interchanged. So here left = right and vise versa
-						this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
 
-            lShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
-            lElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
-            lHand = user.getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
-                        //printf("%0.3f, %0.3f \n", lHand.getPosition().x, lHand.getPosition().y);
-            rShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
-            rElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
-            rHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
+                state = updateUserState(user,userTrackerFrame.getTimestamp());
 
-            head = user.getSkeleton().getJoint(nite::JOINT_HEAD);
-						torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
-		}
-	}
+                if (user.isNew())
+                {
+                    userTracker.startSkeletonTracking(user.getId());
+                }
+                else if (user.getSkeleton().getState() == nite::SKELETON_TRACKED)
+                {
+                    // NiTE2.2 x64 under Linux seems to have a bug. Right and left joints are interchanged. So here left = right and vise versa
+                    this->calculateUserOrientation(user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER), user.getSkeleton().getJoint(nite::JOINT_TORSO));
+
+                    lShoulder = user.getSkeleton().getJoint(nite::JOINT_RIGHT_SHOULDER);
+                    lElbow = user.getSkeleton().getJoint(nite::JOINT_RIGHT_ELBOW);
+                    lHand = user.getSkeleton().getJoint(nite::JOINT_RIGHT_HAND);
+                    //printf("%0.3f, %0.3f \n", lHand.getPosition().x, lHand.getPosition().y);
+                    rShoulder = user.getSkeleton().getJoint(nite::JOINT_LEFT_SHOULDER);
+                    rElbow = user.getSkeleton().getJoint(nite::JOINT_LEFT_ELBOW);
+                    rHand = user.getSkeleton().getJoint(nite::JOINT_LEFT_HAND);
+
+                    head = user.getSkeleton().getJoint(nite::JOINT_HEAD);
+                    torso = user.getSkeleton().getJoint(nite::JOINT_TORSO);
+                }
+            }
+        }
+    }
 	return state;
 }
 

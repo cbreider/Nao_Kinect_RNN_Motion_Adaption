@@ -27,12 +27,12 @@ int ObjectTracker::Init()
       posX = 0;
       posY = 0;
 
-      H_MIN = 150;
-      H_MAX = 200;
-      S_MIN = 56;
-      S_MAX = 127;
-      V_MIN = 145;
-      V_MAX = 248;
+      H_MIN = 7;
+      H_MAX = 26;
+      S_MIN = 148;
+      S_MAX = 256;
+      V_MIN = 135;
+      V_MAX = 256;
       trackbarWindowName = "HSV ColorPicker";
       FRAME_WIDTH = 640;
       FRAME_HEIGHT = 480;

@@ -54,10 +54,10 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
     {
         //Time Offset of 300 frames to not start capuring imediatly, so that user could get into poition.
         startCounter++;
-        if(startCounter > 300)
+        if(startCounter > 150)
         {
             //write console-output
-            if(startCounter == 301)
+            if(startCounter == 151)
             {
                 cout << "Capturing Sample" << _sampleNr << "..." << endl;
             }

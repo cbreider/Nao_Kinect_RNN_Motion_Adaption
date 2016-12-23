@@ -14,20 +14,22 @@ class Nao
 
 public:
 
-	int Init(AL::ALMotionProxy &motion);
+    int Init(std::string ip, AL::ALMotionProxy &motion);
 
-	int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy motion);
-	int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy motion);
+    int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
+    int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
 
-	int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
-	int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
+    int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
+    int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
 
-	int SetHead(AL::ALMotionProxy &motion);
+    int SetHead(AL::ALMotionProxy &motion);
 
-	int Close(AL::ALMotionProxy &motion);
-	int SetMotionStiffness(AL::ALMotionProxy &motion);
+    int Close(AL::ALMotionProxy &motion);
+    int SetMotionStiffness(AL::ALMotionProxy &motion);
 
     int Train();
+
+    std::string IPAddress;
 
 private:
     Connectom naosNeuralNetwork;
@@ -42,7 +44,9 @@ private:
 	AL::ALValue stiffnessForMotion;
 	AL::ALValue stiffnessForHead;
 
-	int setMotionStiffness(AL::ALMotionProxy &motion);
+
+
+    int setMotionStiffness(AL::ALMotionProxy &motion);
 };
 
 #endif

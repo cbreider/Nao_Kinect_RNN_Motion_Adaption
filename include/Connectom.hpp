@@ -10,7 +10,8 @@ class Connectom
         Connectom()
         {};
 
-        int Init();
+        int InitRNNPB();
+        int InitCTRNN();
         int StartNewTrainCyclus();
         int Reset();
 
