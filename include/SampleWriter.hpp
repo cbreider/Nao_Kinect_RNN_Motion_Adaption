@@ -22,6 +22,9 @@ class SampleWriter
 
     int WriteCostumFile(string output, string filename);
 
+    static vector<string> InputFiles;
+    static vector<string> OutputFiles;
+
   private:
     bool IsLeftArmOverHead();
     string DataToString(std::vector<float> data);

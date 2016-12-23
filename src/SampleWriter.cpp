@@ -9,7 +9,6 @@
 int SampleWriter::Init()
 {
   _foldername = "output";
-  _lastObjectPosition(3);
   _sampleNr = 0;
   _capture = false;
   _isCaputring = false;
@@ -20,6 +19,9 @@ int SampleWriter::Init()
 
   return 1;
 }
+
+ vector<string> SampleWriter::InputFiles;
+ vector<string> SampleWriter::OutputFiles;
 
 //updates capturing
 int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, bool captureFlag)
@@ -63,23 +65,23 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
             if((object[2] > 500) && (object[2] < 2000))
             {
                 //capture differnce of objectPosition
-                if(!firstframe)
+                if(!_firstFrame)
                 {
                     vector<float> tmp(3);
 
-                    tmp[0] = (object[0] -_lastObjectPoistion[0]) / 2;
-                    tmp[1] = (object[1] -_lastObjectPoistion[1]) / 2;
-                    tmp[2] = (object[2] -_lastObjectPoistion[2]) / 2;
+                    tmp[0] = (object[0] - _lastObjectPosition[0]) / 2;
+                    tmp[1] = (object[1] - _lastObjectPosition[1]) / 2;
+                    tmp[2] = (object[2] - _lastObjectPosition[2]) / 2;
                     _angleStream << DataToString(angles);
                     _objectStream << DataToString(tmp);
                 }
                 else
                 {
                     //Capture first initial pose.
-                    ofstream initalPose;
-                    initalPose.open(GetFilename("initialPose").c_str());
+                    ofstream initialPose;
+                    initialPose.open(GetFilename("initialPose").c_str());
                     initialPose << DataToString(angles);
-                    initalPose.close();
+                    initialPose.close();
                 }
                 _lastObjectPosition = object;
             }
@@ -166,5 +168,14 @@ string SampleWriter::GetFilename(string type)
     stream << "_";
     stream << _sampleNr;
     stream << ".txt";
-    return stream.str();
+
+    string st = stream.str();
+
+    if(type == "object")
+        this->OutputFiles.push_back(st.c_str());
+    else if(type == "angle")
+        this->InputFiles.push_back((st.c_str()));
+
+
+    return st;
 }

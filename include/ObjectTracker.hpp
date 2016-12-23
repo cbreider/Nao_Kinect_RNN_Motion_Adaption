@@ -6,10 +6,12 @@
 #include <string>
 #include <vector>
 #include "OpenNI2/OpenNI.h"
-#include "/usr/local/include/opencv2/opencv.hpp"
-#include "/usr/local/include/opencv2/core/core.hpp"
-#include "/usr/local/include/opencv2/imgproc/imgproc.hpp"
-#include "/usr/local/include/opencv2/highgui/highgui.hpp"
+#include "opencv2/opencv.hpp"
+#include "opencv2/core/core.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/opencv.hpp>
+
 
 
 //class Connectom;

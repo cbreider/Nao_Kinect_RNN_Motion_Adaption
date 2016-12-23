@@ -3,7 +3,7 @@
 
 class RNN;
 class Layer;
-
+class BPTT;
 class Connectom
 {
     public:
@@ -18,6 +18,7 @@ class Connectom
     private:
         RNN* neuralnetwork;
         Layer** layers;
+        BPTT *cbpt_alg;
 };
 
 

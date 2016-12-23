@@ -1,5 +1,8 @@
 #include "../include/Connectom.hpp"
 #include "../fnnlib.hpp"
+#include <iostream>
+
+using namespace std;
 
 int Connectom::Init()
 {
@@ -21,10 +24,10 @@ int Connectom::Init()
       layers[5] = new Layer(2); //context loop x+1
 
       //Set Trainalgorithm
-      BPTT cbpt_alg (1000, 10, 0.1, 0.0);
+       cbpt_alg = new BPTT(1000, 10, 0.1, 0.0);
 
      //Init network
-      neuralnetwork = new RNN(6, layers, &cbpt_alg);
+      neuralnetwork = new RNN(6, layers, cbpt_alg);
 
       RandomInitialization rand_init(-0.1, 0.1);
 
@@ -45,10 +48,13 @@ int Connectom::Init()
 
 int Connectom::StartNewTrainCyclus()
 {
-      FileDataSource ds_in (100, 1, "sin_input.txt");
-      neuralnetwork->SetInput(0, 1, &ds_in, 1, 1);
+      FileDataSource ds_in (700, 3, "output/Sample_object_1.txt");
+      FileDataSource ds_out (700, 4, "output/Sample_angle_1.txt");
+      neuralnetwork->SetInput(0, 0, &ds_in, -1, 0);
+      neuralnetwork->SetOutput(4, &ds_out, false);
       neuralnetwork->Train();
-
+      NetworkErrorData* ed = neuralnetwork->Test (100, 2);
+      cout << "MSE: " << ed->GetLayerData (4)->GetMse () << endl;
       return 1;
 }
 

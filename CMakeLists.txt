@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
 
 #handling of relative paths by link_directories() is defined by CMP0015 policy
 cmake_policy(SET CMP0015 NEW)
+set( CMAKE_CXX_STANDARD 11 )
 find_package(OpenCV REQUIRED )
 
 # Give a name to the project.

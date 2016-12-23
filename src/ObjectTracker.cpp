@@ -19,9 +19,6 @@ using namespace openni;
 void ObjectTracker::on_trackbar(int, void*)
 {//This function gets called whenever a
 	// trackbar position is changed
-
-
-
 }
 
 
@@ -30,12 +27,12 @@ int ObjectTracker::Init()
       posX = 0;
       posY = 0;
 
-      H_MIN = 4;
-      H_MAX = 17;
-      S_MIN = 163;
-      S_MAX = 244;
-      V_MIN = 141;
-      V_MAX =256;
+      H_MIN = 150;
+      H_MAX = 200;
+      S_MIN = 56;
+      S_MAX = 127;
+      V_MIN = 145;
+      V_MAX = 248;
       trackbarWindowName = "HSV ColorPicker";
       FRAME_WIDTH = 640;
       FRAME_HEIGHT = 480;
@@ -148,9 +145,9 @@ void ObjectTracker::Objecttracking()
             }
             if(xd2 >= 0 && xd2<= 640 && yd2 >= 0 && yd2 <= 480)
             {
-                drawObject(posX, posY, coloredDepth);
-                posX = xd2;
+                 posX = xd2;
                  posY = yd2;
+                 drawObject(posX, posY, coloredDepth);
             }
             else
             {
