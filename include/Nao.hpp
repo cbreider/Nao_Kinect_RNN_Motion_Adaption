@@ -14,9 +14,10 @@ class Nao
 
 public:
 
-    int Init(std::string ip, AL::ALMotionProxy &motion);
+    int Init(AL::ALMotionProxy &motion);
+    int InitForLearning();
 
-    int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
+    int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
 
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
@@ -27,8 +28,10 @@ public:
     int Close(AL::ALMotionProxy &motion);
     int SetMotionStiffness(AL::ALMotionProxy &motion);
 
+    int TrainOneStep(std::vector<float> rArm);
     int Train();
-
+    std::vector<float> Object;
+    void Reproduce();
     std::string IPAddress;
 
 private:
@@ -43,6 +46,7 @@ private:
 	AL::ALValue timeSt;
 	AL::ALValue stiffnessForMotion;
 	AL::ALValue stiffnessForHead;
+
 
 
 

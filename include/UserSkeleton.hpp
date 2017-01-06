@@ -34,8 +34,8 @@ public:
 	float GetRightArmPositionConfidence();
 	float GetLeftArmPositionConfidence();
 	std::vector<float> object;
-	SkeletonState Update();
-
+    SkeletonState Update();
+    bool Sample;
 	void Close();
 
 

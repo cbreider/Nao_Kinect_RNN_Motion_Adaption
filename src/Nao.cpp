@@ -6,11 +6,8 @@
 #include "../include/Connectom.hpp"
 #include "UserInterface.hpp"
 
-int Nao::Init(std::string ip, AL::ALMotionProxy &motion)
+int Nao::Init(AL::ALMotionProxy &motion)
 {
-    IPAddress = ip;
-
-
     jointNamesRightArm = AL::ALValue::array("RShoulderPitch", "RShoulderRoll", "RElbowRoll", "RElbowYaw");
     jointNamesLeftArm = AL::ALValue::array("LShoulderPitch", "LShoulderRoll", "LElbowRoll", "LElbowYaw");
     //jointNamesLeftArm = AL::ALValue::array("LShoulderPitch");
@@ -30,7 +27,7 @@ int Nao::Init(std::string ip, AL::ALMotionProxy &motion)
 
     UserMessage::WriteBlankLine();
 
-    status = naosNeuralNetwork.InitRNNPB();
+    status = naosNeuralNetwork.InitCTRNNForRealTime();
     if(status == 1)
     {
         UserMessage::WriteMessage("Failed to initialize Nao ", UserMessage::Error);
@@ -45,18 +42,48 @@ int Nao::Init(std::string ip, AL::ALMotionProxy &motion)
     return status;
 }
 
-int Nao::Train()
+int Nao::InitForLearning()
 {
-    return naosNeuralNetwork.StartNewTrainCyclus();
+    UserMessage::WriteBlankLine();
+
+    int status = naosNeuralNetwork.InitCTRNNForRealTime();
+    if(status == 1)
+    {
+        UserMessage::WriteMessage("Failed to initialize Nao ", UserMessage::Error);
+    }
+    else
+    {
+        UserMessage::WriteMessage("Nao succesfully initialized ", UserMessage::OK);
+    }
+    UserMessage::WriteBlankLine();
+    UserMessage::WriteBlankLine();
+
+    return status;
 }
 
-int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
+int Nao::TrainOneStep(std::vector<float> rArm)
+{
+    return naosNeuralNetwork.StartNewTrainCyclus(Object, rArm);
+}
+
+int Nao::Train()
+{
+    return naosNeuralNetwork.StarTrainingFromSource();
+}
+
+void Nao::Reproduce()
+{
+    //TODO
+}
+
+int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn)
 {
 	try
 	{
 		//printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
 		AL::ALValue targetAngles = AL::ALValue::array(rArm[0], rArm[1], rArm[2], rArm[3]);
 		motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
+        if(learn) TrainOneStep(rArm);
 
 		return 0;
 	}

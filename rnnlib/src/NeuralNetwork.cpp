@@ -126,7 +126,9 @@ void NeuralNetwork::SetInput (int nSeq, int nLayer, DataSource* dataSource, int 
     #ifndef NNLIB_NO_ERROR_CHECKING
     nnlib_assert (nSeq >= 0 && nSeq < num_seq, (char*) "ERROR: nSeq out of range in NeuralNetwork::SetInput!");
     nnlib_assert (nLayer >= 0 && nLayer < num_layers, (char*) "ERROR: nLayer out of range in NeuralNetwork::SetInput!");
-    nnlib_assert (layers[nLayer]->GetSize () == dataSource->GetSetSize (), (char*) "ERROR: Layer size must be the same as size of DataSource data sets in NeuralNetwork::SetInput!");
+    int x = layers[nLayer]->GetSize ();
+    int y = dataSource->GetSetSize ();
+    if(nSrcLayer < 0) nnlib_assert (layers[nLayer]->GetSize () == dataSource->GetSetSize (), (char*) "ERROR: Layer size must be the same as size of DataSource data sets in NeuralNetwork::SetInput!");
     nnlib_assert (nSrcLayer >= -1 && nSrcLayer < num_layers, (char*) "ERROR: nSrcLayer out of range in NeuralNetwork::SetInput!");
     nnlib_assert (nSrcLayer != nLayer, (char*) "ERROR: Cannot copy layer's output to itself! [NeuralNetwork::SetInput]");
     if (nSrcLayer > -1)

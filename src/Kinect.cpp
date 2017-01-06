@@ -9,9 +9,10 @@ using namespace nite;
 using namespace openni;
 using namespace std;
 
-int Kinect::InitKinect()
+int Kinect::InitKinect(bool sample)
 {
     UserMessage::WriteMessage("Kinect initialization...", UserMessage::NewProcedure);
+    _userSkeleton.Sample = sample;
     int status = _userSkeleton.Init(device);
     if(status == 0)
     {
@@ -62,20 +63,27 @@ int Kinect::InitKinect()
     return status;
 }
 
-SkeletonState Kinect::UpdateAll()
+SkeletonState Kinect::Update(bool object, bool user)
 {
-  color.readFrame(&colorFrame);
-  depth.readFrame(&depthFrame);
+    if(object)
+    {
+        color.readFrame(&colorFrame);
+        depth.readFrame(&depthFrame);
 
-  vector<float> pos = _objectTracker.Update(depthFrame, colorFrame);
+        vector<float> pos = _objectTracker.Update(depthFrame, colorFrame);
 
-  int a = CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2] * 10, &_objectX, &_objectY, &_objectZ);
-  vector<float> pos2(3);
-  pos2[0] = _objectX;
-  pos2[1] = _objectY;
-  pos2[2] = _objectZ;
-  _userSkeleton.object = pos2;
-  return _userSkeleton.Update();
+        int a = CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2] * 10, &_objectX, &_objectY, &_objectZ);
+        vector<float> pos2(3);
+        pos2[0] = _objectX;
+        pos2[1] = _objectY;
+        pos2[2] = _objectZ;
+        _userSkeleton.object = pos2;
+    }
+    if(user)
+    {
+        return _userSkeleton.Update();
+    }
+    return nite::SKELETON_NONE;
 }
 
 UserSkeleton *Kinect::GetUser()

@@ -1,6 +1,8 @@
 #ifndef DATASOURCE_HPP_INCLUDED
 #define DATASOURCE_HPP_INCLUDED
 
+#include <vector>
+
 /**
   * Abstract base class for classes representing data sources that are used as input to a neural network. Derived classes must define the method GetSetAt().
   */
@@ -38,6 +40,8 @@ class FileDataSource : public StaticDataSource
 {
     public:
         FileDataSource (int, int, char*);
+        FileDataSource(int , std::vector<float> );
+
 };
 
 #endif // DATASOURCE_HPP_INCLUDED

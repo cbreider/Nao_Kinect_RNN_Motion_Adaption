@@ -1,4 +1,4 @@
-
+#include <vector>
 /**
   * Constructor taking the number of sets to be stored in this object and the size of those sets as arguments.
   *
@@ -92,4 +92,22 @@ FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, char* strFileNa
         	src >> data[i] (j);
 
     src.close ();
+}
+
+/**
+  * Constructor taking the number of sets to be stored in this object, the size of those sets, and the path of the file from which to read the data as arguments. Allocates memory and fills it with the data stored in the file. The file must contain at least nNumberOfSets*nSetSize whitespace-separated double values and no other characters.
+  *
+  * @param nSetSize The size of the sets to be stored in this object
+  * @param strFileName The path of the file from which nNumberOfSets sets of size nSetSize will be read and stored in the object
+  */
+FileDataSource::FileDataSource (int nSetSize, std::vector<float> datain ) : StaticDataSource (1, nSetSize)
+{
+
+    //nnlib_assert(nSetSize == sizeof(data)/sizeof(*data));
+
+    // Write the contents of the file into the data matrix
+
+        for (int j = 0; j < nSetSize; j++)
+        data[1](j)= datain[j];
+
 }

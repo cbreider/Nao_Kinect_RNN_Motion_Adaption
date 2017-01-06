@@ -14,10 +14,13 @@ public:
 	Kinect()
 	{
 	};
-	int InitKinect();
+    int InitKinect(bool sample);
 	UserSkeleton *GetUser();
 	void CleanUpAndClose();
-	SkeletonState UpdateAll();
+    SkeletonState Update(bool object, bool user);
+    float _objectX = 0;
+    float _objectY = 0;
+    float _objectZ = 0;
 
 private:
 	UserSkeleton _userSkeleton;
@@ -26,9 +29,7 @@ private:
 	openni::VideoStream depth, color;
 	openni::VideoStream** stream;
 	openni::VideoFrameRef depthFrame, colorFrame;
-	float _objectX = 0;
-	float _objectY = 0;
-	float _objectZ = 0;
+
 };
 
 

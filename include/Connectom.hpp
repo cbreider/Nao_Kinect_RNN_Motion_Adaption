@@ -1,6 +1,8 @@
 #ifndef CONNECTOM_HPP
 #define CONNECTOM_HPP
 
+#include <vector>
+
 class RNN;
 class Layer;
 class BPTT;
@@ -11,8 +13,9 @@ class Connectom
         {};
 
         int InitRNNPB();
-        int InitCTRNN();
-        int StartNewTrainCyclus();
+        int InitCTRNNForRealTime();
+        int StartNewTrainCyclus(std::vector<float> object, std::vector<float> data);
+        int StarTrainingFromSource();
         int Reset();
 
 
