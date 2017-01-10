@@ -54,6 +54,7 @@ void RNNTrainingAlgorithm::AllocateMemory (RNN* net, int nEpochSize)
   */
 void RNNTrainingAlgorithm::Train (RNN* net)
 {
+    net->ExportWeights(false);
     net->ResetDataSources ();
     AllocateMemory (net, epoch_size);
 
@@ -68,6 +69,7 @@ void RNNTrainingAlgorithm::Train (RNN* net)
 
         UpdateWeights (net);
     }
+     net->ExportWeigths(true);
 }
 
 /**

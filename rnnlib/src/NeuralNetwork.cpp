@@ -1,4 +1,10 @@
 
+#include <fstream>
+#include <string>
+#include <vector>
+#include <iostream>
+
+
 /**
   * Creates a new neural network consisting of nLayers layers stored in layerArray; the network will be able to learn nSequences trajectories.
   *
@@ -246,6 +252,9 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                 {
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
+                    int foo = copy_output[dst_layer];
+                    int foo2 =  data_in_index[nSeq][dst_layer];
+                    int foo3 = copy_output_after[dst_layer];
                     if (copy_output[dst_layer] > -1 && bIsTest && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
                         cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                     else
@@ -405,3 +414,64 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
 
     (*w[nDstLayer][nSrcLayer]) = trans (*weights);
 }
+ void NeuralNetwork::ExportWeights(bool afterTraining)
+ {
+     std::string br = "\n";
+     std::string filename= "output/";
+     if(afterTraining) filename += "after.txt";
+     else filename += "before.txt";
+
+     std::ofstream io;
+     io.open(filename);
+
+     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
+
+     // Iterate over all synapses and adjust the trainable weights
+     for (src_layer = 0; src_layer < num_layers; src_layer++)
+     {
+         io << br;
+         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+             if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
+                 for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
+                     for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
+                     {
+                         std::stringstream ss;
+
+                         ss << (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
+
+                         io << ss.str();
+                         io << " ";
+                     }
+     }
+         io.close();
+
+ }
+
+ void NeuralNetwork::ImportWeights()
+ {
+     std::string br = "\n";
+     std::string filename= "output/";
+     filename += "after.txt";
+
+     std::ifstream io;
+     io.open(filename);
+
+     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
+
+     // Iterate over all synapses and adjust the trainable weights
+     for (src_layer = 0; src_layer < num_layers; src_layer++)
+     {
+         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+             if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
+                 for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
+                     for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
+                     {
+                         io >> x;
+
+                         (*this->w[dst_layer][src_layer]) (dst_unit, src_unit) = x;
+
+                     }
+     }
+         io.close();
+
+ }

@@ -72,7 +72,7 @@ int Connectom::InitCTRNNForRealTime()
       layers[5] = new Layer(4); //context loop x+1
 
       //Set Trainalgorithm
-       cbpt_alg = new BPTT(1, 10, 0.1, 0.0);
+       cbpt_alg = new BPTT(700, 10, 0.1, 0.0);
 
      //Init network
       neuralnetwork = new RNN(6, layers, cbpt_alg);
@@ -97,6 +97,7 @@ int Connectom::InitCTRNNForRealTime()
       return 0;
 }
 
+
 int Connectom::StartNewTrainCyclus(vector<float> object, vector<float> data)
 {
         FileDataSource ds_in (3, object);
@@ -112,8 +113,9 @@ int Connectom::StartNewTrainCyclus(vector<float> object, vector<float> data)
 int Connectom::StarTrainingFromSource()
 {
         FileDataSource ds_in (700, 3, "output/Sample_object_1.txt");
+        FileDataSource ds_inA (700, 4, "output/Sample_angle_1in.txt");
         FileDataSource ds_out (700, 4, "output/Sample_angle_1.txt");
-        neuralnetwork->SetInput(0, 0, &ds_in, 4, 0);
+        neuralnetwork->SetInput(0, 0, &ds_inA, -1, 0);
         neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
 
         neuralnetwork->SetOutput(4, &ds_out, false);
