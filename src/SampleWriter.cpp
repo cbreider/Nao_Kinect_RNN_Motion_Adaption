@@ -39,8 +39,8 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
 
         _sampleNr++;
 
-        _angleStream.open(GetFilename("angle").c_str());
-        _objectStream.open(GetFilename("object").c_str());
+        OpenStreams();
+
         _isCaputring = true;
         _firstFrame = true;
     }
@@ -72,12 +72,14 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                     tmp[0] = (object[0] - _lastObjectPosition[0]) / 2;
                     tmp[1] = (object[1] - _lastObjectPosition[1]) / 2;
                     tmp[2] = (object[2] - _lastObjectPosition[2]) / 2;
-                    _angleStream << DataToString(angles);
+                    _anglestreamIn << DataToString(angles);
+                    _anglestreamOut << DataToString(angles);
                     _objectStream << DataToString(tmp);
                 }
                 else
                 {
                     //Capture first initial pose.
+                    _anglestreamIn << DataToString(angles);
                     ofstream initialPose;
                     initialPose.open(GetFilename("initialPose").c_str());
                     initialPose << DataToString(angles);
@@ -108,9 +110,8 @@ int SampleWriter::UpdateOnlyUser(std::vector<float> angles, bool captureFlag)
             _sampleNr++;
             cout << "Capturing Sample" << _sampleNr << "..." << endl;
 
+            OpenStreams();
 
-            _angleStream.open(GetFilename("angle").c_str());
-            _objectStream.open(GetFilename("object").c_str());
             _isCaputring = true;
             _firstFrame = true;
         }
@@ -125,7 +126,7 @@ int SampleWriter::UpdateOnlyUser(std::vector<float> angles, bool captureFlag)
             {
                 _firstFrame = false;
             }
-            _angleStream << DataToString(angles);
+            _anglestreamOut << DataToString(angles);
         }
 }
 
@@ -133,7 +134,8 @@ int SampleWriter::UpdateOnlyUser(std::vector<float> angles, bool captureFlag)
 int SampleWriter::Finalize()
 {
   cout << "Closing Sample " << _sampleNr << "\n" << endl;
-  _angleStream.close();
+  _anglestreamOut.close();
+  _anglestreamIn.close();
   _objectStream.close();
   _isCaputring = false;
 }
@@ -178,4 +180,11 @@ string SampleWriter::GetFilename(string type)
 
 
     return st;
+}
+
+void SampleWriter::OpenStreams()
+{
+    _anglestreamOut.open(GetFilename("angleOut").c_str());
+    _anglestreamIn.open(GetFilename("angleIn").c_str());
+    _objectStream.open(GetFilename("object").c_str());
 }

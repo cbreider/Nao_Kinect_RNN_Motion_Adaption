@@ -6,28 +6,28 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "UserInterface.hpp"
+#include "Utilities.hpp"
 using namespace nite;
 using namespace std;
 
 int UserSkeleton::Init(openni::Device &dev)
 {
-    UserMessage::WriteMessage("Initialize NiTE...", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Initialize NiTE...", Utilities::NewProcedure);
 	niteRc = NiTE::initialize();
 	if (niteRc != nite::STATUS_OK)
 	{
-        UserMessage::WriteMessage("nitializing NiTE failed!", UserMessage::Error);
+        Utilities::WriteMessage("nitializing NiTE failed!", Utilities::Error);
 		return 1;
 	}
 
-    UserMessage::WriteMessage("Creating UserTracker...", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Creating UserTracker...", Utilities::NewProcedure);
 	niteRc = userTracker.create();
 	if (niteRc != nite::STATUS_OK)
 	{
-        UserMessage::WriteMessage("Couldn't create user tracker!", UserMessage::Error);
+        Utilities::WriteMessage("Couldn't create user tracker!", Utilities::Error);
 		return 1;
 	}
-    UserMessage::WriteMessage("UserTracker successfully created!", UserMessage::OK);
+    Utilities::WriteMessage("UserTracker successfully created!", Utilities::OK);
 
 	g_visibleUsers = false;
 	g_skeletonStates = nite::SKELETON_NONE;

@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include "../include/OniSampleUtilities.h"
-#include "UserInterface.hpp"
+#include "Utilities.hpp"
 
 using namespace openni;
 using namespace nite;
@@ -49,87 +49,76 @@ int Exit();
 int main(int argc, char* argv[])
 {
 
-     UserMessage::WriteMessage("____________________________________________________________________________________________", UserMessage::Info);
-     UserMessage::WriteMessage("                                                                                                                                                    ", UserMessage::Info);
-     UserMessage::WriteMessage("Nao MotionAdaption from human demonstration, with Kinect and Recurrent Neural Network ", UserMessage::Info);
-     UserMessage::WriteMessage("                  TH-Koeln - Cologne University of Applied Sciences                                         ", UserMessage::Info );
-     UserMessage::WriteMessage("               Faculty of Computer Science and Engineering Science                                       ", UserMessage::Info);
-     UserMessage::WriteMessage("                                Institute for Automation and IT                                                           ", UserMessage::Info);
-     UserMessage::WriteMessage("                                                                                                                                                     ", UserMessage::Info);
-     UserMessage::WriteMessage("                                Author: Christian Breiderhoff.                                                            ", UserMessage::Info);
-     UserMessage::WriteMessage("                                                                                                                                                      ", UserMessage::Info);
-     UserMessage::WriteMessage("______________________________________________________________________________________________", UserMessage::Info);
-     UserMessage::WriteBlankLine();
-     UserMessage::WriteBlankLine();
+     Utilities::WriteMessage("____________________________________________________________________________________________", Utilities::Info);
+     Utilities::WriteMessage("                                                                                                                                                    ", Utilities::Info);
+     Utilities::WriteMessage("Nao MotionAdaption from human demonstration, with Kinect and Recurrent Neural Network ", Utilities::Info);
+     Utilities::WriteMessage("                  TH-Koeln - Cologne University of Applied Sciences                                         ", Utilities::Info );
+     Utilities::WriteMessage("               Faculty of Computer Science and Engineering Science                                       ", Utilities::Info);
+     Utilities::WriteMessage("                                Institute for Automation and IT                                                           ", Utilities::Info);
+     Utilities::WriteMessage("                                                                                                                                                     ", Utilities::Info);
+     Utilities::WriteMessage("                                Author: Christian Breiderhoff.                                                            ", Utilities::Info);
+     Utilities::WriteMessage("                                                                                                                                                      ", Utilities::Info);
+     Utilities::WriteMessage("______________________________________________________________________________________________", Utilities::Info);
+     Utilities::WriteBlankLine();
+     Utilities::WriteBlankLine();
 
      while(true)
      {
-         UserMessage::WriteMessage("Choose the program type and hit Enter:", UserMessage::Normal);
-         UserMessage::WriteMessage("1: Imitation-Mode", UserMessage::Normal);
-         UserMessage::WriteMessage("2: Realtime Learning-Mode", UserMessage::Normal);
-         UserMessage::WriteMessage("3: Sampling-Mode", UserMessage::Normal);
-         UserMessage::WriteMessage("4: Learning-Mode", UserMessage::Normal);
-         UserMessage::WriteMessage("5: Recproducing-Mode", UserMessage::Normal);
-         UserMessage::WriteMessage("Any other Key: Exit", UserMessage::Normal);
+         Utilities::WriteMessage("Choose the program type and hit Enter:", Utilities::Normal);
+         Utilities::WriteMessage("1: Imitation-Mode", Utilities::Normal);
+         Utilities::WriteMessage("2: Realtime Learning-Mode", Utilities::Normal);
+         Utilities::WriteMessage("3: Sampling-Mode", Utilities::Normal);
+         Utilities::WriteMessage("4: Learning-Mode", Utilities::Normal);
+         Utilities::WriteMessage("5: Recproducing-Mode", Utilities::Normal);
+         Utilities::WriteMessage("Any other Key: Exit", Utilities::Normal);
 
-             std::string line;
-            int mode;
-            while (std::getline(std::cin, line))
-            {
-                std::stringstream ss(line);
-                if (ss >> mode)
-                {
-                    if (ss.eof())
-                    {   // Success
-                        break;
-                    }
-                }
-                UserMessage::WriteMessage("Remember to save you output from the 'output'-directory", UserMessage::Info);
-                return 0;
-            }
+         int mode = Utilities::GetIntergerInput();
 
          if(mode < 1 || mode > 5)
          {
-             UserMessage::WriteMessage("Remember to save you output from the 'output'-directory", UserMessage::Info);
-             return 0;
+             Utilities::WriteMessage("Remember to save you output from the 'output'-directory", Utilities::Info);
+             break;
          }
 
          switch(mode)
          {
             case 1:
-                UserMessage::WriteMessage("Starting Imitation-Mode ...", UserMessage::Info);
+                Utilities::WriteMessage("Starting Imitation-Mode ...", Utilities::Info);
                Start(true, false, false);
                break;
             case 2:
-                UserMessage::WriteMessage("Realtime Learning-Mode ...", UserMessage::Info);
+                Utilities::WriteMessage("Realtime Learning-Mode ...", Utilities::Info);
                 Start(false, false, true);
                 break;
             case 3:
-                UserMessage::WriteMessage("Sampling-Mode ...", UserMessage::Info);
+                Utilities::WriteMessage("Sampling-Mode ...", Utilities::Info);
                 Start(false, true, false);
                 break;
             case 4:
-                UserMessage::WriteMessage("Starting Learning-mode", UserMessage::Error);
+                Utilities::WriteMessage("Starting Learning-mode", Utilities::Error);
                 LearnFromData();
                 break;
             case 5:
-                UserMessage::WriteMessage("Starting Recproducing-Mode ...", UserMessage::Info);
+                Utilities::WriteMessage("Starting Recproducing-Mode ...", Utilities::Info);
                 StartReproducing();
                 break;
          }
      }
+     return 0;
 }
 
 
 int StartReproducing()
 {
-    GetNaosIp();
+    Utilities::WriteMessage("Choose a file to load NN weights input from:", Utilities::Normal);
+    string w = Utilities::GetInputFile();
+    ip = Utilities::GetNaosIp();
 
     //Initialize nao
-    UserMessage::WriteMessage("Initializing Nao... ", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Initializing Nao... ", Utilities::NewProcedure);
     // Setting Nao's proxies for motion and speech
     std::string text = "Nao's IP-Address: "  + ip;
-    UserMessage::WriteMessage(text, UserMessage::NewProcedure);
+    Utilities::WriteMessage(text, Utilities::NewProcedure);
     AL::ALMotionProxy motion(ip, 9559);
     AL::ALTextToSpeechProxy tts(ip, 9559);
 
@@ -142,6 +131,7 @@ int StartReproducing()
         return 1;
     }
 
+    nao.InitNNFromFile(w);
     //Initialize kinect
     status = kinect.InitKinect(false);
     if(status == 1)
@@ -162,7 +152,6 @@ int StartReproducing()
             break;
         }
 
-
         //Update and get the user
         userState = kinect.Update(true, false);
         std:vector<float> ob(3);
@@ -177,13 +166,13 @@ int StartReproducing()
 
 int Start(bool imitate, bool sample, bool learn )
 {
-    GetNaosIp();
+    ip = Utilities::GetNaosIp();
 
     //Initialize nao
-    UserMessage::WriteMessage("Initializing Nao... ", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Initializing Nao... ", Utilities::NewProcedure);
     // Setting Nao's proxies for motion and speech
     std::string text = "Nao's IP-Address: "  + ip;
-    UserMessage::WriteMessage(text, UserMessage::NewProcedure);
+    Utilities::WriteMessage(text, Utilities::NewProcedure);
     AL::ALMotionProxy motion(ip, 9559);
     AL::ALTextToSpeechProxy tts(ip, 9559);
 
@@ -266,33 +255,35 @@ int Start(bool imitate, bool sample, bool learn )
 
 int LearnFromData()
 {
-    UserMessage::WriteMessage("Initializing Nao... ", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Choose a file to load NN angles input from:", Utilities::Normal);
+    string anglesIn = Utilities::GetInputFile();
+
+    Utilities::WriteMessage("Choose a file to load NN angles output from:", Utilities::Normal);
+    string anglesOut = Utilities::GetInputFile();
+
+    Utilities::WriteMessage("Choose a file to load NN object input from:", Utilities::Normal);
+    string object = Utilities::GetInputFile();
+
+    Utilities::WriteMessage("How many traing passes?", Utilities::Normal);
+    int passes = Utilities::GetIntergerInput();
+    Utilities::WriteMessage("Initializing Nao... ", Utilities::NewProcedure);
     // Setting Nao's proxies for motion and speech
 
 
     //status = nao.Init(motion);
     //nao.Close(motion);
-    status = nao.InitForLearning();
+    status = nao.InitForLearning(passes);
     status = 0;
     if(status == 1)
     {
         return 1;
     }
 
-    nao.Train();
+    nao.Train(anglesIn, object, anglesOut, passes);
 
 }
 
-void GetNaosIp()
-{
-    // Loading Nao's IP-Address from .txt
-    //For Debug \build-nao_toolchain1\config\IPAddr.txt
-    //For bin \build-nao_toolchain1\sdk\bin\config\IPAddr.txt
-    std::ifstream file;
-    file.open("config/IPAddr.txt");
-    std::getline(file, ip);
-    file.close();
-}
+
 
 int Exit()
 {

@@ -22,7 +22,8 @@ class NeuralNetwork
         void ConnectLayerToLayer (int, int, mat*, bool);
 
         void ExportWeights(bool afterTraining);
-        void ImportWeights();
+        void ImportWeights(std::string);
+        void RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> &angles, vector<float> &contextoop);
 
     protected:
         void Run (int, int, int, bool, bool, bool);

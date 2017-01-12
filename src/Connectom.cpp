@@ -1,14 +1,14 @@
 #include "../include/Connectom.hpp"
-#include "../fnnlib.hpp"
+#include "../rnnlib/rnnlib.hpp"
 #include <iostream>
-#include "UserInterface.hpp"
+#include "Utilities.hpp"
 
 using namespace std;
 
 int Connectom::InitRNNPB()
 {
 
-    UserMessage::WriteMessage("Settng ip Neural network...", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Settng ip Neural network...", Utilities::NewProcedure);
     //Creating Layers
       layers = new Layer*[6];
       // input Layer
@@ -45,15 +45,15 @@ int Connectom::InitRNNPB()
       neuralnetwork->ConnectUnitToUnit(5, 0, 2, 0, 1, false); //connect context loop x+1 (1) to context loop x (1)
       neuralnetwork->ConnectUnitToUnit(5, 1, 2, 1, 1, false); //connect context loop x+1 (2) to context loop x (2)
 
-       UserMessage::WriteMessage("Neural netork successfully created", UserMessage::OK);
-       UserMessage::WriteBlankLine();
+       Utilities::WriteMessage("Neural netork successfully created", Utilities::OK);
+       Utilities::WriteBlankLine();
       return 0;
 }
 
-int Connectom::InitCTRNNForRealTime()
+int Connectom::InitCTRNNForRealTime(int passes)
 {
 
-    UserMessage::WriteMessage("Settng ip Neural network...", UserMessage::NewProcedure);
+    Utilities::WriteMessage("Settng ip Neural network...", Utilities::NewProcedure);
     //Creating Layers
       layers = new Layer*[6];
       // input Layer
@@ -72,12 +72,12 @@ int Connectom::InitCTRNNForRealTime()
       layers[5] = new Layer(4); //context loop x+1
 
       //Set Trainalgorithm
-       cbpt_alg = new BPTT(700, 10, 0.1, 0.0);
+       cbpt_alg = new BPTT(passes, 10, 0.1, 0.0);
 
      //Init network
       neuralnetwork = new RNN(6, layers, cbpt_alg);
 
-      RandomInitialization rand_init(-0.1, 0.1);
+      RandomInitialization rand_init(-0.5, 0.5);
 
       //Build synapsis (connect neurons/layers)
         //1. hidden layer
@@ -92,8 +92,8 @@ int Connectom::InitCTRNNForRealTime()
       //neuralnetwork->ConnectUnitToUnit(5, 0, 2, 0, 1, false); //connect context loop x+1 (1) to context loop x (1)
       //neuralnetwork->ConnectUnitToUnit(5, 1, 2, 1, 1, false); //connect context loop x+1 (2) to context loop x (2)
 
-       UserMessage::WriteMessage("Neural netork successfully created", UserMessage::OK);
-       UserMessage::WriteBlankLine();
+       Utilities::WriteMessage("Neural netork successfully created", Utilities::OK);
+       Utilities::WriteBlankLine();
       return 0;
 }
 
@@ -110,11 +110,17 @@ int Connectom::StartNewTrainCyclus(vector<float> object, vector<float> data)
         return 1;
 }
 
-int Connectom::StarTrainingFromSource()
+void Connectom::LoadWeights(string file)
 {
-        FileDataSource ds_in (700, 3, "output/Sample_object_1.txt");
-        FileDataSource ds_inA (700, 4, "output/Sample_angle_1in.txt");
-        FileDataSource ds_out (700, 4, "output/Sample_angle_1.txt");
+    neuralnetwork->ImportWeights(file);
+}
+
+int Connectom::StartTrainingFromSource(string angleIn, string object, string angleOut, int passes)
+{
+
+        FileDataSource ds_in (passes, 3, object.c_str());
+        FileDataSource ds_inA (passes, 4, angleIn.c_str());
+        FileDataSource ds_out (passes, 4, angleOut.c_str());
         neuralnetwork->SetInput(0, 0, &ds_inA, -1, 0);
         neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
 

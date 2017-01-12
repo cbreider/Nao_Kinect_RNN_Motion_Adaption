@@ -5,9 +5,10 @@
 #include <alproxies/almotionproxy.h>
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
-#include "../include/Connectom.hpp"
+#include "Connectom.hpp"
 
-//class Connectom;
+using namespace std;
+
 
 class Nao
 {
@@ -15,7 +16,7 @@ class Nao
 public:
 
     int Init(AL::ALMotionProxy &motion);
-    int InitForLearning();
+    int InitForLearning(int passes);
 
     int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
@@ -29,7 +30,9 @@ public:
     int SetMotionStiffness(AL::ALMotionProxy &motion);
 
     int TrainOneStep(std::vector<float> rArm);
-    int Train();
+    int Train(string, string, string, int);
+    void InitNNFromFile(string file);
+
     std::vector<float> Object;
     void Reproduce();
     std::string IPAddress;

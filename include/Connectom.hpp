@@ -2,10 +2,12 @@
 #define CONNECTOM_HPP
 
 #include <vector>
+#include "string"
 
 class RNN;
 class Layer;
 class BPTT;
+
 class Connectom
 {
     public:
@@ -13,11 +15,12 @@ class Connectom
         {};
 
         int InitRNNPB();
-        int InitCTRNNForRealTime();
+        int InitCTRNNForRealTime(int = 1);
         int StartNewTrainCyclus(std::vector<float> object, std::vector<float> data);
-        int StarTrainingFromSource();
+        int StartTrainingFromSource(std::string, std::string, std::string, int);
         int Reset();
 
+        void LoadWeights(std::string );
 
     private:
         RNN* neuralnetwork;

@@ -4,7 +4,7 @@
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
 #include "../include/Connectom.hpp"
-#include "UserInterface.hpp"
+#include "Utilities.hpp"
 
 int Nao::Init(AL::ALMotionProxy &motion)
 {
@@ -25,38 +25,38 @@ int Nao::Init(AL::ALMotionProxy &motion)
     motion.openHand("LHand");
     //naosNeuralNetwork = new Connectom();
 
-    UserMessage::WriteBlankLine();
+    Utilities::WriteBlankLine();
 
     status = naosNeuralNetwork.InitCTRNNForRealTime();
     if(status == 1)
     {
-        UserMessage::WriteMessage("Failed to initialize Nao ", UserMessage::Error);
+        Utilities::WriteMessage("Failed to initialize Nao ", Utilities::Error);
     }
     else
     {
-        UserMessage::WriteMessage("Nao succesfully initialized ", UserMessage::OK);
+        Utilities::WriteMessage("Nao succesfully initialized ", Utilities::OK);
     }
-    UserMessage::WriteBlankLine();
-    UserMessage::WriteBlankLine();
+    Utilities::WriteBlankLine();
+    Utilities::WriteBlankLine();
 
     return status;
 }
 
-int Nao::InitForLearning()
+int Nao::InitForLearning(int passes)
 {
-    UserMessage::WriteBlankLine();
+    Utilities::WriteBlankLine();
 
-    int status = naosNeuralNetwork.InitCTRNNForRealTime();
+    int status = naosNeuralNetwork.InitCTRNNForRealTime(passes);
     if(status == 1)
     {
-        UserMessage::WriteMessage("Failed to initialize Nao ", UserMessage::Error);
+        Utilities::WriteMessage("Failed to initialize Nao ", Utilities::Error);
     }
     else
     {
-        UserMessage::WriteMessage("Nao succesfully initialized ", UserMessage::OK);
+        Utilities::WriteMessage("Nao succesfully initialized ", Utilities::OK);
     }
-    UserMessage::WriteBlankLine();
-    UserMessage::WriteBlankLine();
+    Utilities::WriteBlankLine();
+    Utilities::WriteBlankLine();
 
     return status;
 }
@@ -66,9 +66,14 @@ int Nao::TrainOneStep(std::vector<float> rArm)
     return naosNeuralNetwork.StartNewTrainCyclus(Object, rArm);
 }
 
-int Nao::Train()
+int Nao::Train(string angleIn, string object, string angleOut, int passes)
 {
-    return naosNeuralNetwork.StarTrainingFromSource();
+    return naosNeuralNetwork.StartTrainingFromSource(angleIn, object, angleOut, passes);
+}
+
+void Nao::InitNNFromFile(string file)
+{
+    naosNeuralNetwork.LoadWeights(file);
 }
 
 void Nao::Reproduce()

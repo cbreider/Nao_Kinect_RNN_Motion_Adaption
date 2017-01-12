@@ -301,6 +301,82 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
 }
 
 /**
+  * Runs the network for a nPasses steps using the input/output data of the trajectory specified by nSeq. Data relevant for training will only be collected after nSkip steps.
+  *
+  * @param nSeq The trajectory whose input/output is to be used
+  * @param nPasses The number of steps during which to collect data relevant for training
+  * @param nSkip The number of steps to skip before data relevant for training is collected
+  * @param bIsTest Specifies whether the network is being tested (true) or not (false)
+  * @param bReset Specifies whether the network's internal state should be reset
+  * @param bResetPbs Specifies whether the network's Parametric Bias units should be reset as well
+  */
+/*void NeuralNetwork::RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> &angles, vector<float> &contextoop)
+{
+    int dst_layer, src_layer;
+
+
+        for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+        {
+            // cur_u denotes the induced local fields of the current layer at the current time-step
+            cur_u[nSeq][dst_layer].zeros ();
+
+            if (data_out[nSeq][dst_layer] && use_tf[nSeq][dst_layer]) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
+                data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &y[nSeq][dst_layer]);
+            else
+            {
+                if (data_in[nSeq][dst_layer]) // If this is an input layer...
+                {
+                    // If the outout of another layer is to be used as input, copy the output into the induced local fields
+                    // Otherwise, read data from the specified data source
+                    int foo = copy_output[dst_layer];
+                    int foo2 =  data_in_index[nSeq][dst_layer];
+                    int foo3 = copy_output_after[dst_layer];
+                    if (copy_output[dst_layer] > -1 && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                        cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
+                    else
+                        data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
+                }
+
+                // If this is an output layer, write the desired output into matrix d after the initial network states were washed out
+                if (data_out[nSeq][dst_layer])
+                {
+                    data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &temp[dst_layer]);
+
+
+                        d[nSeq][dst_layer].row (passNr) = trans (temp[dst_layer]);
+                }
+
+                // If this is a PB layer, use the PB units' internal states as the induced local fields
+                if (layers[dst_layer]->IsPbLayer ())
+                    cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
+
+                // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
+                for (src_layer = 0; src_layer < num_layers; src_layer++)
+                    if (w[dst_layer][src_layer])
+                    {
+                        temp[dst_layer] = (*w[dst_layer][src_layer]) * y[nSeq][src_layer];
+                        cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
+                    }
+
+                // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
+                cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
+                cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
+
+                prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];
+                layers[dst_layer]->ComputeActivations (&cur_u[nSeq][dst_layer], &y[nSeq][dst_layer]);
+            }
+
+            // Collect the activations and induced local fields after the initial washout
+
+                s[nSeq][dst_layer].row (passNr ) = trans (y[nSeq][dst_layer]);
+                u[nSeq][dst_layer].col (passNr ) = cur_u[nSeq][dst_layer];
+
+        }
+
+}
+*/
+
+/**
   * Resets the network, resizing memory structures and assigning default values.
   *
   * @param nSeq The trajectory whose memory structures are to be reset
@@ -418,11 +494,11 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
  {
      std::string br = "\n";
      std::string filename= "output/";
-     if(afterTraining) filename += "after.txt";
-     else filename += "before.txt";
+     if(afterTraining) filename += "Weights_afterTrain.txt";
+     else filename += "Weights_beforetrain.txt";
 
      std::ofstream io;
-     io.open(filename);
+     io.open(filename.c_str());
 
      int src_layer, dst_layer, src_unit, dst_unit, seq, t;
 
@@ -436,7 +512,11 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
                      for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
                      {
                          std::stringstream ss;
-
+                         if(afterTraining)
+                         {
+                            double x = (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
+                            int xx =0;
+                            }
                          ss << (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
 
                          io << ss.str();
@@ -447,16 +527,12 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
 
  }
 
- void NeuralNetwork::ImportWeights()
+ void NeuralNetwork::ImportWeights(std::string file)
  {
-     std::string br = "\n";
-     std::string filename= "output/";
-     filename += "after.txt";
-
      std::ifstream io;
-     io.open(filename);
+     io.open(file.c_str());
 
-     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
+     int src_layer, dst_layer, src_unit, dst_unit;
 
      // Iterate over all synapses and adjust the trainable weights
      for (src_layer = 0; src_layer < num_layers; src_layer++)
@@ -466,12 +542,13 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
                  for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
                      for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
                      {
+                         int x;
                          io >> x;
 
                          (*this->w[dst_layer][src_layer]) (dst_unit, src_unit) = x;
-
                      }
      }
          io.close();
 
+    ExportWeights(false);
  }

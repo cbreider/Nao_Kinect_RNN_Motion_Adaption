@@ -186,8 +186,6 @@
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/main.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/fnnlib.hpp">
-      </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/Connectom.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/Kinect.hpp">
@@ -198,9 +196,9 @@
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/SampleWriter.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/include/UserInterface.hpp">
-      </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/UserSkeleton.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/include/Utilities.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/BaseCube_bones.hpp">
       </Unit>
@@ -1197,6 +1195,8 @@
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNN.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNNTrainingAlgorithm.hpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/rnnlib.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />

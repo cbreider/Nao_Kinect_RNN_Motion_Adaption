@@ -69,7 +69,7 @@ void RNNTrainingAlgorithm::Train (RNN* net)
 
         UpdateWeights (net);
     }
-     net->ExportWeigths(true);
+     net->ExportWeights(true);
 }
 
 /**

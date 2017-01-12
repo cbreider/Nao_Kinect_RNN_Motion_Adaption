@@ -27,11 +27,13 @@ class SampleWriter
 
   private:
     bool IsLeftArmOverHead();
+    void OpenStreams();
     string DataToString(std::vector<float> data);
     string GetFilename(string type);
     //string DataToCSVString();
 
-    ofstream _angleStream;
+    ofstream _anglestreamOut;
+    ofstream _anglestreamIn;
     ofstream _objectStream;
     bool _capture;
     bool _isCaputring;
