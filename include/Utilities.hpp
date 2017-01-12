@@ -94,14 +94,17 @@ public:
             int i = 1;
             while ((dirp = readdir(dp)) != NULL)
             {
-                string fi = string(dirp->d_name);
-                stringstream ss;
-                ss << i;
-                ss << ": ";
-                ss << fi;
-                WriteMessage(ss.str(), Normal);
-                files.push_back(fi);
-                i++;
+                string fi = string(dirp->d_name); if(fi.find(".txt") !=
+                std::string::npos)
+                {
+                    stringstream ss;
+                    ss << i;
+                    ss << ": ";
+                    ss << fi;
+                    WriteMessage(ss.str(), Normal);
+                    files.push_back(fi);
+                    i++;
+                }
             }
             closedir(dp);
 

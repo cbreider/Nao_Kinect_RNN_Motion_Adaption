@@ -117,8 +117,8 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 	vector<float> upperArm = getVector(elbow, shoulder);
 	vector<float> lowerArm = getVector(hand, elbow);
 
-  float shoulderPitch =  -asin(upperArm[0] * _userOrientationY[0] + upperArm[1] * _userOrientationY[1] + upperArm[2] *  _userOrientationY[2]);
-  float shoulderRoll =  asin(upperArm[0] *  _userOrientationX[0] + upperArm[1] *  _userOrientationX[1] + upperArm[2] *  _userOrientationX[2]);
+    float shoulderPitch =  -asin(upperArm[0] * _userOrientationY[0] + upperArm[1] * _userOrientationY[1] + upperArm[2] *  _userOrientationY[2]);
+    float shoulderRoll =  asin(upperArm[0] *  _userOrientationX[0] + upperArm[1] *  _userOrientationX[1] + upperArm[2] *  _userOrientationX[2]);
 	float elbowRoll = rightOrLeft * acos(upperArm[0] * lowerArm[0] + upperArm[1] * lowerArm[1] + upperArm[2] * lowerArm[2]);
 
 	vector<float> shoulderTorso = getVector(shoulder, torso);
@@ -154,7 +154,7 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
 
     if(rightOrLeft == 1 && Sample)
     {
-        sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y);
+       if(object[2] > 0 && hand->getPositionConfidence() > 0.5 && elbow->getPositionConfidence() > 0.5 && shoulder->getPositionConfidence() > 0.5)  sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y);
     }
 
 	return angles;

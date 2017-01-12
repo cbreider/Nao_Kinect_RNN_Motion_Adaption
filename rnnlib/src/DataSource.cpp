@@ -76,7 +76,7 @@ void StaticDataSource::GetSetAt (int index, vec* y)
   * @param nSetSize The size of the sets to be stored in this object
   * @param strFileName The path of the file from which nNumberOfSets sets of size nSetSize will be read and stored in the object
   */
-FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, char* strFileName) : StaticDataSource (nNumberOfSets, nSetSize)
+FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* strFileName) : StaticDataSource (nNumberOfSets, nSetSize)
 {
     ifstream src (strFileName, ifstream::in);
 
