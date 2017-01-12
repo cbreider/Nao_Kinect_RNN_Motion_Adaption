@@ -257,12 +257,18 @@ int LearnFromData()
 {
     Utilities::WriteMessage("Choose a file to load NN angles input from:", Utilities::Normal);
     string anglesIn = Utilities::GetInputFile();
+    Utilities::WriteMessage("You have chosen: " + anglesIn, Utilities::Normal);
+    Utilities::WriteBlankLine();
 
     Utilities::WriteMessage("Choose a file to load NN angles output from:", Utilities::Normal);
     string anglesOut = Utilities::GetInputFile();
+    Utilities::WriteMessage("You have chosen: " + anglesOut, Utilities::Normal);
+    Utilities::WriteBlankLine();
 
     Utilities::WriteMessage("Choose a file to load NN object input from:", Utilities::Normal);
     string object = Utilities::GetInputFile();
+    Utilities::WriteMessage("You have chosen: " + object, Utilities::Normal);
+    Utilities::WriteBlankLine();
 
     Utilities::WriteMessage("How many traing passes?", Utilities::Normal);
     int passes = Utilities::GetIntergerInput();
