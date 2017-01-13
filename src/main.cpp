@@ -226,13 +226,15 @@ int Start(bool imitate, bool sample, bool learn )
             rConfidence = kinect.GetUser()->GetRightArmPositionConfidence();
             lConfidence = kinect.GetUser()->GetLeftArmPositionConfidence();
 
-            //ckeck if confidence is high enough
-            if(lConfidence > 0.5)
+            if(!sample)
             {
-                //apply user arm angles to nao
-                nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
+                //ckeck if confidence is high enough
+                if(lConfidence > 0.5)
+                {
+                    //apply user arm angles to nao
+                    nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
+                }
             }
-
             //same for the right arm
             if(rConfidence > 0.5)
             {

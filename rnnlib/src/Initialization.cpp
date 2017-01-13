@@ -15,7 +15,10 @@ Initialization::Initialization ()
   */
 inline double Initialization::GenerateRandomWeight (double min, double max)
 {
-    return min + (max - min) * rand () / RAND_MAX;
+    //double f = (double)rand() / RAND_MAX;
+    //return fMin + f * (fMax - fMin);
+    double ra =  min + (max - min) * rand () / RAND_MAX;
+    return ra;
 }
 
 /**

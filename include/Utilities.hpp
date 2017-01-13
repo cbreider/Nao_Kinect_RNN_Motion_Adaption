@@ -78,6 +78,7 @@ public:
             file.open("config/IPAddr.txt");
             std::getline(file, ip);
             file.close();
+            return ip;
         }
 
         static string GetInputFile()

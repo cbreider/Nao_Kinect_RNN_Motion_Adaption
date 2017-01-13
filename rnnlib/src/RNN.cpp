@@ -138,7 +138,7 @@ void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer)
   */
 void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, Initialization* initFunc, bool bTrainable)
 {
-    NeuralNetwork::ConnectLayerToLayer (nSrcLayer, nDstLayer);
+    NeuralNetwork::ConnectLayerToLayer (nSrcLayer, nDstLayer, initFunc, bTrainable);
 
     MarkLayerToLayerConnection (nSrcLayer, nDstLayer, bTrainable);
 }
