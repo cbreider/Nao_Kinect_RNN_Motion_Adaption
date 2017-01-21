@@ -34,11 +34,11 @@ public:
     void InitNNFromFile(string file);
 
     std::vector<float> Object;
-    void Reproduce();
+    void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
     std::string IPAddress;
 
 private:
-    Connectom naosNeuralNetwork;
+    RecurrentNeuralNetwork naosNeuralNetwork;
 	float fractionMaxSpeedH;
 	float fractionMaxSpeedA;
 

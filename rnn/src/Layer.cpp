@@ -12,7 +12,7 @@
 Layer::Layer (int nUnits, ActivationFunction* actFunc, bool bIsPbLayer, bool bIsConst, double fTau, vec* fDefStates)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nUnits > 0, (char*) "ERROR: nUnits must be at least 1 in Layer::Layer");
+    Utilities::Assert(nUnits > 0, (char*) "ERROR: nUnits must be at least 1 in Layer::Layer");
     #endif
 
     num_units = nUnits;
@@ -77,7 +77,7 @@ inline void Layer::GetDefaultStates (vec* fCopyDest)
 inline void Layer::SetDefaultState (int nIndex, double fValue)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nIndex >= 0 && nIndex < num_units, (char*) "ERROR: nIndex out of range in Layer::SetDefaultState!");
+    Utilities::Assert(nIndex >= 0 && nIndex < num_units, (char*) "ERROR: nIndex out of range in Layer::SetDefaultState!");
     #endif
 
     u (nIndex) = fValue;
@@ -92,7 +92,7 @@ inline void Layer::SetDefaultState (int nIndex, double fValue)
 inline double Layer::GetDefaultState (int nIndex)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nIndex >= 0 && nIndex < num_units, (char*) "ERROR: nIndex out of range in Layer::GetDefaultState!");
+    Utilities::Assert(nIndex >= 0 && nIndex < num_units, (char*) "ERROR: nIndex out of range in Layer::GetDefaultState!");
     #endif
 
     return u (nIndex);

@@ -31,7 +31,7 @@ Adaptation::~Adaptation ()
 void Adaptation::Resize (int nSize)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nSize > 0, (char*) "ERROR: nSize must be greater than 0 in Adaptation::Resize!");
+    Utilities::Assert(nSize > 0, (char*) "ERROR: nSize must be greater than 0 in Adaptation::Resize!");
     #endif
 
     if (size > 0)
@@ -60,7 +60,7 @@ void Adaptation::Resize (int nSize)
 inline double Adaptation::GetA (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nUnit >= 0 && nUnit < size, (char*) "ERROR: nUnit out of range in Adaptation::GetA!");
+    Utilities::Assert(nUnit >= 0 && nUnit < size, (char*) "ERROR: nUnit out of range in Adaptation::GetA!");
     #endif
 
     return a[nUnit];
@@ -75,7 +75,7 @@ inline double Adaptation::GetA (int nUnit)
 inline double Adaptation::GetB (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nUnit >= 0 && nUnit < size, (char*) "ERROR: nUnit out of range in Adaptation::GetB!");
+    Utilities::Assert(nUnit >= 0 && nUnit < size, (char*) "ERROR: nUnit out of range in Adaptation::GetB!");
     #endif
 
     return b[nUnit];

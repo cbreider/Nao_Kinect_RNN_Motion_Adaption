@@ -8,7 +8,7 @@
 LayerErrorData::LayerErrorData (int nTimeSteps, int nDataVectorDimension)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeSteps > 0, (char*) "ERROR: Number of time-steps of ErrorData must be greater than 0 in LayerErrorData::LayerErrorData!");
+    Utilities::Assert(nTimeSteps > 0, (char*) "ERROR: Number of time-steps of ErrorData must be greater than 0 in LayerErrorData::LayerErrorData!");
     #endif
 
     count = 0;
@@ -26,7 +26,7 @@ LayerErrorData::LayerErrorData (int nTimeSteps, int nDataVectorDimension)
 void LayerErrorData::AddPair (vec* fDesiredOutput, vec* fActualOutput)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert ((unsigned) count < d.n_rows, (char*) "ERROR: ErrorData object is already full in LayerErrorData::AddPair!");
+    Utilities::Assert((unsigned) count < d.n_rows, (char*) "ERROR: ErrorData object is already full in LayerErrorData::AddPair!");
     #endif
 
     d.row (count) = trans (*fDesiredOutput);
@@ -43,7 +43,7 @@ void LayerErrorData::AddPair (vec* fDesiredOutput, vec* fActualOutput)
 void LayerErrorData::SetDesiredOutputAt (int nTimeStep, vec* fVector)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeStep >= 0 && nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::SetDesiredOutputAt!");
+    Utilities::Assert(nTimeStep >= 0 && nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::SetDesiredOutputAt!");
     #endif
 
     d.row (nTimeStep) = trans (*fVector);
@@ -58,7 +58,7 @@ void LayerErrorData::SetDesiredOutputAt (int nTimeStep, vec* fVector)
 void LayerErrorData::SetOutputAt (int nTimeStep, vec* fVector)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::SetOutputAt!");
+    Utilities::Assert(nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::SetOutputAt!");
     #endif
 
     y.row (nTimeStep) = trans (*fVector);
@@ -86,7 +86,7 @@ void LayerErrorData::SetPairAt (int nTimeStep, vec* fDesiredOutputVector, vec* f
 void LayerErrorData::GetDesiredOutputAt (int nTimeStep, vec* out)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeStep >= 0 && nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetDesiredOutputAt!");
+    Utilities::Assert(nTimeStep >= 0 && nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetDesiredOutputAt!");
     #endif
 
     *out = trans (d.row (nTimeStep));
@@ -101,7 +101,7 @@ void LayerErrorData::GetDesiredOutputAt (int nTimeStep, vec* out)
 void LayerErrorData::GetOutputAt (int nTimeStep, vec* out)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetOutputAt!");
+    Utilities::Assert(nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetOutputAt!");
     #endif
 
     *out = trans (y.row (nTimeStep));
@@ -116,7 +116,7 @@ void LayerErrorData::GetOutputAt (int nTimeStep, vec* out)
 void LayerErrorData::GetPairAt (int nTimeStep, vec* out)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetPairAt!");
+    Utilities::Assert(nTimeStep >= 0 || nTimeStep < (int) d.n_rows, (char*) "ERROR: Invalid nTimeStep argument in LayerErrorData::GetPairAt!");
     #endif
 
     out->zeros (d.n_cols * 2);
@@ -153,7 +153,7 @@ inline int LayerErrorData::GetDimension ()
 double LayerErrorData::GetMse (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nUnit >= 0 || nUnit < (int) d.n_cols, (char*) "ERROR: nUnit out of range in LayerErrorData::GetMse!");
+    Utilities::Assert(nUnit >= 0 || nUnit < (int) d.n_cols, (char*) "ERROR: nUnit out of range in LayerErrorData::GetMse!");
     #endif
 
     vec diff = d.col (nUnit) - y.col (nUnit);
@@ -185,7 +185,7 @@ double LayerErrorData::GetMse ()
 double LayerErrorData::GetKld (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nUnit >= 0 || nUnit < (int) d.n_cols, (char*) "ERROR: nUnit out of range in LayerErrorData::GetKld!");
+    Utilities::Assert(nUnit >= 0 || nUnit < (int) d.n_cols, (char*) "ERROR: nUnit out of range in LayerErrorData::GetKld!");
     #endif
 
     vec temp = d.col (nUnit);

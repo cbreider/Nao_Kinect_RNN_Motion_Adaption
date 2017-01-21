@@ -132,7 +132,28 @@ int StartReproducing()
     }
 
     nao.InitNNFromFile(w);
+    Utilities::WriteMessage("Choose a file to load initial position  input from:", Utilities::Normal);
+    string anglesIn = Utilities::GetInputFile();
+    Utilities::WriteMessage("You have chosen: " + anglesIn, Utilities::Normal);
+    Utilities::WriteBlankLine();
+    std::vector<float> initialPose(4);
+
+    std::ifstream io;
+    io.open(anglesIn.c_str());
+
+    io >>  initialPose[0];
+    std::cout << initialPose[0];
+    io >>  initialPose[1];
+    std::cout << initialPose[1];
+    io >>  initialPose[2];
+    std::cout << initialPose[2];
+    io >>  initialPose[3];
+    std::cout << initialPose[3];
+    nao.SetRightArm(initialPose, motion, false);
+
+
     //Initialize kinect
+
     status = kinect.InitKinect(false);
     if(status == 1)
     {
@@ -144,6 +165,17 @@ int StartReproducing()
     //nao.SayIntroductionPhrase(tts);
     //nao.SetMotionStiffness(motion);
     //run
+    int count = 0;
+    bool first = true;
+    std::vector<float> ob(3);
+    ob[0] = 0;
+    ob[1] = 0;
+    ob[2] = 0;
+
+    std::vector<float> diff(3);
+    diff[0] = 0;
+    diff[1] = 0;
+    diff[2] = 0;
     while(true)
     {
         int key = cv::waitKey(1);
@@ -154,14 +186,30 @@ int StartReproducing()
 
         //Update and get the user
         userState = kinect.Update(true, false);
-        std:vector<float> ob(3);
+        diff[0] = kinect._objectX  - ob[0];
+        diff[1] = kinect._objectY - ob[1];
+        diff[2] = kinect._objectZ - ob[2];
+
         ob[0] = kinect._objectX;
         ob[1] = kinect._objectY;
         ob[2] = kinect._objectZ;
-        nao.Object = ob;
-        nao.Reproduce();
-    }
+        //std::cout <<  object[0] << "   " << object[1] << "   " <<  object[2] <<endl;
 
+        nao.Object = diff;
+        if(count > 150)
+        {
+            if(first) Utilities::WriteMessage("Now", Utilities::Info);
+             nao.Reproduce(initialPose, motion);
+             first = false;
+        }
+        else
+        {
+            nao.SetRightArm(initialPose, motion, false);
+        }
+        count++;
+    }
+    nao.Close(motion);
+    kinect.CleanUpAndClose();
 }
 
 int Start(bool imitate, bool sample, bool learn )
@@ -176,13 +224,13 @@ int Start(bool imitate, bool sample, bool learn )
     AL::ALMotionProxy motion(ip, 9559);
     AL::ALTextToSpeechProxy tts(ip, 9559);
 
-    //status = nao.Init(motion);
-    //nao.Close(motion);
     status = nao.Init(motion);
-    status = 0;
+    //nao.Close(motion);
+    //status = nao.Init(motion);
+    // status = 0;
     if(status == 1)
     {
-        return 1;
+       return 1;
     }
 
     //Initialize kinect
@@ -199,10 +247,17 @@ int Start(bool imitate, bool sample, bool learn )
     //run
     while(true)
     {
-        int key = cv::waitKey(1);
-        if(key==27)
+        if(imitate)
         {
-            break;
+            if(wasKeyboardHit()) break;
+        }
+        else
+        {
+            int key = cv::waitKey(1);
+            if(key==27)
+            {
+                break;
+            }
         }
 
 
@@ -251,7 +306,7 @@ int Start(bool imitate, bool sample, bool learn )
         }
     }
     // Close Nao and kinect and exit
-    nao.Close(motion);
+    //nao.Close(motion);
     kinect.CleanUpAndClose();
 }
 

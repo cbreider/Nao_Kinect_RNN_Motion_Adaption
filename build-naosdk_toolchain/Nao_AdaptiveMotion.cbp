@@ -25,10 +25,10 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/include" />
-            <Add directory="/home/christian/BachelorProject/Mainline/fnnlib/include" />
             <Add directory="/home/christian/BachelorProject/Mainline/include" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/NiTE2" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
+            <Add directory="/home/christian/BachelorProject/Mainline/rnn/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
          </Compiler>
@@ -47,10 +47,10 @@
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/include" />
-            <Add directory="/home/christian/BachelorProject/Mainline/fnnlib/include" />
             <Add directory="/home/christian/BachelorProject/Mainline/include" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/NiTE2" />
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
+            <Add directory="/home/christian/BachelorProject/Mainline/rnn/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
          </Compiler>
@@ -142,35 +142,35 @@
          </MakeCommands>
       </Target>
       </Build>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ActivationFunction.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/ActivationFunction.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Adaptation.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/Adaptation.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/BPTT.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/BPTT.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/CBPTT.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/CBPTT.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/DataSource.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/DataSource.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESN.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/ESN.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESNLayer.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/ESNLayer.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/ESNTrainingAlgorithm.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/ESNTrainingAlgorithm.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Initialization.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/Initialization.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/Layer.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/Layer.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/LayerErrorData.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/LayerErrorData.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/NetworkErrorData.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/NetworkErrorData.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/NeuralNetwork.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/NeuralNetwork.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/RNN.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/RNN.cpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/src/RNNTrainingAlgorithm.cpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/src/RNNTrainingAlgorithm.cpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/Connectom.cpp">
       </Unit>
@@ -1164,39 +1164,39 @@
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/include/armadillo_bits/xvec_htrans_meat.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ActivationFunction.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/ActivationFunction.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Adaptation.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/Adaptation.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/BPTT.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/BPTT.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CBPTT.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/CBPTT.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/CtrnnAlgorithm.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/CtrnnAlgorithm.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/DataSource.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/DataSource.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESN.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/ESN.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNLayer.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/ESNLayer.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/ESNTrainingAlgorithm.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/ESNTrainingAlgorithm.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Initialization.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/Initialization.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/Layer.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/Layer.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/LayerErrorData.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/LayerErrorData.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NetworkErrorData.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/NetworkErrorData.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/NeuralNetwork.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/NeuralNetwork.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNN.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/RNN.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/include/RNNTrainingAlgorithm.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/include/RNNTrainingAlgorithm.hpp">
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/rnnlib/rnnlib.hpp">
+      <Unit filename="/home/christian/BachelorProject/Mainline/rnn/rnn.hpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />

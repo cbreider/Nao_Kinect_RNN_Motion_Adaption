@@ -1,11 +1,13 @@
-#include "../include/Connectom.hpp"
-#include "../rnnlib/rnnlib.hpp"
+
 #include <iostream>
 #include "Utilities.hpp"
+#include "../rnn/rnn.hpp"
+
+#include "../include/Connectom.hpp"
 
 using namespace std;
 
-int Connectom::InitRNNPB()
+int RecurrentNeuralNetwork::InitRNNPB()
 {
 
     Utilities::WriteMessage("Settng ip Neural network...", Utilities::NewProcedure);
@@ -50,7 +52,7 @@ int Connectom::InitRNNPB()
       return 0;
 }
 
-int Connectom::InitCTRNNForRealTime(int passes)
+int RecurrentNeuralNetwork::InitCTRNNForRealTime(int passes)
 {
 
     Utilities::WriteMessage("Settng ip Neural network...", Utilities::NewProcedure);
@@ -72,12 +74,12 @@ int Connectom::InitCTRNNForRealTime(int passes)
       layers[5] = new Layer(4); //context loop x+1
 
       //Set Trainalgorithm
-       cbpt_alg = new BPTT(passes, 10, 0.1, 0.0);
+       cbpt_alg = new BPTT(passes, 60, 0.01, 0.0);
 
      //Init network
       neuralnetwork = new RNN(6, layers, cbpt_alg);
 
-      RandomInitialization rand_init(-0.5, 0.5);
+      RandomInitialization rand_init(-1, 1);
 
       //Build synapsis (connect neurons/layers)
         //1. hidden layer
@@ -98,7 +100,7 @@ int Connectom::InitCTRNNForRealTime(int passes)
 }
 
 
-int Connectom::StartNewTrainCyclus(vector<float> object, vector<float> data)
+int RecurrentNeuralNetwork::StartNewTrainCyclus(vector<float> object, vector<float> data)
 {
         FileDataSource ds_in (3, object);
         FileDataSource ds_out (4, data);
@@ -110,26 +112,45 @@ int Connectom::StartNewTrainCyclus(vector<float> object, vector<float> data)
         return 1;
 }
 
-void Connectom::LoadWeights(string file)
+void RecurrentNeuralNetwork::LoadWeights(string file)
 {
+    StaticDataSource context(10, 4);
+    StaticDataSource context2(10, 3);
+    neuralnetwork->SetInput(0, 0, &context, 4, 0);
+    neuralnetwork->SetInput(0, 1, &context2, -1, 0);
+    neuralnetwork->SetInput(0, 2, &context, 5, 0 );
     neuralnetwork->ImportWeights(file);
+    passNr =-1;
 }
 
-int Connectom::StartTrainingFromSource(string angleIn, string object, string angleOut, int passes)
+int RecurrentNeuralNetwork::StartTrainingFromSource(string angleIn, string object, string angleOut, int passes)
 {
+        int number_of_lines = 0;
+        std::string line;
+        std::ifstream myfile(angleIn.c_str());
 
-        FileDataSource ds_in (passes, 3, object.c_str());
-        FileDataSource ds_inA (passes, 4, angleIn.c_str());
-        FileDataSource ds_out (passes, 4, angleOut.c_str());
+        while (std::getline(myfile, line))
+            ++number_of_lines;
+
+        FileDataSource ds_in (number_of_lines, 3, object.c_str());
+        FileDataSource ds_inA (number_of_lines, 4, angleIn.c_str());
+        FileDataSource ds_out (number_of_lines, 4, angleOut.c_str());
+        StaticDataSource context(number_of_lines, 4);
         neuralnetwork->SetInput(0, 0, &ds_inA, -1, 0);
         neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
-
+        neuralnetwork->SetInput(0, 2, &context, 5, 0 );
         neuralnetwork->SetOutput(4, &ds_out, false);
         neuralnetwork->Train();
          return 1;
 }
 
-int Connectom::Reset()
+vector<float> RecurrentNeuralNetwork::PredictNextStep(std::vector<float> object, std::vector<float> angles)
+{
+    passNr++;
+    return neuralnetwork->RunOneTime(0, object, passNr, angles);
+}
+
+int RecurrentNeuralNetwork::Reset()
 {
       return 1;
 }

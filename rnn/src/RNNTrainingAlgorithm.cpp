@@ -10,8 +10,8 @@
 RNNTrainingAlgorithm::RNNTrainingAlgorithm (int nPasses, int nEpochSize, double fLearningRate, double fPbLearningRate)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in RNNTrainingAlgorithm::RNNTrainingAlgorithm!");
-    nnlib_assert (nEpochSize > 1, (char*) "ERROR: nEpochSize must be greater than 1 in RNNTrainingAlgorithm::RNNTrainingAlgorithm!");
+    Utilities::Assert(nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in RNNTrainingAlgorithm::RNNTrainingAlgorithm!");
+    Utilities::Assert(nEpochSize > 1, (char*) "ERROR: nEpochSize must be greater than 1 in RNNTrainingAlgorithm::RNNTrainingAlgorithm!");
     #endif
 
     passes = nPasses;
@@ -62,7 +62,7 @@ void RNNTrainingAlgorithm::Train (RNN* net)
     {
         for (int seq = 0; seq < net->num_seq; seq++)
         {
-            net->Run (seq, epoch_size, 0, false, (p == 0), (p == 0)); // collect states, reset network only before first pass
+            net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), (p == 0)); // collect states, reset network only before first pass
             ComputeGradients (net, seq, epoch_size);
             UpdatePbs (net, seq, epoch_size, lr_pb);
         }

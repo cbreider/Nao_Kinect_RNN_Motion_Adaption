@@ -23,10 +23,11 @@ class NeuralNetwork
 
         void ExportWeights(bool afterTraining);
         void ImportWeights(std::string);
-        void RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> &angles, vector<float> &contextoop);
+        std::vector<float> RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> firstangles);
 
     protected:
         void Run (int, int, int, bool, bool, bool);
+        void RunWithRecurrentConnections (int , int , int , bool , bool , bool);
         void Reset (int, int, bool);
         void ResetDataSources ();
         void CollectErrorData (int, NetworkErrorData*);

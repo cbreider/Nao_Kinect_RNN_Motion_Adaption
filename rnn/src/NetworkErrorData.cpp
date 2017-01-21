@@ -48,7 +48,7 @@ bool NetworkErrorData::IsDataAvailable (int nLayer)
 LayerErrorData* NetworkErrorData::GetLayerData (int nLayer)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (IsDataAvailable (nLayer), (char*) "ERROR: No error data available for layer specified in NetworkErrorData::GetLayerData!");
+    Utilities::Assert(IsDataAvailable (nLayer), (char*) "ERROR: No error data available for layer specified in NetworkErrorData::GetLayerData!");
     #endif
 
     return led[nLayer];

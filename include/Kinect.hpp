@@ -30,6 +30,7 @@ private:
 	openni::VideoStream** stream;
 	openni::VideoFrameRef depthFrame, colorFrame;
 
+    int counter = 0;
 };
 
 

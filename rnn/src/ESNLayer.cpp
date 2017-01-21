@@ -17,8 +17,8 @@ ESNLayer::ESNLayer (int nUnits, ActivationFunction* actFunc, ESNTrainingAlgorith
     #ifndef NNLIB_NO_ERROR_CHECKING
     if (adapt)
     {
-        nnlib_assert (actFunc != NULL, (char*) "ERROR: Only layers with sigmoid activation function can be adapted!");
-        nnlib_assert (actFunc->GetId () == ActivationFunction::ID_SIGMOID, (char*) "ERROR: Only layers with sigmoid activation function can be adapted!");
+        Utilities::Assert(actFunc != NULL, (char*) "ERROR: Only layers with sigmoid activation function can be adapted!");
+        Utilities::Assert(actFunc->GetId () == ActivationFunction::ID_SIGMOID, (char*) "ERROR: Only layers with sigmoid activation function can be adapted!");
     }
     #endif
 

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -114,6 +115,16 @@ public:
 
         }
 
+        static void Assert(bool cond, char* err_str = NULL)
+        {
+            if(!cond)
+            {
+                if (err_str)
+                    WriteMessage(err_str, Error);
+
+                exit (1);
+            }
+        }
 
     private:
 

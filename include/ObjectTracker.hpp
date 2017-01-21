@@ -24,6 +24,7 @@ class ObjectTracker
   public:
     vector<float> Update(openni::VideoFrameRef depthFrame, openni::VideoFrameRef colorFrame);
     int Init();
+    u_int16_t depth;
 
   private:
     void Objecttracking();

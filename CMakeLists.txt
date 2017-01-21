@@ -20,7 +20,7 @@ LINK_DIRECTORIES(/usr/lib/x86_64-linux-gnu)
 
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/fnnlib/include)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/rnn/include)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/NiTE2)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/OpenNI2)
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIRS})
@@ -32,10 +32,10 @@ INCLUDE_DIRECTORIES(${OPENCV_INCLUDE})
 FILE(GLOB_RECURSE header "include/*.hpp")
 add_custom_target(headers SOURCES ${header})
 
-FILE(GLOB_RECURSE headerNN "rnnlib/include/*.hpp")
+FILE(GLOB_RECURSE headerNN "rnn/include/*.hpp")
 add_custom_target(nnH SOURCES ${headerNN})
 
-FILE(GLOB_RECURSE srcNN "rnnlib/src/*.cpp")
+FILE(GLOB_RECURSE srcNN "rnn/src/*.cpp")
 add_custom_target(nnS SOURCES ${srcNN})
 
 #set source files
@@ -48,7 +48,7 @@ set(_src
  src/main.cpp
  src/SampleWriter.cpp
  src/ObjectTracker.cpp
- rnnlib/rnnlib.hpp
+ rnn/rnn.hpp
 )
 #---------------------------------------------------------
 

@@ -40,8 +40,8 @@ inline int DataSource::GetSetSize ()
 StaticDataSource::StaticDataSource (int nNumberOfSets, int nSetSize) : DataSource (nNumberOfSets, nSetSize)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nNumberOfSets > 0, (char*) "ERROR: nNumberOfSets must be greater than 0 in DataSource::DataSource!");
-    nnlib_assert (nSetSize > 0, (char*) "ERROR: nSetSize must be greater than 0 in DataSource::DataSource!");
+    Utilities::Assert(nNumberOfSets > 0, (char*) "ERROR: nNumberOfSets must be greater than 0 in DataSource::DataSource!");
+    Utilities::Assert(nSetSize > 0, (char*) "ERROR: nSetSize must be greater than 0 in DataSource::DataSource!");
     #endif
 
     data = new vec[nNumberOfSets];
@@ -83,7 +83,7 @@ FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* str
     if (src.fail ())
     {
         cout << "ERROR: Cannot open file " << strFileName << " in FileDataSource::FileDataSource!" << endl << flush;
-        nnlib_assert (false);
+        Utilities::Assert(false);
     }
 
     // Write the contents of the file into the data matrix

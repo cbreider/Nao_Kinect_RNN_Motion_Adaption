@@ -44,7 +44,7 @@ int ObjectTracker::Init()
 vector<float> ObjectTracker::Update(openni::VideoFrameRef depthFrame, openni::VideoFrameRef colorFrame)
 {
     cameraFeed.data = (uchar*)colorFrame.getData();
-    cv::Mat depthImage(depthFrame.getHeight(), depthFrame.getWidth(), CV_16U);
+    cv::Mat depthImage(depthFrame.getHeight(), depthFrame.getWidth(), CV_16UC1);
     depthImage.data = (uchar*)depthFrame.getData();
     Mat depthImage2;
     depthImage.convertTo(depthImage2, CV_8U, 0.1);
@@ -55,8 +55,9 @@ vector<float> ObjectTracker::Update(openni::VideoFrameRef depthFrame, openni::Vi
     Objecttracking();
 
 
-    float posZ = ((float)400 * ((float)depthImage2.at<uchar>(posY, posX)) / (float)255) - 40;
-
+    depth = depthImage.at<u_int16_t>(posY, posX);
+    //float posZ = ((float)4000 * ((float)depth) / (float)65535) + 400;
+    float posZ = (float)depth ;
     //imshow("RGB", cameraFeed);
     cv::imshow("depth", coloredDepth);
     //cv::imshow("Threshold", thresholdMat);

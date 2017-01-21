@@ -100,7 +100,7 @@ void SoftmaxActivation::ComputeActivations (const vec* x, vec* y)
   */
 void SoftmaxActivation::ComputeDerivatives (const vec* x, vec* y_d)
 {
-    nnlib_assert (false, (char*) "ERROR: Cannot compute derivatices of softmax activation function!");
+    Utilities::Assert(false, (char*) "ERROR: Cannot compute derivatices of softmax activation function!");
 }
 
 /**
@@ -134,7 +134,7 @@ void IdentityActivation::ComputeDerivatives (const vec* x, vec* y_d)
 UserActivation::UserActivation (double (*UserDefActFunc) (double), double (*UserDefDerFunc) (double))
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (UserDefActFunc != NULL, (char*) "ERROR: UserDefActFunc must not be NULL in UserActivation::UserActivation!");
+    Utilities::Assert(UserDefActFunc != NULL, (char*) "ERROR: UserDefActFunc must not be NULL in UserActivation::UserActivation!");
     #endif
 
     act_id = ID_USER;
@@ -163,7 +163,7 @@ void UserActivation::ComputeActivations (const vec* x, vec* y)
 void UserActivation::ComputeDerivatives (const vec* x, vec* y_d)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (act_func_der != NULL, (char*) "ERROR: Attempt to call unspecified derivative of user-defined activation function!");
+    Utilities::Assert(act_func_der != NULL, (char*) "ERROR: Attempt to call unspecified derivative of user-defined activation function!");
     #endif
 
     for (int i = 0; i < (int) x->n_rows; i++)

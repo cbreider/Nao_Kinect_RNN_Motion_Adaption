@@ -27,7 +27,10 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
 
             // Compute the error; if the layer is not an output layer, set the error to zero
             if (net->data_out[nSeq][src_layer])
+            {
                 e = trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
+                std::cout << e << endl;
+            }
             else
                 e.zeros (net->layers[src_layer]->GetSize ());
 
@@ -72,8 +75,11 @@ void BPTT::UpdateWeights (RNN* net)
                                 for (t = 1; t < epoch_size-1; t++)
                                     sum += g[seq][dst_layer][t] (dst_unit) * net->s[seq][src_layer] (src_layer < dst_layer ? t : t-1, src_unit);
 
+
                             (*net->w[dst_layer][src_layer]) (dst_unit, src_unit) += lr * sum / net->num_seq; // adjust the weights using the learning rate lr
                         }
+
+
 }
 
 /**

@@ -69,8 +69,8 @@ void ESN::Adapt (int nSteps, int nSkip)
 void ESN::Train (int nPasses, int nSkip)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in ESN::Train!");
-    nnlib_assert (nSkip >= 0, (char*) "ERROR: nSkip must be at least 0 in ESN::Train!");
+    Utilities::Assert(nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in ESN::Train!");
+    Utilities::Assert(nSkip >= 0, (char*) "ERROR: nSkip must be at least 0 in ESN::Train!");
     #endif
 
     ResetDataSources ();
@@ -91,9 +91,9 @@ void ESN::Train (int nPasses, int nSkip)
 NetworkErrorData* ESN::Test (int nSequence, int nPasses, int nSkip)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nSequence >= 0 && nSequence < num_seq, (char*) "ERROR: Invalid nSequence parameter in ESN::Test!");
-    nnlib_assert (nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in ESN::Train!");
-    nnlib_assert (nSkip >= 0, (char*) "ERROR: nSkip must be at least 0 in ESN::Train!");
+    Utilities::Assert(nSequence >= 0 && nSequence < num_seq, (char*) "ERROR: Invalid nSequence parameter in ESN::Test!");
+    Utilities::Assert(nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in ESN::Train!");
+    Utilities::Assert(nSkip >= 0, (char*) "ERROR: nSkip must be at least 0 in ESN::Train!");
     #endif
 
     ResetDataSources ();
@@ -125,7 +125,7 @@ void ESN::UpdateWeights ()
         bool has_output = (data_out[0][l] != NULL);
 
         for (int seq = 1; seq < num_seq; seq++)
-        	nnlib_assert ((data_out[seq][l] != NULL) == has_output, (char*) "ERROR: If an ESN is to learn multiple patterns and a layer has desired outputs for one pattern, it also needs desired outputs for the other ones!");
+        	Utilities::Assert((data_out[seq][l] != NULL) == has_output, (char*) "ERROR: If an ESN is to learn multiple patterns and a layer has desired outputs for one pattern, it also needs desired outputs for the other ones!");
     }
     #endif
 

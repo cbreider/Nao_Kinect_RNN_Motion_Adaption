@@ -3,7 +3,6 @@
 #include <alproxies/almotionproxy.h>
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
-#include "../include/Connectom.hpp"
 #include "Utilities.hpp"
 
 int Nao::Init(AL::ALMotionProxy &motion)
@@ -76,9 +75,9 @@ void Nao::InitNNFromFile(string file)
     naosNeuralNetwork.LoadWeights(file);
 }
 
-void Nao::Reproduce()
+void Nao::Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion)
 {
-    //TODO
+    SetRightArm( naosNeuralNetwork.PredictNextStep(Object, firstPose), motion, false);
 }
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn)
@@ -103,7 +102,7 @@ int Nao::SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion)
 	try
 	{
 		AL::ALValue targetAngles = AL::ALValue::array(lArm[0], lArm[1], lArm[2], lArm[3]);
-		motion.setAngles(jointNamesLeftArm, targetAngles, fractionMaxSpeedA);
+        motion.setAngles(jointNamesLeftArm, targetAngles, fractionMaxSpeedA);
 		return 0;
 	}
 	catch(const AL::ALError& e)

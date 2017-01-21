@@ -15,7 +15,7 @@ using namespace std;
 class SampleWriter
 {
   public:
-    int Init();
+    int Init(float scaling);
     int Update(std::vector<float> angles, std::vector<float> object, bool caputerFlag);
     int UpdateOnlyUser(std::vector<float> angles, bool captureFlag);
     int Finalize();
@@ -43,6 +43,8 @@ class SampleWriter
     int _sampleNr;
     int startCounter = 0;
     string _foldername;
+
+    float _scalingFactor;
 
     std::vector<float> _lastObjectPosition;
 };

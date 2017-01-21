@@ -40,7 +40,7 @@ int Kinect::InitKinect(bool sample)
             Utilities::WriteMessage("Depth sensor  ok!", Utilities::OK);
             openni::VideoMode video;
             video.setResolution(640, 480); video.setFps(30);
-            video.setPixelFormat(PIXEL_FORMAT_DEPTH_100_UM);
+            video.setPixelFormat(PIXEL_FORMAT_DEPTH_1_MM);
             depth.setVideoMode(video);
             video.setPixelFormat(PIXEL_FORMAT_RGB888);
             color.setVideoMode(video);
@@ -71,13 +71,30 @@ SkeletonState Kinect::Update(bool object, bool user)
 
         vector<float> pos = _objectTracker.Update(depthFrame, colorFrame);
 
-        int a = CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2] * 10, &_objectX, &_objectY, &_objectZ);
+
+        int a = CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2], &_objectX, &_objectY, &_objectZ);
+
+        /*if(counter % 10 == 0)
+        {
+            stringstream ss;
+            ss << _objectX;
+            ss << "    ";
+            ss  << _objectY;
+            ss << "    ";
+            ss << _objectZ;
+
+            Utilities::WriteMessage(ss.str(), Utilities::Normal);
+            counter = 1;
+        }
+        counter++;*/
+
         vector<float> pos2(3);
         pos2[0] = _objectX;
         pos2[1] = _objectY;
-        pos2[2] = _objectZ;
+        pos2[2] = (_objectZ);
         _userSkeleton.object = pos2;
     }
+
     if(user)
     {
         return _userSkeleton.Update();

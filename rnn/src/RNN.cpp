@@ -10,7 +10,7 @@
 RNN::RNN (int nLayers, Layer** layerArray, RNNTrainingAlgorithm* rnnAlg, int nSequences) : NeuralNetwork (nLayers, layerArray, nSequences)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (rnnAlg != NULL, (char*) "ERROR: rnnAlg must not be NULL in RNN::RNN!");
+    Utilities::Assert(rnnAlg != NULL, (char*) "ERROR: rnnAlg must not be NULL in RNN::RNN!");
     #endif
 
     alg = rnnAlg;
@@ -65,9 +65,9 @@ void RNN::Train ()
 NetworkErrorData* RNN::Test (int nSequence, int nPasses, int nEpochSize, int nSkip, bool bResetPbs, bool bTrainPbs, double fPbLearningRate)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nSequence >= 0 && nSequence < num_seq, (char*) "ERROR: Invalid nSequence parameter in RNN::Test!");
-    nnlib_assert (nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in RNN::Test!");
-    nnlib_assert (nEpochSize > 1, (char*) "ERROR: nEpochSize must be greater than 1 in RNN::Test!");
+    Utilities::Assert(nSequence >= 0 && nSequence < num_seq, (char*) "ERROR: Invalid nSequence parameter in RNN::Test!");
+    Utilities::Assert(nPasses > 0, (char*) "ERROR: nPasses must be greater than 0 in RNN::Test!");
+    Utilities::Assert(nEpochSize > 1, (char*) "ERROR: nEpochSize must be greater than 1 in RNN::Test!");
     #endif
 
     return alg->Test (this, nSequence, nPasses, nEpochSize, nSkip, bResetPbs, bTrainPbs, fPbLearningRate);
@@ -169,9 +169,9 @@ void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weights, bool 
 void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nSrcLayer >= 0 && nSrcLayer < num_layers, (char*) "ERROR: nSrcLayer out of range in RNN::ConnectUnitToUnit!");
-    nnlib_assert (nSrcUnit >= 0 && nSrcUnit < layers[nSrcLayer]->GetSize (), (char*) "ERROR: nSrcUnit out of range in RNN::ConnectUnitToUnit!");
-    nnlib_assert (nDstLayer >= 0 && nDstLayer < num_layers, (char*) "ERROR: nDstLayer out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nSrcLayer >= 0 && nSrcLayer < num_layers, (char*) "ERROR: nSrcLayer out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nSrcUnit >= 0 && nSrcUnit < layers[nSrcLayer]->GetSize (), (char*) "ERROR: nSrcUnit out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nDstLayer >= 0 && nDstLayer < num_layers, (char*) "ERROR: nDstLayer out of range in RNN::ConnectUnitToUnit!");
     #endif
 
     if (!w[nDstLayer][nSrcLayer])
@@ -195,7 +195,7 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, Initia
     ConnectUnitToLayer (nSrcLayer, nSrcUnit, nDstLayer);
 
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (initFunc != NULL, (char*) "ERROR: initFunc is NULL in RNN::SetLayerToLayerWeights!");
+    Utilities::Assert(initFunc != NULL, (char*) "ERROR: initFunc is NULL in RNN::SetLayerToLayerWeights!");
     #endif
 
     vec weights (layers[nDstLayer]->GetSize ());
@@ -218,8 +218,8 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, rowvec
     ConnectUnitToLayer (nSrcLayer, nSrcUnit, nDstLayer);
 
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (weights != NULL, (char*) "ERROR: weights is NULL in RNN::SetLayerToLayerWeights!");
-    nnlib_assert (weights->n_cols == w[nDstLayer][nSrcLayer]->n_rows, (char*) "ERROR: Vector weights has wrong dimension in RNN::ConnectUnitToLayer!");
+    Utilities::Assert(weights != NULL, (char*) "ERROR: weights is NULL in RNN::SetLayerToLayerWeights!");
+    Utilities::Assert(weights->n_cols == w[nDstLayer][nSrcLayer]->n_rows, (char*) "ERROR: Vector weights has wrong dimension in RNN::ConnectUnitToLayer!");
     #endif
 
     w[nDstLayer][nSrcLayer]->col (nSrcUnit) = trans (*weights);
@@ -239,10 +239,10 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, rowvec
 void RNN::ConnectUnitToUnit (int nSrcLayer, int nSrcUnit, int nDstLayer, int nDstUnit, double fWeight, bool bTrainable)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
-    nnlib_assert (nSrcLayer >= 0 && nSrcLayer < num_layers, (char*) "ERROR: nSrcLayer out of range in RNN::ConnectUnitToUnit!");
-    nnlib_assert (nSrcUnit >= 0 && nSrcUnit < layers[nSrcLayer]->GetSize (), (char*) "ERROR: nSrcUnit out of range in RNN::ConnectUnitToUnit!");
-    nnlib_assert (nDstLayer >= 0 && nDstLayer < num_layers, (char*) "ERROR: nDstLayer out of range in RNN::ConnectUnitToUnit!");
-    nnlib_assert (nDstUnit >= 0 && nDstUnit < layers[nDstLayer]->GetSize (), (char*) "ERROR: nDstUnit out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nSrcLayer >= 0 && nSrcLayer < num_layers, (char*) "ERROR: nSrcLayer out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nSrcUnit >= 0 && nSrcUnit < layers[nSrcLayer]->GetSize (), (char*) "ERROR: nSrcUnit out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nDstLayer >= 0 && nDstLayer < num_layers, (char*) "ERROR: nDstLayer out of range in RNN::ConnectUnitToUnit!");
+    Utilities::Assert(nDstUnit >= 0 && nDstUnit < layers[nDstLayer]->GetSize (), (char*) "ERROR: nDstUnit out of range in RNN::ConnectUnitToUnit!");
     #endif
 
     synapses[nDstLayer][nDstUnit][nSrcLayer][nSrcUnit] = true;

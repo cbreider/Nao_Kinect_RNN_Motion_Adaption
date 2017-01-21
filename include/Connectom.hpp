@@ -8,17 +8,18 @@ class RNN;
 class Layer;
 class BPTT;
 
-class Connectom
+class RecurrentNeuralNetwork
 {
     public:
-        Connectom()
+        RecurrentNeuralNetwork()
         {};
 
         int InitRNNPB();
-        int InitCTRNNForRealTime(int = 1);
+        int InitCTRNNForRealTime(int = 30000);
         int StartNewTrainCyclus(std::vector<float> object, std::vector<float> data);
         int StartTrainingFromSource(std::string, std::string, std::string, int);
         int Reset();
+        std::vector<float> PredictNextStep(std::vector<float> object, std::vector<float> angles);
 
         void LoadWeights(std::string );
 
@@ -26,6 +27,7 @@ class Connectom
         RNN* neuralnetwork;
         Layer** layers;
         BPTT *cbpt_alg;
+        int passNr;
 };
 
 
