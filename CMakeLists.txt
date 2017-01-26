@@ -48,6 +48,7 @@ set(_src
  src/main.cpp
  src/SampleWriter.cpp
  src/ObjectTracker.cpp
+ src/Utilities.cpp
  rnn/rnn.hpp
 )
 #---------------------------------------------------------

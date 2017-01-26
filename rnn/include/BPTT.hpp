@@ -13,6 +13,7 @@ class BPTT : public RNNTrainingAlgorithm
         void ComputeGradients (RNN*, int, int);
         void UpdatePbs (RNN*, int, int, double);
         void UpdateWeights (RNN*);
+        int loopCounter = 0;
 };
 
 #endif // BPTT_HPP_INCLUDED

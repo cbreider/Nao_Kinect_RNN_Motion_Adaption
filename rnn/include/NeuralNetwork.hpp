@@ -1,6 +1,8 @@
 #ifndef NEURALNETWORK_HPP_INCLUDED
 #define NEURALNETWORK_HPP_INCLUDED
 
+#include <string>
+
 /**
   * Abstract base class for neural networks.
   */
@@ -21,7 +23,7 @@ class NeuralNetwork
         void ConnectLayerToLayer (int, int, Initialization*, bool);
         void ConnectLayerToLayer (int, int, mat*, bool);
 
-        void ExportWeights(bool afterTraining);
+        void ExportWeights(bool afterTraining, std::string);
         void ImportWeights(std::string);
         std::vector<float> RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> firstangles);
 

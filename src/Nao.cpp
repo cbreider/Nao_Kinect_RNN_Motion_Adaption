@@ -26,7 +26,6 @@ int Nao::Init(AL::ALMotionProxy &motion)
 
     Utilities::WriteBlankLine();
 
-    status = naosNeuralNetwork.InitCTRNNForRealTime();
     if(status == 1)
     {
         Utilities::WriteMessage("Failed to initialize Nao ", Utilities::Error);
@@ -41,54 +40,54 @@ int Nao::Init(AL::ALMotionProxy &motion)
     return status;
 }
 
-int Nao::InitForLearning(int passes)
+int Nao::InitNNAndStartLearning(string path, NNType::Type t)
 {
     Utilities::WriteBlankLine();
+    type = t;
 
-    int status = naosNeuralNetwork.InitCTRNNForRealTime(passes);
-    if(status == 1)
-    {
-        Utilities::WriteMessage("Failed to initialize Nao ", Utilities::Error);
-    }
-    else
-    {
-        Utilities::WriteMessage("Nao succesfully initialized ", Utilities::OK);
-    }
+    naosNeuralNetwork = RecurrentNeuralNetworkWrapper::GetRNN(type, path);
+    naosNeuralNetwork->Init();
+    Utilities::WriteMessage("Nao's Neural Network' succesfully initialized ", Utilities::OK);
+    naosNeuralNetwork->TrainFromSource();
+    Utilities::WriteMessage("Starting Training...", Utilities::Info);
+    Utilities::WriteMessage("NN is trained.", Utilities::Info);
+
+
     Utilities::WriteBlankLine();
     Utilities::WriteBlankLine();
 
-    return status;
+    return 0;
 }
 
-int Nao::TrainOneStep(std::vector<float> rArm)
+int Nao::InitTrainedNN(string path, NNType::Type t)
 {
-    return naosNeuralNetwork.StartNewTrainCyclus(Object, rArm);
-}
+    Utilities::WriteBlankLine();
+    type = t;
 
-int Nao::Train(string angleIn, string object, string angleOut, int passes)
-{
-    return naosNeuralNetwork.StartTrainingFromSource(angleIn, object, angleOut, passes);
-}
+    naosNeuralNetwork = RecurrentNeuralNetworkWrapper::GetRNN(type, path);
+    naosNeuralNetwork->Init();
+    Utilities::WriteMessage("Nao's Neural Network' succesfully initialized ", Utilities::OK);
+    naosNeuralNetwork->LoadWeights();
+    Utilities::WriteMessage("Weights loaded", Utilities::Info);
 
-void Nao::InitNNFromFile(string file)
-{
-    naosNeuralNetwork.LoadWeights(file);
+    Utilities::WriteBlankLine();
+    Utilities::WriteBlankLine();
+
+    return 0;
 }
 
 void Nao::Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion)
 {
-    SetRightArm( naosNeuralNetwork.PredictNextStep(Object, firstPose), motion, false);
+    SetRightArm( naosNeuralNetwork->PredictNextStep(Object, firstPose), motion);
 }
 
-int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn)
+int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
 {
 	try
 	{
 		//printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
 		AL::ALValue targetAngles = AL::ALValue::array(rArm[0], rArm[1], rArm[2], rArm[3]);
 		motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
-        if(learn) TrainOneStep(rArm);
-
 		return 0;
 	}
 	catch(const AL::ALError& e)

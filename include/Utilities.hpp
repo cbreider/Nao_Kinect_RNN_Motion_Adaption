@@ -10,6 +10,7 @@
 #include <sstream>
 #include <fstream>
 #include <cstdlib>
+#include <Connectom.hpp>
 
 using namespace std;
 
@@ -21,141 +22,193 @@ using namespace std;
 #define NORMAL_C   "\033[37m"      /* White */
 #define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
 
+
+
+struct NNFiles
+{
+    std::string weightsFile;
+    std::string initweightsFile;
+    std::string initposeFile;
+    std::string anglesInFile ;
+    std::string anglesOutFile;
+    std::string objectFile;
+    std::string paramsFile;
+};
+
 class Utilities
 {
 public:
+
     enum  OutputType
     {
-      OK,
-      NewProcedure,
-      Warning,
-      Error,
-       Normal,
+        OK,
+        NewProcedure,
+        Warning,
+        Error,
+        Normal,
         Info
     };
-        static void WriteMessage(string message, OutputType type)
-        {
-            string color = GetColor(type);
-            std::cout << color << message << RESET_C << std::endl;
-        }
 
-        static void WriteError(string message, const char * err)
-        {
-            std::cout << ERROR_C << message  << std::endl;
-            std::cout << err << endl;
-            std:cout << "" << RESET_C << endl;
-        }
 
-        static void WriteBlankLine()
-        {
-            std::cout << ""<< std::endl;
-        }
+    static std::string PATH;
+    static std::string PathToData;
+    static std::string PathToOutput;
+    static NNFiles NNfiles;
 
-        static int GetIntergerInput()
+    static void WriteMessage(string message, OutputType type)
+    {
+        string color = GetColor(type);
+        std::cout << color << message << RESET_C << std::endl;
+    }
+
+    static void WriteError(string message, const char * err)
+    {
+        std::cout << ERROR_C << message  << std::endl;
+        std::cout << err << endl;
+        std:cout << "" << RESET_C << endl;
+    }
+
+    static void WriteBlankLine()
+    {
+        std::cout << ""<< std::endl;
+    }
+
+    static int GetIntergerInput()
+    {
+        string line;
+        int mode;
+        while (std::getline(std::cin, line))
         {
-            string line;
-            int mode;
-            while (std::getline(std::cin, line))
+            std::stringstream ss(line);
+            if (ss >> mode)
             {
-                std::stringstream ss(line);
-                if (ss >> mode)
-                {
-                    if (ss.eof())
-                    {   // Success
-                       return mode;
-                    }
-                }
-                return 0;
-            }
-        }
-
-        static string GetNaosIp()
-        {
-            string ip;
-            // Loading Nao's IP-Address from .txt
-            //For Debug \build-nao_toolchain1\config\IPAddr.txt
-            //For bin \build-nao_toolchain1\sdk\bin\config\IPAddr.txt
-            std::ifstream file;
-            file.open("config/IPAddr.txt");
-            std::getline(file, ip);
-            file.close();
-            return ip;
-        }
-
-        static string GetInputFile()
-        {
-            vector<string> files = vector<string>();
-            string dir = "output";
-            DIR *dp;
-            struct dirent *dirp;
-            if((dp  = opendir(dir.c_str())) == NULL) {
-                cout << "Error(" << errno << ") opening " << dir << endl;
-                return "";
-            }
-
-            int i = 1;
-            while ((dirp = readdir(dp)) != NULL)
-            {
-                string fi = string(dirp->d_name); if(fi.find(".txt") !=
-                std::string::npos)
-                {
-                    stringstream ss;
-                    ss << i;
-                    ss << ": ";
-                    ss << fi;
-                    WriteMessage(ss.str(), Normal);
-                    files.push_back(fi);
-                    i++;
+                if (ss.eof())
+                {   // Success
+                    return mode;
                 }
             }
-            closedir(dp);
+            return 0;
+        }
+    }
 
-            int x = GetIntergerInput();
-            return "output/" + files[x-1];
+    static string GetNaosIp()
+    {
+        string ip;
+        // Loading Nao's IP-Address from .txt
+        //For Debug \build-nao_toolchain1\config\IPAddr.txt
+        //For bin \build-nao_toolchain1\sdk\bin\config\IPAddr.txt
+        std::ifstream file;
+        file.open("config/IPAddr.txt");
+        std::getline(file, ip);
+        file.close();
+        return ip;
+    }
 
+    static string GetInputFile()
+    {
+        vector<string> files = vector<string>();
+        string dir = "output";
+        DIR *dp;
+        struct dirent *dirp;
+        if((dp  = opendir(dir.c_str())) == NULL) {
+            cout << "Error(" << errno << ") opening " << dir << endl;
+            return "";
         }
 
-        static void Assert(bool cond, char* err_str = NULL)
+        int i = 1;
+        while ((dirp = readdir(dp)) != NULL)
         {
-            if(!cond)
+            string fi = string(dirp->d_name); if(fi.find(".txt") !=
+                                                 std::string::npos)
             {
-                if (err_str)
-                    WriteMessage(err_str, Error);
-
-                exit (1);
+                stringstream ss;
+                ss << i;
+                ss << ": ";
+                ss << fi;
+                WriteMessage(ss.str(), Normal);
+                files.push_back(fi);
+                i++;
             }
         }
+        closedir(dp);
 
-    private:
+        int x = GetIntergerInput();
+        return "output/" + files[x-1];
+    }
 
-         static string GetColor(OutputType type)
+    static void Assert(bool cond, char* err_str = NULL)
+    {
+        if(!cond)
         {
-            switch(type)
-            {
-                  case OK:
-                       return OK_C;
-                   case NewProcedure:
-                        return NEWPROC_C;
-                    case Warning:
-                        return WARNING_C;
-                    case Error:
-                        return ERROR_C;
-                    case Normal:
-                        return NORMAL_C;
-                    case Info:
-                        return BOLDMAGENTA;
-            }
+            if (err_str)
+                WriteMessage(err_str, Error);
+
+            exit (1);
         }
+    }
+
+    static void LoadPath();
+
+    static string ChooseDir();
+
+
+
+    static int ChooseNNType()
+    {
+        int t;
+        string chose;
+        string rnn = "Recurrent Neural Network";
+        string rnncl = "Recurrent Neural Network with Context-Loop";
+
+        Utilities::WriteMessage("Choose a type for the NN:", Utilities::Normal);
+        WriteMessage("1: "+  rnn, Normal);
+        WriteMessage("2: " + rnncl, Normal);
+
+        int x = GetIntergerInput();
+
+        if(x == 1)
+        {
+            chose = rnn;
+            t = 1;
+        }
+        else if(x == 2)
+        {
+            chose = rnncl;
+            t = 2;
+        }
+        else if(x == 3)
+        {
+            chose = rnn;
+            t = 3;
+        }
+        Utilities::WriteMessage("You have chosen: " + chose, Utilities::Normal);
+        WriteBlankLine();
+        return t;
+    }
+
+private:
+
+    static string GetColor(OutputType type)
+    {
+        switch(type)
+        {
+        case OK:
+            return OK_C;
+        case NewProcedure:
+            return NEWPROC_C;
+        case Warning:
+            return WARNING_C;
+        case Error:
+            return ERROR_C;
+        case Normal:
+            return NORMAL_C;
+        case Info:
+            return BOLDMAGENTA;
+        }
+    }
 };
 
 
-enum class OutputType
-{
-  OK,
-  NewProcedure,
-  Warning,
-  Error,
-   Normal
-};
+
 
 #endif

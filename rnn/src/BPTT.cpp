@@ -29,7 +29,12 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
             if (net->data_out[nSeq][src_layer])
             {
                 e = trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
-                std::cout << e << endl;
+                if(loopCounter == 0)
+                {
+                    std::cout << e << endl;
+                    loopCounter = 10000;
+                }
+                loopCounter--;
             }
             else
                 e.zeros (net->layers[src_layer]->GetSize ());

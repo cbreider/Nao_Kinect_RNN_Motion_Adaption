@@ -334,6 +334,30 @@ src/UserSkeleton.cpp.s:
 	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/UserSkeleton.cpp.s
 .PHONY : src/UserSkeleton.cpp.s
 
+src/Utilities.o: src/Utilities.cpp.o
+.PHONY : src/Utilities.o
+
+# target to build an object file
+src/Utilities.cpp.o:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Utilities.cpp.o
+.PHONY : src/Utilities.cpp.o
+
+src/Utilities.i: src/Utilities.cpp.i
+.PHONY : src/Utilities.i
+
+# target to preprocess a source file
+src/Utilities.cpp.i:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Utilities.cpp.i
+.PHONY : src/Utilities.cpp.i
+
+src/Utilities.s: src/Utilities.cpp.s
+.PHONY : src/Utilities.s
+
+# target to generate assembly for a file
+src/Utilities.cpp.s:
+	$(MAKE) -f CMakeFiles/Nao_AdaptiveMotion.dir/build.make CMakeFiles/Nao_AdaptiveMotion.dir/src/Utilities.cpp.s
+.PHONY : src/Utilities.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -391,6 +415,9 @@ help:
 	@echo "... src/UserSkeleton.o"
 	@echo "... src/UserSkeleton.i"
 	@echo "... src/UserSkeleton.s"
+	@echo "... src/Utilities.o"
+	@echo "... src/Utilities.i"
+	@echo "... src/Utilities.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

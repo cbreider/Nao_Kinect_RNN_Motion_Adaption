@@ -18,7 +18,7 @@ public:
     int Init(AL::ALMotionProxy &motion);
     int InitForLearning(int passes);
 
-    int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion, bool learn);
+    int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
 
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
@@ -29,16 +29,21 @@ public:
     int Close(AL::ALMotionProxy &motion);
     int SetMotionStiffness(AL::ALMotionProxy &motion);
 
-    int TrainOneStep(std::vector<float> rArm);
-    int Train(string, string, string, int);
-    void InitNNFromFile(string file);
+    int InitTrainedNN(string path, NNType::Type t);
+    int InitNNAndStartLearning(string path, NNType::Type t);
+    void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
 
     std::vector<float> Object;
-    void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
     std::string IPAddress;
 
 private:
-    RecurrentNeuralNetwork naosNeuralNetwork;
+    NNType::Type type;
+    /*RNNWrapper* rnn;
+    RNNCLWrapper* rnncl;
+    RNNPBWrapper* rnnpb;*/
+    RecurrentNeuralNetworkWrapper* naosNeuralNetwork;
+
+
 	float fractionMaxSpeedH;
 	float fractionMaxSpeedA;
 

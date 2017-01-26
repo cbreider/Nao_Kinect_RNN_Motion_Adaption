@@ -5,7 +5,7 @@
       <Option title="Nao_AdaptiveMotion" />
       <Option makefile_is_custom="1" />
       <Option compiler="gcc" />
-      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\NAO_SDK\;CMake Files\..\NAO_SDK\naoqi-sdk\;CMake Files\..\NAO_SDK\naoqi-sdk\share\;CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\internal\;CMake Files\build-naosdk_toolchain\;" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\OpenCV\;CMake Files\..\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\;CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\internal\;CMake Files\build-naosdk_toolchain\;" />
       <Build>
       <Target title="all">
          <Option working_dir="/home/christian/BachelorProject/Mainline/build-naosdk_toolchain" />
@@ -30,7 +30,8 @@
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
             <Add directory="/home/christian/BachelorProject/Mainline/rnn/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
-            <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion" />
@@ -52,7 +53,8 @@
             <Add directory="/home/christian/BachelorProject/Mainline/include/OpenNI2" />
             <Add directory="/home/christian/BachelorProject/Mainline/rnn/include" />
             <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include" />
-            <Add directory="/home/christian/BachelorProject/NAO_SDK/naoqi-sdk/include/opencv" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/opencv" />
          </Compiler>
          <MakeCommands>
             <Build command="/usr/bin/make -f &quot;/home/christian/BachelorProject/Mainline/build-naosdk_toolchain/Makefile&quot;  VERBOSE=1 Nao_AdaptiveMotion/fast" />
@@ -183,6 +185,8 @@
       <Unit filename="/home/christian/BachelorProject/Mainline/src/SampleWriter.cpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/UserSkeleton.cpp">
+      </Unit>
+      <Unit filename="/home/christian/BachelorProject/Mainline/src/Utilities.cpp">
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/src/main.cpp">
       </Unit>
@@ -1201,17 +1205,17 @@
       <Unit filename="/home/christian/BachelorProject/Mainline/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVConfig-version.cmake">
-          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/OpenCV/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVConfig.cmake">
-          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/OpenCV/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVModules.cmake">
-          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/OpenCV/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
       </Unit>
-      <Unit filename="/home/christian/BachelorProject/Mainline/../NAO_SDK/naoqi-sdk/share/OpenCV/OpenCVModules-release.cmake">
-          <Option virtualFolder="CMake Files\..\NAO_SDK\naoqi-sdk\share\OpenCV\" />
+      <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/OpenCV/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\OpenCV\" />
       </Unit>
       <Unit filename="/home/christian/BachelorProject/Mainline/../../../../usr/local/share/cmake/qibuild/qibuild-config.cmake">
           <Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\cmake\qibuild\" />

@@ -3,12 +3,12 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Utilities.hpp";
 
 //init this object by initializing members
 //note: could do that in header to for c++11
 int SampleWriter::Init(float scaling)
 {
-  _foldername = "output";
   _sampleNr = 0;
   _capture = false;
   _isCaputring = false;
@@ -82,7 +82,7 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                     //Capture first initial pose.
                     _anglestreamIn << DataToString(angles);
                     ofstream initialPose;
-                    initialPose.open(GetFilename("initialPose").c_str());
+                    initialPose.open(GetFilename(Utilities::NNfiles.initposeFile).c_str());
                     initialPose << DataToString(angles);
                     initialPose.close();
                 }
@@ -165,12 +165,10 @@ string SampleWriter::DataToString(std::vector<float> data)
 string SampleWriter::GetFilename(string type)
 {
     std::stringstream stream;
-    stream << _foldername;
-    stream << "/Sample_";
+    stream << Utilities::PathToOutput;
     stream << type;
-    stream << "_";
+    stream << ".";
     stream << _sampleNr;
-    stream << ".txt";
 
     string st = stream.str();
 
@@ -185,7 +183,7 @@ string SampleWriter::GetFilename(string type)
 
 void SampleWriter::OpenStreams()
 {
-    _anglestreamOut.open(GetFilename("angleOut").c_str());
-    _anglestreamIn.open(GetFilename("angleIn").c_str());
-    _objectStream.open(GetFilename("object").c_str());
+    _anglestreamOut.open(GetFilename(Utilities::NNfiles.anglesOutFile).c_str());
+    _anglestreamIn.open(GetFilename(Utilities::NNfiles.anglesInFile).c_str());
+    _objectStream.open(GetFilename(Utilities::NNfiles.objectFile).c_str());
 }

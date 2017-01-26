@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+#include "Utilities.hpp";
 
 /**
   * Creates a new neural network consisting of nLayers layers stored in layerArray; the network will be able to learn nSequences trajectories.
@@ -279,7 +279,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                         cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
                     }
 
-                // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
+                // If a time constant greather than 1 is used, 5the previous induced local fields will affect the current output
                 cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
                 cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
 
@@ -436,7 +436,7 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                         cur_u[nSeq][dst_layer][0] = object[0];
                         cur_u[nSeq][dst_layer][1] = object[1];
                         cur_u[nSeq][dst_layer][2] = object[2];
-                        std::cout <<  object[0] << "   " << object[1] << "   " <<  object[2] <<endl;
+                        //std::cout <<  object[0] << "   " << object[1] << "   " <<  object[2] <<endl;
                     }
                 }
 
@@ -597,65 +597,65 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
 
     (*w[nDstLayer][nSrcLayer]) = trans (*weights);
 }
- void NeuralNetwork::ExportWeights(bool afterTraining)
- {
-     std::string br = "\n";
-     std::string filename= "output/";
-     if(afterTraining) filename += "Weights_afterTrain.txt";
-     else filename += "Weights_beforetrain.txt";
 
-     std::ofstream io;
-     io.open(filename.c_str());
 
-     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
+void NeuralNetwork::ExportWeights(bool afterTraining, std::string path)
+{
+    std::string br = "\n";
+    std::string filename= path;
+    if(afterTraining) filename += Utilities::NNfiles.weightsFile;
+    else filename += Utilities::NNfiles.initweightsFile;
 
-     // Iterate over all synapses and adjust the trainable weights
-     for (src_layer = 0; src_layer < num_layers; src_layer++)
-     {
-         io << br;
-         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
-             if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
-                 for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
-                     for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
-                     {
-                         std::stringstream ss;
-                         if(afterTraining)
-                         {
+    std::ofstream io;
+    io.open(filename.c_str());
+
+    int src_layer, dst_layer, src_unit, dst_unit;
+
+    // Iterate over all synapses and adjust the trainable weights
+    for (src_layer = 0; src_layer < num_layers; src_layer++)
+    {
+        io << br;
+        for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+            if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
+                for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
+                    for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
+                    {
+                        std::stringstream ss;
+                        if(afterTraining)
+                        {
                             double x = (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
                             int xx =0;
-                            }
-                         ss << (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
+                        }
+                        ss << (*this->w[dst_layer][src_layer]) (dst_unit, src_unit);
 
-                         io << ss.str();
-                         io << " ";
-                     }
-     }
-         io.close();
+                        io << ss.str();
+                        io << " ";
+                    }
+    }
+    io.close();
 
- }
+}
 
- void NeuralNetwork::ImportWeights(std::string file)
- {
-     std::ifstream io;
-     io.open(file.c_str());
+void NeuralNetwork::ImportWeights(std::string path)
+{
+    std::ifstream io;
+    io.open((path + Utilities::NNfiles.weightsFile).c_str());
 
-     int src_layer, dst_layer, src_unit, dst_unit;
+    int src_layer, dst_layer, src_unit, dst_unit;
 
-     // Iterate over all synapses and adjust the trainable weights
-     for (src_layer = 0; src_layer < num_layers; src_layer++)
-     {
-         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
-             if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
-                 for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
-                     for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
-                     {
-                         double x;
-                         io >> x;
+    // Iterate over all synapses and adjust the trainable weights
+    for (src_layer = 0; src_layer < num_layers; src_layer++)
+    {
+        for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+            if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
+                for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
+                    for (dst_unit = 0; dst_unit < layers[dst_layer]->GetSize (); dst_unit++)
+                    {
+                        double x;
+                        io >> x;
 
-                         (*this->w[dst_layer][src_layer]) (dst_unit, src_unit) = x;
-                     }
-     }
-         io.close();
-
-    ExportWeights(false);
- }
+                        (*this->w[dst_layer][src_layer]) (dst_unit, src_unit) = x;
+                    }
+    }
+    io.close();
+}

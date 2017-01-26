@@ -25,6 +25,7 @@
 #include <limits.h>
 #include "../include/OniSampleUtilities.h"
 #include "Utilities.hpp"
+#include "Connectom.hpp";
 
 using namespace openni;
 using namespace nite;
@@ -40,11 +41,13 @@ std::string ip;
 Kinect kinect;
 Nao nao;
 
-int Start(bool imitate, bool sample, bool learn );
+int Start(bool sample);
 int StartReproducing();
 int LearnFromData();
 void GetNaosIp();
 int Exit();
+
+
 
 int main(int argc, char* argv[])
 {
@@ -62,14 +65,16 @@ int main(int argc, char* argv[])
      Utilities::WriteBlankLine();
      Utilities::WriteBlankLine();
 
+
+     Utilities::LoadPath();
+
      while(true)
      {
          Utilities::WriteMessage("Choose the program type and hit Enter:", Utilities::Normal);
          Utilities::WriteMessage("1: Imitation-Mode", Utilities::Normal);
-         Utilities::WriteMessage("2: Realtime Learning-Mode", Utilities::Normal);
-         Utilities::WriteMessage("3: Sampling-Mode", Utilities::Normal);
-         Utilities::WriteMessage("4: Learning-Mode", Utilities::Normal);
-         Utilities::WriteMessage("5: Recproducing-Mode", Utilities::Normal);
+         Utilities::WriteMessage("2: Sampling-Mode", Utilities::Normal);
+         Utilities::WriteMessage("3: Learning-Mode", Utilities::Normal);
+         Utilities::WriteMessage("4: Recproducing-Mode", Utilities::Normal);
          Utilities::WriteMessage("Any other Key: Exit", Utilities::Normal);
 
          int mode = Utilities::GetIntergerInput();
@@ -84,21 +89,17 @@ int main(int argc, char* argv[])
          {
             case 1:
                 Utilities::WriteMessage("Starting Imitation-Mode ...", Utilities::Info);
-               Start(true, false, false);
+               Start(false);
                break;
             case 2:
-                Utilities::WriteMessage("Realtime Learning-Mode ...", Utilities::Info);
-                Start(false, false, true);
+                Utilities::WriteMessage("Sampling-Mode ...", Utilities::Info);
+                Start(true);
                 break;
             case 3:
-                Utilities::WriteMessage("Sampling-Mode ...", Utilities::Info);
-                Start(false, true, false);
-                break;
-            case 4:
-                Utilities::WriteMessage("Starting Learning-mode", Utilities::Error);
+                Utilities::WriteMessage("Starting Learning-mode", Utilities::Info);
                 LearnFromData();
                 break;
-            case 5:
+            case 4:
                 Utilities::WriteMessage("Starting Recproducing-Mode ...", Utilities::Info);
                 StartReproducing();
                 break;
@@ -110,8 +111,13 @@ int main(int argc, char* argv[])
 
 int StartReproducing()
 {
-    Utilities::WriteMessage("Choose a file to load NN weights input from:", Utilities::Normal);
-    string w = Utilities::GetInputFile();
+    NNType::Type type;
+    int t = Utilities::ChooseNNType();
+    if(t == 1) type = NNType::RNNT;
+    else if(t == 2) type = NNType::RNNCL;
+    else if(t == 3) type = NNType::RNNPB;
+
+    string folder = Utilities::ChooseDir();
     ip = Utilities::GetNaosIp();
 
     //Initialize nao
@@ -131,16 +137,11 @@ int StartReproducing()
         return 1;
     }
 
-    nao.InitNNFromFile(w);
-    Utilities::WriteMessage("Choose a file to load initial position  input from:", Utilities::Normal);
-    string anglesIn = Utilities::GetInputFile();
-    Utilities::WriteMessage("You have chosen: " + anglesIn, Utilities::Normal);
-    Utilities::WriteBlankLine();
-    std::vector<float> initialPose(4);
+    nao.InitTrainedNN(folder, type );
 
     std::ifstream io;
-    io.open(anglesIn.c_str());
-
+    io.open((folder + Utilities::NNfiles.initposeFile).c_str());
+    std::vector<float> initialPose(4);
     io >>  initialPose[0];
     std::cout << initialPose[0];
     io >>  initialPose[1];
@@ -149,7 +150,7 @@ int StartReproducing()
     std::cout << initialPose[2];
     io >>  initialPose[3];
     std::cout << initialPose[3];
-    nao.SetRightArm(initialPose, motion, false);
+    nao.SetRightArm(initialPose, motion);
 
 
     //Initialize kinect
@@ -164,6 +165,7 @@ int StartReproducing()
     // Nao should say some phrase for introduction
     //nao.SayIntroductionPhrase(tts);
     //nao.SetMotionStiffness(motion);
+
     //run
     int count = 0;
     bool first = true;
@@ -171,11 +173,11 @@ int StartReproducing()
     ob[0] = 0;
     ob[1] = 0;
     ob[2] = 0;
-
     std::vector<float> diff(3);
     diff[0] = 0;
     diff[1] = 0;
     diff[2] = 0;
+
     while(true)
     {
         int key = cv::waitKey(1);
@@ -204,7 +206,7 @@ int StartReproducing()
         }
         else
         {
-            nao.SetRightArm(initialPose, motion, false);
+            nao.SetRightArm(initialPose, motion);
         }
         count++;
     }
@@ -212,7 +214,7 @@ int StartReproducing()
     kinect.CleanUpAndClose();
 }
 
-int Start(bool imitate, bool sample, bool learn )
+int Start(bool sample )
 {
     ip = Utilities::GetNaosIp();
 
@@ -225,9 +227,6 @@ int Start(bool imitate, bool sample, bool learn )
     AL::ALTextToSpeechProxy tts(ip, 9559);
 
     status = nao.Init(motion);
-    //nao.Close(motion);
-    //status = nao.Init(motion);
-    // status = 0;
     if(status == 1)
     {
        return 1;
@@ -247,7 +246,7 @@ int Start(bool imitate, bool sample, bool learn )
     //run
     while(true)
     {
-        if(imitate)
+        if(!sample)
         {
             if(wasKeyboardHit()) break;
         }
@@ -262,7 +261,7 @@ int Start(bool imitate, bool sample, bool learn )
 
 
         //Update and get the user
-        userState = kinect.Update(sample || learn, true);
+        userState = kinect.Update(sample, true);
 
         // check user state
         if(userState == nite::SKELETON_NONE)
@@ -293,57 +292,32 @@ int Start(bool imitate, bool sample, bool learn )
             //same for the right arm
             if(rConfidence > 0.5)
             {
-                if(learn)
-                {
-                    std:vector<float> ob(3);
-                    ob[0] = - kinect._objectX;
-                    ob[1] = - kinect._objectY;
-                    ob[2] = - kinect._objectZ;
-                    nao.Object = ob;
-                }
-                nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion, learn);
+                nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
             }
         }
     }
     // Close Nao and kinect and exit
-    //nao.Close(motion);
+    nao.Close(motion);
     kinect.CleanUpAndClose();
 }
 
 int LearnFromData()
 {
-    Utilities::WriteMessage("Choose a file to load NN angles input from:", Utilities::Normal);
-    string anglesIn = Utilities::GetInputFile();
-    Utilities::WriteMessage("You have chosen: " + anglesIn, Utilities::Normal);
-    Utilities::WriteBlankLine();
-
-    Utilities::WriteMessage("Choose a file to load NN angles output from:", Utilities::Normal);
-    string anglesOut = Utilities::GetInputFile();
-    Utilities::WriteMessage("You have chosen: " + anglesOut, Utilities::Normal);
-    Utilities::WriteBlankLine();
-
-    Utilities::WriteMessage("Choose a file to load NN object input from:", Utilities::Normal);
-    string object = Utilities::GetInputFile();
-    Utilities::WriteMessage("You have chosen: " + object, Utilities::Normal);
-    Utilities::WriteBlankLine();
-
-    Utilities::WriteMessage("How many traing passes?", Utilities::Normal);
-    int passes = Utilities::GetIntergerInput();
-    Utilities::WriteMessage("Initializing Nao... ", Utilities::NewProcedure);
-    // Setting Nao's proxies for motion and speech
+    string folder = Utilities::ChooseDir();
+    NNType::Type type;
+    int t = Utilities::ChooseNNType();
+    if(t == 1) type = NNType::RNNT;
+    else if(t == 2) type = NNType::RNNCL;
+    else if(t == 3) type = NNType::RNNPB;
 
 
     //status = nao.Init(motion);
     //nao.Close(motion);
-    status = nao.InitForLearning(passes);
-    status = 0;
+    int status = nao.InitNNAndStartLearning(folder, type);
     if(status == 1)
     {
         return 1;
     }
-
-    nao.Train(anglesIn, object, anglesOut, passes);
-
 }
 
 
