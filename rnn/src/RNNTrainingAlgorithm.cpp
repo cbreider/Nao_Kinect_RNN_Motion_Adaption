@@ -65,7 +65,10 @@ void RNNTrainingAlgorithm::Train (RNN* net)
             ComputeGradients (net, seq, epoch_size);
             UpdatePbs (net, seq, epoch_size, lr_pb);
         }
-
+        if(p%10000 == 0)
+        {
+            std::cout << "PassNr.: " << p << endl;
+        }
         UpdateWeights (net);
     }
 }

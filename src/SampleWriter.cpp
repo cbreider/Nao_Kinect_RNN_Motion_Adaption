@@ -109,7 +109,11 @@ int SampleWriter::UpdateOnlyUser(std::vector<float> angles, bool captureFlag)
         if (_capture && !_isCaputring)
         {
             _sampleNr++;
-            cout << "Capturing Sample" << _sampleNr << "..." << endl;
+            stringstream ss;
+            ss << "Capturing Sample";
+            ss << _sampleNr;
+
+              Utilities::WriteMessage(ss.str(), Utilities::Info);
 
             OpenStreams();
 
@@ -134,7 +138,11 @@ int SampleWriter::UpdateOnlyUser(std::vector<float> angles, bool captureFlag)
 //close streams
 int SampleWriter::Finalize()
 {
-  cout << "Closing Sample " << _sampleNr << "\n" << endl;
+    stringstream ss;
+    ss << "Closing Sample ";
+    ss << _sampleNr;
+
+    Utilities::WriteMessage(ss.str(), Utilities::Error);
   _anglestreamOut.close();
   _anglestreamIn.close();
   _objectStream.close();
