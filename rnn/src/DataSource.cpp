@@ -1,4 +1,6 @@
 #include <vector>
+#include "Utilities.hpp";
+
 /**
   * Constructor taking the number of sets to be stored in this object and the size of those sets as arguments.
   *
@@ -76,7 +78,7 @@ void StaticDataSource::GetSetAt (int index, vec* y)
   * @param nSetSize The size of the sets to be stored in this object
   * @param strFileName The path of the file from which nNumberOfSets sets of size nSetSize will be read and stored in the object
   */
-FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* strFileName) : StaticDataSource (nNumberOfSets, nSetSize)
+FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* strFileName, int type) : StaticDataSource (nNumberOfSets, nSetSize)
 {
     ifstream src (strFileName, ifstream::in);
 
@@ -85,12 +87,39 @@ FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* str
         cout << "ERROR: Cannot open file " << strFileName << " in FileDataSource::FileDataSource!" << endl << flush;
         Utilities::Assert(false);
     }
-
-    // Write the contents of the file into the data matrix
-    for (int i = 0; i < nNumberOfSets; i++)
-        for (int j = 0; j < nSetSize; j++)
-        	src >> data[i] (j);
-
+    vector<float> tmp(nSetSize);
+    float stmp;
+    //object
+    if(type == 1)
+    {
+        for (int i = 0; i < nNumberOfSets; i++)
+        {
+            for (int j = 0; j < nSetSize; j++)
+            {
+                src >> stmp;
+                tmp[j] += stmp;
+                if(i % Utilities::Parameters.timeScaling == 0)
+                {
+                    data[i] (j)= tmp[j] * Utilities::Parameters.spaceScaling;
+                    tmp[j] = 0;
+                }
+            }
+        }
+    }
+    else if(type == 2)
+    {
+        for (int i = 0; i < nNumberOfSets; i++)
+        {
+            for (int j = 0; j < nSetSize; j++)
+            {
+                src >> stmp;
+                if(i % Utilities::Parameters.timeScaling == 0)
+                {
+                    data[i] (j)= stmp ;
+                }
+            }
+        }
+    }
     src.close ();
 }
 

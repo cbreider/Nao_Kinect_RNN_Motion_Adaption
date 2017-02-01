@@ -32,7 +32,7 @@ int UserSkeleton::Init(openni::Device &dev)
 	g_visibleUsers = false;
 	g_skeletonStates = nite::SKELETON_NONE;
     _shouldCapture = false;
-    sampler.Init(0.5f);
+    sampler.Init();
 
 	return 0;
 }

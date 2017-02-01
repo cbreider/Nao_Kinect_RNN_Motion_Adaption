@@ -7,7 +7,7 @@
 
 //init this object by initializing members
 //note: could do that in header to for c++11
-int SampleWriter::Init(float scaling)
+int SampleWriter::Init()
 {
   _sampleNr = 0;
   _capture = false;
@@ -15,8 +15,6 @@ int SampleWriter::Init(float scaling)
   _lastFlag = false;
   _flag = false;
   _firstFrame = false;
-
-  _scalingFactor = scaling;
 
   return 1;
 }
@@ -70,9 +68,9 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                 {
                     vector<float> tmp(3);
 
-                    tmp[0] = (object[0] - _lastObjectPosition[0]) * _scalingFactor;
-                    tmp[1] = (object[1] - _lastObjectPosition[1]) * _scalingFactor;
-                    tmp[2] = (object[2] - _lastObjectPosition[2]) * _scalingFactor;
+                    tmp[0] = (object[0] - _lastObjectPosition[0]);
+                    tmp[1] = (object[1] - _lastObjectPosition[1]);
+                    tmp[2] = (object[2] - _lastObjectPosition[2]);
                     _anglestreamIn << DataToString(angles);
                     _anglestreamOut << DataToString(angles);
                     _objectStream << DataToString(tmp);

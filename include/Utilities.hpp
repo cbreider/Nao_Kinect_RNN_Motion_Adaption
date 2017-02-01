@@ -22,6 +22,19 @@ using namespace std;
 #define NORMAL_C   "\033[37m"      /* White */
 #define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
 
+struct NNParams
+{
+    int hiddenUnitsCount;
+    int passes;
+    int epoch;
+    float lRate;
+    float minInit;
+    float maxInit;
+    int contextUnitCount;
+    double fTau;
+    float spaceScaling;
+    int timeScaling;
+};
 
 
 struct NNFiles
@@ -54,6 +67,8 @@ public:
     static std::string PathToData;
     static std::string PathToOutput;
     static NNFiles NNfiles;
+    static NNParams Parameters;
+    static string NNFolder;
 
     static void WriteMessage(string message, OutputType type)
     {
@@ -151,7 +166,7 @@ public:
 
     static string ChooseDir();
 
-
+    static void LoadNNSettings();
 
     static int ChooseNNType()
     {

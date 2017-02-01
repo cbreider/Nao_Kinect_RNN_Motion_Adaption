@@ -23,18 +23,6 @@ enum Type
 };
 }
 
-struct NNParams
-{
-    int hiddenUnitsCount;
-    int passes;
-    int epoch;
-    float lRate;
-    float minInit;
-    float maxInit;
-    int contextUnitCount;
-    double fTau;
-};
-
 class RecurrentNeuralNetworkWrapper
 {
     public:
@@ -55,11 +43,8 @@ class RecurrentNeuralNetworkWrapper
         RNN* neuralnetwork;
         Layer** layers;
         BPTT *cbpt_alg;
-        NNParams parameters;
         int passNr;
         std::string Path;
-
-        void LoadSettings();
 
         friend class RNNWrapper;
         friend class RNNCLWrapper;

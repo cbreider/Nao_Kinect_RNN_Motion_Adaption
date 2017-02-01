@@ -11,7 +11,8 @@ std::string Utilities::PathToData;
 std::string Utilities::PathToOutput;
 
 NNFiles Utilities::NNfiles;
-
+NNParams Utilities::Parameters;
+std::string Utilities::NNFolder;
 
     void Utilities::LoadPath()
     {
@@ -30,7 +31,7 @@ NNFiles Utilities::NNfiles;
         NNfiles.anglesInFile = "/anglesIn.txt";
         NNfiles.anglesOutFile = "/anglesOut.txt";
         NNfiles.objectFile = "/objectPos.txt";
-        NNfiles.paramsFile = "/nnParameters.txt";
+        NNfiles.paramsFile = "/Parameters.txt";
 
         Utilities::WriteMessage("File-Folder was set to: " + PATH, Utilities::Normal);
     }
@@ -70,5 +71,57 @@ NNFiles Utilities::NNfiles;
         int x = GetIntergerInput();
         Utilities::WriteMessage("You have chosen: " + dirs[x-1], Utilities::Normal);
         Utilities::WriteBlankLine();
+        Utilities::NNFolder = PathToData + "/" + dirs[x-1];
         return PathToData + "/" + dirs[x-1];
+    }
+
+    void Utilities::LoadNNSettings()
+    {
+        Utilities::WriteMessage("Loading NN-Parameters...", Utilities::Info);
+        std::ifstream io;
+        std::string file = NNFolder + Utilities::NNfiles.paramsFile;
+        io.open(file.c_str());
+        std::string foo;
+
+        io >> foo;
+        io >> Parameters.hiddenUnitsCount;
+        std::cout << foo << Parameters.hiddenUnitsCount << endl;
+
+        io >> foo;
+        io >> Parameters.passes;
+        std::cout << foo << Parameters.passes << endl;
+
+        io >> foo;
+        io >> Parameters.epoch;
+        std::cout << foo << Parameters.epoch << endl;
+
+        io >> foo;
+        io >> Parameters.lRate;
+        std::cout << foo << Parameters.lRate << endl;
+
+        io >> foo;
+        io >> Parameters.minInit;
+        std::cout << foo << Parameters.minInit << endl;
+
+        io >> foo;
+        io >> Parameters.maxInit;
+        std::cout << foo << Parameters.maxInit << endl;
+
+        io >> foo;
+        io >> Parameters.contextUnitCount;
+        std::cout << foo << Parameters.contextUnitCount << endl;
+
+        io >> foo;
+        io >> Parameters.fTau;
+        std::cout << foo << Parameters.fTau << endl;
+
+        io >> foo;
+        io >> Parameters.spaceScaling;
+        std::cout << foo << Parameters.spaceScaling << endl;
+
+        io >> foo;
+        io >> Parameters.timeScaling;
+        std::cout << foo << Parameters.timeScaling << endl;
+
+        Utilities::WriteBlankLine();
     }

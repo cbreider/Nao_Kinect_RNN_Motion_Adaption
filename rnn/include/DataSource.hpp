@@ -39,7 +39,7 @@ class StaticDataSource : public DataSource
 class FileDataSource : public StaticDataSource
 {
     public:
-        FileDataSource (int, int, const char*);
+        FileDataSource (int, int, const char*, int );
         FileDataSource(int , std::vector<float> );
 
 };

@@ -119,6 +119,7 @@ int StartReproducing()
 
     string folder = Utilities::ChooseDir();
     ip = Utilities::GetNaosIp();
+    Utilities::LoadNNSettings();
 
     //Initialize nao
     Utilities::WriteMessage("Initializing Nao... ", Utilities::NewProcedure);
@@ -188,26 +189,33 @@ int StartReproducing()
 
         //Update and get the user
         userState = kinect.Update(true, false);
-        diff[0] = kinect._objectX  - ob[0];
-        diff[1] = kinect._objectY - ob[1];
-        diff[2] = kinect._objectZ - ob[2];
+        if(count > 150)
+        {
+            if(first) Utilities::WriteMessage("Now", Utilities::Info);
+             first = false;
+        if(count % Utilities::Parameters.timeScaling == 0)
+        {
+        diff[0] = (kinect._objectX - ob[0]) * 1.5;
+        diff[1] = (kinect._objectY - ob[1]) * 1.5;
+        diff[2] = (kinect._objectZ - ob[2]) * 1.5;
 
         ob[0] = kinect._objectX;
         ob[1] = kinect._objectY;
         ob[2] = kinect._objectZ;
+        nao.Object = diff;
+
+         nao.Reproduce(initialPose, motion);
+         }
+
         //std::cout <<  object[0] << "   " << object[1] << "   " <<  object[2] <<endl;
 
-        nao.Object = diff;
-        if(count > 150)
-        {
-            if(first) Utilities::WriteMessage("Now", Utilities::Info);
-             nao.Reproduce(initialPose, motion);
-             first = false;
+
         }
         else
         {
             nao.SetRightArm(initialPose, motion);
         }
+
         count++;
     }
     nao.Close(motion);
@@ -304,6 +312,8 @@ int Start(bool sample )
 int LearnFromData()
 {
     string folder = Utilities::ChooseDir();
+    Utilities::LoadNNSettings();
+
     NNType::Type type;
     int t = Utilities::ChooseNNType();
     if(t == 1) type = NNType::RNNT;
