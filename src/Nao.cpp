@@ -78,7 +78,8 @@ int Nao::InitTrainedNN(string path, NNType::Type t)
 
 void Nao::Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion)
 {
-    SetRightArm( naosNeuralNetwork->PredictNextStep(Object, firstPose), motion);
+    rAngles = naosNeuralNetwork->PredictNextStep(Object, firstPose);
+    SetRightArm(rAngles , motion);
 }
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)

@@ -34,6 +34,7 @@ public:
     void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
 
     std::vector<float> Object;
+    std::vector<float> rAngles;
     std::string IPAddress;
 
 private:
