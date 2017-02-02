@@ -26,6 +26,7 @@
 #include "../include/OniSampleUtilities.h"
 #include "Utilities.hpp"
 #include "Connectom.hpp";
+#include <math.h>
 
 using namespace openni;
 using namespace nite;
@@ -195,9 +196,9 @@ int StartReproducing()
             first = false;
             if(count % Utilities::Parameters.timeScaling == 0)
             {
-                diff[0] = (kinect._objectX - ob[0]);
-                diff[1] = (kinect._objectY - ob[1]);
-                diff[2] = (kinect._objectZ - ob[2]);
+                diff[0] = round(kinect._objectX - ob[0]);
+                diff[1] = round(kinect._objectY - ob[1]);
+                diff[2] = round(kinect._objectZ - ob[2]);
 
                 ob[0] = kinect._objectX;
                 ob[1] = kinect._objectY;

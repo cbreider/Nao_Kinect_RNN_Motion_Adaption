@@ -1,5 +1,6 @@
 #include <vector>
 #include "Utilities.hpp";
+#include <math.h>
 
 /**
   * Constructor taking the number of sets to be stored in this object and the size of those sets as arguments.
@@ -100,7 +101,7 @@ FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* str
                 tmp[j] += stmp;
                 if(i % Utilities::Parameters.timeScaling == 0)
                 {
-                    data[i] (j)= tmp[j] * Utilities::Parameters.spaceScaling;
+                    data[i] (j)= round(tmp[j] * Utilities::Parameters.spaceScaling);
                     tmp[j] = 0;
                 }
             }
