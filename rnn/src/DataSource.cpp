@@ -116,7 +116,7 @@ FileDataSource::FileDataSource (int nNumberOfSets, int nSetSize, const char* str
                 src >> stmp;
                 if(i % Utilities::Parameters.timeScaling == 0)
                 {
-                    data[i] (j)= stmp ;
+                    data[i] (j)= round(stmp *10) /10 ;
                 }
             }
         }
