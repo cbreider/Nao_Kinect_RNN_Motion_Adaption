@@ -235,6 +235,16 @@ int Start(bool sample )
     AL::ALMotionProxy motion(ip, 9559);
     AL::ALTextToSpeechProxy tts(ip, 9559);
 
+    int mode = 1;
+    if(!sample)
+    {
+        Utilities::WriteMessage("Choose control type", Utilities::Normal);
+        Utilities::WriteMessage("1: Angle", Utilities::Normal);
+        Utilities::WriteMessage("2: Cartesian", Utilities::Normal);
+        mode = Utilities::GetIntergerInput();
+    }
+
+
     status = nao.Init(motion);
     if(status == 1)
     {
@@ -295,13 +305,20 @@ int Start(bool sample )
                 if(lConfidence > 0.5)
                 {
                     //apply user arm angles to nao
-                    nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
+
+                    if(mode == 1) nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
                 }
             }
             //same for the right arm
             if(rConfidence > 0.5)
             {
-                nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
+                if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
+                if(mode == 2)
+                {
+                    vector<float> pos = kinect.GetUser()->GetArmPosition();
+                    nao.SetRightHand(pos, motion );
+                    //std::cout << pos[2] << " " << pos[0]  << " " <<pos[1] << std::endl;
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ int Nao::Init(AL::ALMotionProxy &motion)
     stiffnessForMotion = AL::ALValue::array(0.8f, 0.4f, 0.4f, 0.4f);
 	stiffnessForHead = AL::ALValue::array(0.5f, 0.5f);
 	fractionMaxSpeedH = 0.2f;
-	fractionMaxSpeedA = 1.0f;
+    fractionMaxSpeedA = 0.7f;
 
     int status = setMotionStiffness(motion);
     motion.openHand("RHand");
@@ -78,8 +78,27 @@ int Nao::InitTrainedNN(string path, NNType::Type t)
 
 void Nao::Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion)
 {
-    rAngles = naosNeuralNetwork->PredictNextStep(Object, firstPose);
-    SetRightArm(rAngles , motion);
+    SetRightArm(naosNeuralNetwork->PredictNextStep(Object, firstPose), motion);
+}
+
+void Nao::SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion)
+{
+    try
+    {
+        std::string chainName  = "RArm";
+        int space              = 0;
+        std::vector<float> position(3); // Absolute Position
+        position[0] =rHandPosition[2];
+        position[1] = - rHandPosition[0];
+        position[2] = - rHandPosition[1];
+        float fractionMaxSpeed = 0.5;
+        int axisMask           = 7;
+        motion.setPositions(chainName, space, position, fractionMaxSpeed, axisMask);
+    }
+    catch(const AL::ALError& e)
+    {
+        std::cout << e.toString() << endl;
+    }
 }
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
@@ -87,6 +106,7 @@ int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
 	try
 	{
 		//printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
+        rAngles = rArm;
 		AL::ALValue targetAngles = AL::ALValue::array(rArm[0], rArm[1], rArm[2], rArm[3]);
 		motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
 		return 0;

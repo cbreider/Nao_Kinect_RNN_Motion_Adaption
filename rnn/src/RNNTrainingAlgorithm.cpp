@@ -61,7 +61,7 @@ void RNNTrainingAlgorithm::Train (RNN* net)
     {
         for (int seq = 0; seq < net->num_seq; seq++)
         {
-            net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), (p == 0)); // collect states, reset network only before first pass
+            net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), (p% 20 == 0)); // collect states, reset network only before first pass
             ComputeGradients (net, seq, epoch_size);
             UpdatePbs (net, seq, epoch_size, lr_pb);
         }

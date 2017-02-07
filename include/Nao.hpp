@@ -20,7 +20,7 @@ public:
 
     int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
-
+    void SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion);
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
     int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
 

@@ -30,7 +30,7 @@ public:
 
 	std::vector<float> GetRightArmAngles();
 	std::vector<float> GetLeftArmAngles();
-
+    std::vector<float> GetArmPosition();
 	float GetRightArmPositionConfidence();
 	float GetLeftArmPositionConfidence();
 	std::vector<float> object;

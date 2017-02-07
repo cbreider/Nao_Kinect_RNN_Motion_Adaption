@@ -199,6 +199,15 @@ void UserSkeleton::normalizeVector(vector<float> &vector)
 	vector[2] = vector[2] / lenght;
 }
 
+vector<float> UserSkeleton::GetArmPosition()
+{
+    vector<float> arm(3);
+    arm[0] = (torso.getPosition().x - rHand.getPosition().x) / 1000;
+    arm[1] =( torso.getPosition().y - rHand.getPosition().y) / 1000;
+    arm[2] = (torso.getPosition().z - rHand.getPosition().z) / 1000;
+    return arm;
+}
+
 void UserSkeleton::calculateUserOrientation(nite::SkeletonJoint lShoulder, nite::SkeletonJoint rShoulder, nite::SkeletonJoint torso)
 {
 	//To get a orientation system relative to the user some basic vector geometry is done.

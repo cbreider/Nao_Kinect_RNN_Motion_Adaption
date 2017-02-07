@@ -174,10 +174,11 @@ public:
         string chose;
         string rnn = "Recurrent Neural Network";
         string rnncl = "Recurrent Neural Network with Context-Loop";
-
+        string rnnpb = "Recurrent Neural Network with Context-Loop and PB";
         Utilities::WriteMessage("Choose a type for the NN:", Utilities::Normal);
         WriteMessage("1: "+  rnn, Normal);
         WriteMessage("2: " + rnncl, Normal);
+         WriteMessage("3: " + rnnpb, Normal);
 
         int x = GetIntergerInput();
 
@@ -193,7 +194,7 @@ public:
         }
         else if(x == 3)
         {
-            chose = rnn;
+            chose = rnnpb;
             t = 3;
         }
         Utilities::WriteMessage("You have chosen: " + chose, Utilities::Normal);
