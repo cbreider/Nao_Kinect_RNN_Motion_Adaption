@@ -203,7 +203,7 @@ vector<float> UserSkeleton::GetArmPosition()
 {
     vector<float> arm(3);
     arm[0] = (torso.getPosition().x - rHand.getPosition().x) / 1000;
-    arm[1] =( torso.getPosition().y - rHand.getPosition().y) / 1000;
+    arm[1] = (torso.getPosition().y - rHand.getPosition().y) / 1000;
     arm[2] = (torso.getPosition().z - rHand.getPosition().z) / 1000;
     return arm;
 }

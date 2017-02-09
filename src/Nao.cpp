@@ -87,12 +87,16 @@ void Nao::SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion)
     {
         std::string chainName  = "RArm";
         int space              = 0;
-        std::vector<float> position(3); // Absolute Position
-        position[0] =rHandPosition[2];
-        position[1] = - rHandPosition[0];
-        position[2] = - rHandPosition[1];
-        float fractionMaxSpeed = 0.5;
-        int axisMask           = 7;
+        std::vector<float> position(6); // Absolute Position
+        position[0] =   rHandPosition[2] / 3;
+        position[1] = - rHandPosition[0] / 3 ;
+        position[2] = - rHandPosition[1] / 3;
+        position[3] =   0;
+        position[4] =   0;
+        position[5] =   0;
+        float fractionMaxSpeed = 1;
+        int axisMask           = 63;
+        printf("%0.3f, %0.3f, %0.3f \n", position[0], position[1], position[2]);
         motion.setPositions(chainName, space, position, fractionMaxSpeed, axisMask);
     }
     catch(const AL::ALError& e)
