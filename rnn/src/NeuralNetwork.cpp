@@ -269,7 +269,10 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
 
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
+                {
+                    u_def[nSeq][dst_layer] = 0.0337;
                     cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
+                }
 
                 // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
                 for (src_layer = 0; src_layer < num_layers; src_layer++)
@@ -306,6 +309,7 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
 
     for (int t = 0; t < nSkip+nPasses; t++)
     {
+        samplecounter++;
         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
         {
             // cur_u denotes the induced local fields of the current layer at the current time-step
@@ -323,17 +327,20 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
                     int foo2 =  data_in_index[nSeq][dst_layer];
                     int foo3 = copy_output_after[dst_layer];
                     if (copy_output[dst_layer] > -1  && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
-                        if(!bFirstpass)
+                    {
+                        if(samplecounter < 80)
                         {
                             cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                         }
                         else
                         {
-                            cur_u[nSeq][dst_layer][0] = 1;
-                            cur_u[nSeq][dst_layer][1] = 1;
-                            cur_u[nSeq][dst_layer][2] = 1;
-                            cur_u[nSeq][dst_layer][3] = 1;
+                            samplecounter = 0;
+                            cur_u[nSeq][dst_layer][0] = 0;
+                            cur_u[nSeq][dst_layer][1] = 0;
+                            cur_u[nSeq][dst_layer][2] = 0;
+                            cur_u[nSeq][dst_layer][3] = 0;
                         }
+                    }
                     else
                         data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
                 }
@@ -360,8 +367,11 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
                     }
 
                 // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
-                cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
-                cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
+                if(samplecounter != 0)
+                {
+                    cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
+                    cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
+                }
 
                 prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];
                 layers[dst_layer]->ComputeActivations (&cur_u[nSeq][dst_layer], &y[nSeq][dst_layer]);
@@ -424,10 +434,10 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                                }
                                else
                                {
-                                   cur_u[nSeq][dst_layer][0] = 1;
-                                   cur_u[nSeq][dst_layer][1] = 1;
-                                   cur_u[nSeq][dst_layer][2] = 1;
-                                   cur_u[nSeq][dst_layer][3] = 1;
+                                   cur_u[nSeq][dst_layer][0] = 0;
+                                   cur_u[nSeq][dst_layer][1] = 0;
+                                   cur_u[nSeq][dst_layer][2] = 0;
+                                   cur_u[nSeq][dst_layer][3] = 0;
                                }
                         }
                     }
@@ -442,7 +452,10 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
 
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
+                {
+                    u_def[nSeq][dst_layer] = -0.95;
                     cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
+                }
 
                 // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
                 for (src_layer = 0; src_layer < num_layers; src_layer++)

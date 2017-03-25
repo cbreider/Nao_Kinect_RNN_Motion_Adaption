@@ -14,7 +14,7 @@ class RNNTrainingAlgorithm
         virtual void ComputeGradients (RNN*, int, int) = 0;
         virtual void UpdatePbs (RNN*, int, int, double) = 0;
         virtual void UpdateWeights (RNN*) = 0;
-        void Train (RNN*);
+        void Train (RNN*,  int samplecount);
         NetworkErrorData* Test (RNN*, int, int, int, int, bool, bool, double);
 
         int passes;

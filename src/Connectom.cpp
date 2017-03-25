@@ -37,7 +37,7 @@ RecurrentNeuralNetworkWrapper::RecurrentNeuralNetworkWrapper(NNType::Type type, 
 std::vector<float> RecurrentNeuralNetworkWrapper::PredictNextStep(std::vector<float> object, std::vector<float> angles)
 {
     passNr++;
-    if(passNr == 400) passNr = 0;
+    if(passNr == 80) passNr = 0;
     return neuralnetwork->RunOneTime(0, object, passNr, angles);
 }
 
@@ -158,7 +158,7 @@ void RNNCLWrapper::TrainFromSource()
     neuralnetwork->SetOutput(4, &ds_out, false);
 
     neuralnetwork->ExportWeights(false, Path);
-    neuralnetwork->Train();
+    neuralnetwork->Train(number_of_lines);
     neuralnetwork->ExportWeights(true, Path);
 }
 
@@ -229,7 +229,7 @@ void RNNWrapper::TrainFromSource()
     neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
     neuralnetwork->SetOutput(3, &ds_out, false);
     neuralnetwork->ExportWeights(false, Path);
-    neuralnetwork->Train();
+    neuralnetwork->Train(number_of_lines);
     neuralnetwork->ExportWeights(true, Path);
 }
 
@@ -266,7 +266,7 @@ void RNNPBWrapper::Init()
     //1. hidden layer
     neuralnetwork->ConnectLayerToLayer(0, 2, &rand_init, true); // connect input to hidden layer
     neuralnetwork->ConnectLayerToLayer(1, 2, &rand_init, true); //connect PB-Layer to hidden layer
-    neuralnetwork->ConnectLayerToLayer(5, 2, &rand_init, true);
+    neuralnetwork->ConnectLayerToLayer(5, 2, &rand_init, false);
     neuralnetwork->ConnectLayerToLayer(2, 3, &rand_init, true); // connect hidden layer to output layer
     neuralnetwork->ConnectLayerToLayer(2, 4, &rand_init, true); // connect hidden layer to context loop x+1
 
@@ -300,7 +300,7 @@ void RNNPBWrapper::TrainFromSource()
     neuralnetwork->SetOutput(3, &ds_out, false);
 
     neuralnetwork->ExportWeights(false, Path);
-    neuralnetwork->Train();
+    neuralnetwork->Train(number_of_lines);
     neuralnetwork->ExportWeights(true, Path);
     /*for(int  i = 1; i< 50000; ++i)
     {
