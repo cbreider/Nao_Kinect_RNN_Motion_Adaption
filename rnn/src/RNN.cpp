@@ -46,9 +46,9 @@ RNN::RNN (int nLayers, Layer** layerArray, RNNTrainingAlgorithm* rnnAlg, int nSe
 /**
   * Trains the network using the algorithm passed to the constructor.
   */
-void RNN::Train ()
+void RNN::Train (int samplecount)
 {
-    alg->Train (this);
+    alg->Train (this, samplecount);
 }
 
 /**

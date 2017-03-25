@@ -8,7 +8,7 @@ class RNN : public NeuralNetwork
 {
     public:
         RNN (int, Layer**, RNNTrainingAlgorithm*, int = 1);
-        void Train ();
+        void Train (int samplecount);
         NetworkErrorData* Test (int, int, int, int = 0, bool = false, bool = false, double = 0.0);
         NetworkErrorData* Test (int, int, int = 0, bool = false, bool = false, double = 0.0);
         void ConnectLayerToLayer (int, int);

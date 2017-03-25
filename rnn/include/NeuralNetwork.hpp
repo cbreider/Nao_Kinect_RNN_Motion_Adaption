@@ -55,6 +55,7 @@ class NeuralNetwork
         mat** s;
         mat** d;
 
+         int samplecounter = 0;
         friend class RNNTrainingAlgorithm;
         friend class BPTT;
         friend class CTRNN;
