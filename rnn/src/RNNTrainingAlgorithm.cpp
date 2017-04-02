@@ -1,3 +1,5 @@
+#include <vector>
+#include "Utilities.hpp"
 
 /**
   * Constructs a learning algorithm object, with the parameters determining the number of training epochs, the size of one training epoch, the learning rate, and the Paraetric Bias (PB) learning rate.
@@ -54,22 +56,48 @@ void RNNTrainingAlgorithm::AllocateMemory (RNN* net, int nEpochSize)
   */
 void RNNTrainingAlgorithm::Train (RNN* net, int samplecount)
 {
+    Train(net, std::vector<int>{samplecount});
+}
+
+void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
+{
     net->ResetDataSources ();
     AllocateMemory (net, epoch_size);
 
     for (int p = 0; p < passes; p++)
     {
-        for (int seq = 0; seq < net->num_seq; seq++)
+        if(Utilities::wasKeyboardHit())
         {
-            net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), (p% samplecount == 0)); // collect states, reset network only before first pass
-            ComputeGradients (net, seq, epoch_size);
-            UpdatePbs (net, seq, epoch_size, lr_pb);
+            return;
         }
-        if(p%10000 == 0)
+        else
         {
-            std::cout << "PassNr.: " << p << endl;
+            for (int seq = 0; seq < net->num_seq; seq++)
+            {
+                net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), ((p-1)% samplecounter[seq] == 0)); // collect states, reset network only before first pass
+                ComputeGradients (net, seq, epoch_size);
+                UpdatePbs (net, seq, epoch_size, lr_pb);
+            }
+            if(p%100 == 0)
+            {
+                std::cout << "PassNr.: " << p << endl;
+                for(int i = 0; i< net->num_seq; i++)
+                {
+                    for(int ii = 0; ii < 4; ii++)
+                    {
+                        for(int iii = 0; iii< net->num_layers; iii++)
+                        {
+                            if(net->layers[iii]->IsPbLayer())
+                                std::cout << "PB" << i <<": "<< net->u_def[i][iii] (ii) << endl;
+                        }
+                    }
+                        std::cout << sum_e[i] << endl;
+                        sum_e[i] = 0;
+                }
+                std::cout << "\n \n";
+            }
+            UpdateWeights (net);
         }
-        UpdateWeights (net);
     }
 }
 

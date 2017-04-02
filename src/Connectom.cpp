@@ -5,7 +5,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-
+#include <tr1/memory>
+#include <memory>
 #include "Connectom.hpp"
 
 using namespace std;
@@ -252,13 +253,13 @@ void RNNPBWrapper::Init()
     layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::TANH);      //hidden Layer
     layers[3] = new Layer(4); // output - 4DOF
     layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
-    layers[5] = new Layer(1, ActivationFunction::SIGMOID, true); //pblayer
+    layers[5] = new Layer(4, ActivationFunction::SIGMOID, true); //pblayer
 
     //Set Trainalgorithm
     cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, Utilities::Parameters.lRate);
 
     //Init network
-    neuralnetwork = new RNN(6, layers, cbpt_alg);
+    neuralnetwork = new RNN(6, layers, cbpt_alg, 4);
 
     RandomInitialization rand_init(Utilities::Parameters.minInit, Utilities::Parameters.maxInit);
 
@@ -285,23 +286,48 @@ void RNNPBWrapper::LoadWeights()
 
 void RNNPBWrapper::TrainFromSource()
 {
-    int number_of_lines = 0;
+    std::vector<int> number_of_lines(4);
     std::string line;
-    std::ifstream myfile((Path + Utilities::NNfiles.anglesInFile).c_str());
 
-    while (std::getline(myfile, line))
-        ++number_of_lines;
+    std::vector<string> files_in(4);
+    std::vector<string> files_out(4);
 
-    FileDataSource ds_inA (number_of_lines, 4, (Path + Utilities::NNfiles.anglesInFile).c_str(), 2);
-    FileDataSource ds_out (number_of_lines, 4, (Path + Utilities::NNfiles.anglesOutFile).c_str(), 2);
-    StaticDataSource context(number_of_lines, 4);
-    neuralnetwork->SetInput(0, 0, &ds_inA, -1, 0);
-    neuralnetwork->SetInput(0, 1, &context, 4, 0 );
-    neuralnetwork->SetOutput(3, &ds_out, false);
+
+
+    for(int i = 0; i<4; i++ )
+    {
+       number_of_lines.push_back(0);
+       files_in[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), i+1).c_str());
+       files_out[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesOutFile.c_str(), i+1).c_str());
+       Utilities::WriteMessage(files_in[i], Utilities::Info);
+       ifstream file(files_in[i].c_str());
+        while (std::getline(file, line))
+            ++number_of_lines[i];
+    }
+
+    FileDataSource ds_in_one(number_of_lines[0], 4, files_in[0].c_str(), 2);
+    FileDataSource ds_in_two(number_of_lines[1], 4, files_in[1].c_str(), 2);
+    FileDataSource ds_in_three(number_of_lines[2], 4, files_in[2].c_str(), 2);
+    FileDataSource ds_in_four(number_of_lines[3], 4, files_in[3].c_str(), 2);
+
+    FileDataSource ds_out_one (number_of_lines[0], 4,  files_out[0].c_str(), 2);
+    FileDataSource ds_out_two (number_of_lines[1], 4,  files_out [1].c_str(), 2);
+    FileDataSource ds_out_three (number_of_lines[2], 4, files_out[2].c_str(), 2);
+    FileDataSource ds_out_four (number_of_lines[3], 4,  files_out[3].c_str(), 2);
+
+     neuralnetwork->SetInput(0, 0, &ds_in_one, -1, 0);
+     neuralnetwork->SetOutput(0, 3, &ds_out_one, false);
+     neuralnetwork->SetInput(1, 0, &ds_in_two, -1, 0);
+     neuralnetwork->SetOutput(1, 3, &ds_out_two, false);
+     neuralnetwork->SetInput(2, 0, &ds_in_three, -1, 0);
+     neuralnetwork->SetOutput(2, 3, &ds_out_three, false);
+     neuralnetwork->SetInput(3, 0, &ds_in_four, -1, 0);
+     neuralnetwork->SetOutput(3, 3, &ds_out_four, false);
 
     neuralnetwork->ExportWeights(false, Path);
     neuralnetwork->Train(number_of_lines);
     neuralnetwork->ExportWeights(true, Path);
+
     /*for(int  i = 1; i< 50000; ++i)
     {
         if(i%100 == 0) std::cout << i << endl;

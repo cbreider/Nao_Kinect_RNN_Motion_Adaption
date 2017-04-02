@@ -309,7 +309,6 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
 
     for (int t = 0; t < nSkip+nPasses; t++)
     {
-        samplecounter++;
         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
         {
             // cur_u denotes the induced local fields of the current layer at the current time-step
@@ -323,18 +322,17 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
                 {
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
-                    int foo = copy_output[dst_layer];
-                    int foo2 =  data_in_index[nSeq][dst_layer];
-                    int foo3 = copy_output_after[dst_layer];
+                    //int foo = copy_output[dst_layer];
+                    //int foo2 =  data_in_index[nSeq][dst_layer];
+                    //int foo3 = copy_output_after[dst_layer];
                     if (copy_output[dst_layer] > -1  && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
                     {
-                        if(samplecounter < 80)
+                        if(!bFirstpass)
                         {
                             cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                         }
                         else
                         {
-                            samplecounter = 0;
                             cur_u[nSeq][dst_layer][0] = 0;
                             cur_u[nSeq][dst_layer][1] = 0;
                             cur_u[nSeq][dst_layer][2] = 0;
@@ -367,7 +365,7 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
                     }
 
                 // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
-                if(samplecounter != 0)
+                if(!bFirstpass)
                 {
                     cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
                     cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
@@ -453,7 +451,7 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
                 {
-                    u_def[nSeq][dst_layer] = -0.95;
+                    u_def[nSeq][dst_layer](0) = 0.95;
                     cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
                 }
 
@@ -611,8 +609,12 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weig
     (*w[nDstLayer][nSrcLayer]) = trans (*weights);
 }
 
-
 void NeuralNetwork::ExportWeights(bool afterTraining, std::string path)
+{
+    ExportWeightsAndPBs(afterTraining, path, 0);
+}
+
+void NeuralNetwork::ExportWeightsAndPBs(bool afterTraining, std::string path, int nseq)
 {
     std::string br = "\n";
     std::string filename= path;
@@ -627,7 +629,28 @@ void NeuralNetwork::ExportWeights(bool afterTraining, std::string path)
     // Iterate over all synapses and adjust the trainable weights
     for (src_layer = 0; src_layer < num_layers; src_layer++)
     {
-        io << br;
+        if(layers[src_layer]->IsPbLayer() && afterTraining)
+        {
+            std::ofstream io_pb;
+            io_pb.open((path + Utilities::NNfiles.PBfile).c_str());
+                    for(int sq = 0; sq < nseq; sq++)
+            {
+                if(sq != 0) io << br;
+                for (int unit = 0; unit < layers[src_layer]->GetSize (); unit++)
+                {
+                    std::stringstream ss_pb;
+
+                    ss_pb <<u_def[sq][dst_layer] (unit);
+                    ss_pb << " ";
+                    io_pb << ss_pb.str();
+                }
+            }
+            io_pb.close();
+        }
+        if(src_layer != 0)
+        {
+            io << br;
+        }
         for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
             if (w[dst_layer][src_layer]) // skip the following steps if the two layers aren't connected to begin with; this should make the program faster in almost all cases
                 for (src_unit = 0; src_unit < layers[src_layer]->GetSize (); src_unit++)
@@ -646,7 +669,6 @@ void NeuralNetwork::ExportWeights(bool afterTraining, std::string path)
                     }
     }
     io.close();
-
 }
 
 void NeuralNetwork::ImportWeights(std::string path)

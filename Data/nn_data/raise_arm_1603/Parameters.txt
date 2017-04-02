@@ -1,3 +1,4 @@
+
 Number_of_hidden_units: 12
 Number_of_training_passes: 4000000
 Epoch_size: 40
