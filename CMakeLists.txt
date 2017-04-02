@@ -1,5 +1,4 @@
 ##
-# Copyright (c) 2011 Aldebaran Robotics. All Rights Reserved.
 
 cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
 

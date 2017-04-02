@@ -1,3 +1,4 @@
+#include <vector>
 
 /**
   * Creates a new recurrent neural network consisting of nLayers layers stored in layerArray; the network will be able to learn nSequences trajectories using the training algorithm specified by rnnAlg.
@@ -47,6 +48,11 @@ RNN::RNN (int nLayers, Layer** layerArray, RNNTrainingAlgorithm* rnnAlg, int nSe
   * Trains the network using the algorithm passed to the constructor.
   */
 void RNN::Train (int samplecount)
+{
+    alg->Train (this, samplecount);
+}
+
+void RNN::Train (std::vector<int> samplecount)
 {
     alg->Train (this, samplecount);
 }

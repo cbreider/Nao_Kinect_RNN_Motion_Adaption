@@ -32,7 +32,7 @@ std::string Utilities::NNFolder;
         NNfiles.anglesOutFile = "/anglesOut.txt";
         NNfiles.objectFile = "/objectPos.txt";
         NNfiles.paramsFile = "/Parameters.txt";
-
+        NNfiles.PBfile = "/PBvalues";
         Utilities::WriteMessage("File-Folder was set to: " + PATH, Utilities::Normal);
     }
 
@@ -124,4 +124,14 @@ std::string Utilities::NNFolder;
         std::cout << foo << Parameters.timeScaling << endl;
 
         Utilities::WriteBlankLine();
+    }
+
+    string Utilities::GetMoreFilenames(std::string base, int number)
+    {
+        stringstream ss;
+        ss << base;
+        ss << number;
+
+        Utilities::WriteMessage(ss.str(), Utilities::Info);
+        return ss.str();
     }

@@ -1,10 +1,13 @@
-
+#include <vector>
 /**
   * Constructor; See RNNTrainingAlgorithm (this class's parent class) for information about the parameters.
   */
 BPTT::BPTT (int nPasses, int nEpochSize, double fLearningRate, double fPbLearningRate) : RNNTrainingAlgorithm (nPasses, nEpochSize, fLearningRate, fPbLearningRate)
 {
-
+        sum_e.push_back(0);
+        sum_e.push_back(0);
+        sum_e.push_back(0);
+        sum_e.push_back(0);
 }
 
 /**
@@ -29,14 +32,8 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
             if (net->data_out[nSeq][src_layer])
             {
                 e = trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
-                sum_e += e[0] + e[1] + e[2] + e[3];
-                if(loopCounter == 0)
-                {
-                    std::cout << sum_e << endl;
-                    sum_e = 0;
-                    loopCounter = 10000;
-                }
-                loopCounter--;
+                sum_e[nSeq] += e[0] + e[1] + e[2] + e[3];
+
             }
             else
                 e.zeros (net->layers[src_layer]->GetSize ());
@@ -112,10 +109,9 @@ void BPTT::UpdatePbs (RNN* net, int nSeq, int nEpochSize, double fPbLearningRate
                 for (t = 0; t < nEpochSize - 1; t++)
                     sum += g[nSeq][l][t] (unit);
 
-                net->u_def[nSeq][l] (unit) += fPbLearningRate * sum;
-                if(loopCounter == 0)
-                {
-                    std::cout << "PB: "<< net->u_def[nSeq][l] (unit) << "\n" << endl;
-                }
+              net->u_def[nSeq][l] (unit) += fPbLearningRate * sum;
+
+
+
             }
 }

@@ -11,6 +11,10 @@
 #include <fstream>
 #include <cstdlib>
 #include <Connectom.hpp>
+#include <unistd.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -45,7 +49,8 @@ struct NNFiles
     std::string anglesInFile ;
     std::string anglesOutFile;
     std::string objectFile;
-    std::string paramsFile;
+    std::string paramsFile;   
+    std::string PBfile;
 };
 
 class Utilities
@@ -81,6 +86,43 @@ public:
         std::cout << ERROR_C << message  << std::endl;
         std::cout << err << endl;
         std:cout << "" << RESET_C << endl;
+    }
+
+
+    static int wasKeyboardHit()
+    {
+        struct termios oldt, newt;
+        int ch;
+        int oldf;
+
+        // don't echo and don't wait for ENTER
+        tcgetattr(STDIN_FILENO, &oldt);
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+        oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+
+        // make it non-blocking (so we can check without waiting)
+        if (0 != fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK))
+        {
+            return 0;
+        }
+
+        ch = getchar();
+
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+        if (0 != fcntl(STDIN_FILENO, F_SETFL, oldf))
+        {
+            return 0;
+        }
+
+        if(ch != EOF)
+        {
+            ungetc(ch, stdin);
+            return 1;
+        }
+
+        return 0;
     }
 
     static void WriteBlankLine()
@@ -167,6 +209,9 @@ public:
     static string ChooseDir();
 
     static void LoadNNSettings();
+
+    static string GetMoreFilenames(std::string base, int number);
+
 
     static int ChooseNNType()
     {

@@ -61,8 +61,8 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                 cout << "Capturing Sample" << _sampleNr << "..." << endl;
             }
             //check if object was detected correctly
-            if((object[2] > 500) && (object[2] < 2000))
-            {
+            //if((object[2] > 500) && (object[2] < 2000))
+            //{
                 //capture differnce of objectPosition
                 if(!_firstFrame)
                 {
@@ -83,12 +83,13 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                     initialPose.open(GetFilename(Utilities::NNfiles.initposeFile).c_str());
                     initialPose << DataToString(angles);
                     initialPose.close();
+                    _firstFrame = false;
+
                 }
                 _lastObjectPosition = object;
-            }
+            //}
             if (_firstFrame)
             {
-                _firstFrame = false;
             }
             //hard set of counter to not run in overflow-error of int32 (although this should not happen)
             startCounter = 2001;
@@ -173,7 +174,6 @@ string SampleWriter::GetFilename(string type)
     std::stringstream stream;
     stream << Utilities::PathToOutput;
     stream << type;
-    stream << ".";
     stream << _sampleNr;
 
     string st = stream.str();

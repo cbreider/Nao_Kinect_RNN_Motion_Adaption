@@ -23,6 +23,7 @@ class NeuralNetwork
         void ConnectLayerToLayer (int, int, Initialization*, bool);
         void ConnectLayerToLayer (int, int, mat*, bool);
 
+        void ExportWeightsAndPBs(bool afterTraining, std::string, int);
         void ExportWeights(bool afterTraining, std::string);
         void ImportWeights(std::string);
         std::vector<float> RunOneTime (int nSeq, std::vector<float> object, int passNr, vector<float> firstangles);
@@ -55,7 +56,6 @@ class NeuralNetwork
         mat** s;
         mat** d;
 
-         int samplecounter = 0;
         friend class RNNTrainingAlgorithm;
         friend class BPTT;
         friend class CTRNN;

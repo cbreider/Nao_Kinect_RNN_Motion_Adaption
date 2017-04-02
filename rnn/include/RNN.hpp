@@ -1,6 +1,7 @@
 #ifndef RNN2_HPP_INCLUDED
 #define RNN2_HPP_INCLUDED
 
+#include <vector>
 /**
   * Represents recurrent neural networks that are trained using gradient-based methods.
   */
@@ -9,6 +10,7 @@ class RNN : public NeuralNetwork
     public:
         RNN (int, Layer**, RNNTrainingAlgorithm*, int = 1);
         void Train (int samplecount);
+        void Train (std::vector<int> samplecount);
         NetworkErrorData* Test (int, int, int, int = 0, bool = false, bool = false, double = 0.0);
         NetworkErrorData* Test (int, int, int = 0, bool = false, bool = false, double = 0.0);
         void ConnectLayerToLayer (int, int);

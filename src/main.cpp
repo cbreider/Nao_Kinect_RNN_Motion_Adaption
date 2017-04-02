@@ -23,7 +23,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <limits.h>
-#include "../include/OniSampleUtilities.h"
 #include "Utilities.hpp"
 #include "Connectom.hpp";
 #include <math.h>
@@ -267,7 +266,7 @@ int Start(bool sample )
     {
         if(!sample)
         {
-            if(wasKeyboardHit()) break;
+            if(Utilities::wasKeyboardHit()) break;
         }
         else
         {
