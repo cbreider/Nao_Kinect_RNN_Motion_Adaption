@@ -68,12 +68,15 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                 {
                     vector<float> tmp(3);
 
-                    tmp[0] = (object[0] - _lastObjectPosition[0]);
-                    tmp[1] = (object[1] - _lastObjectPosition[1]);
-                    tmp[2] = (object[2] - _lastObjectPosition[2]);
-                    _anglestreamIn << DataToString(angles);
-                    _anglestreamOut << DataToString(angles);
-                    _objectStream << DataToString(tmp);
+                    if(object[2] > 0 && object[2] < 4000)
+                    {
+                        tmp[0] = (object[0] - _lastObjectPosition[0]);
+                        tmp[1] = (object[1] - _lastObjectPosition[1]);
+                        tmp[2] = (object[2] - _lastObjectPosition[2]);
+                        _anglestreamIn << DataToString(angles);
+                        _anglestreamOut << DataToString(angles);
+                        _objectStream << DataToString(tmp);
+                    }
                 }
                 else
                 {

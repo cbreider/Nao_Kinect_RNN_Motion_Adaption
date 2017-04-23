@@ -74,11 +74,11 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
         {
             for (int seq = 0; seq < net->num_seq; seq++)
             {
-                net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), ((p-1)% samplecounter[seq] == 0)); // collect states, reset network only before first pass
+                net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), samplecounter, p==0); // collect states, reset network only before first pass
                 ComputeGradients (net, seq, epoch_size);
                 UpdatePbs (net, seq, epoch_size, lr_pb);
             }
-            if(p%100 == 0)
+            if(p%1000 == 0)
             {
                 std::cout << "PassNr.: " << p << endl;
                 for(int i = 0; i< net->num_seq; i++)
