@@ -103,7 +103,7 @@ void RNNCLWrapper::Init()
     layers[0] = new Layer(4);  // input prev arm angles
     layers[1] = new Layer(3);  // input object position
     layers[2] = new Layer(Utilities::Parameters.contextUnitCount, NULL, false, false, 20, NULL); //context loop x
-    layers[3] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID);      //hidden Layer
+    layers[3] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::TANH);      //hidden Layer
     layers[4] = new Layer(4); // output - 4DOF
     layers[5] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
 

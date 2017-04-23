@@ -30,7 +30,7 @@ class NeuralNetwork
 
     protected:
         void Run (int, int, int, bool, bool, bool);
-        void RunWithRecurrentConnections (int , int , int , bool , bool , bool);
+        void RunWithRecurrentConnections (int , int , int , bool , bool , std::vector<int> samplecounter, bool);
         void Reset (int, int, bool);
         void ResetDataSources ();
         void CollectErrorData (int, NetworkErrorData*);
@@ -56,6 +56,7 @@ class NeuralNetwork
         mat** s;
         mat** d;
 
+        int passCounter = 0;
         friend class RNNTrainingAlgorithm;
         friend class BPTT;
         friend class CTRNN;
