@@ -69,30 +69,11 @@ SkeletonState Kinect::Update(bool object, bool user)
         color.readFrame(&colorFrame);
         depth.readFrame(&depthFrame);
 
-        vector<float> pos = _objectTracker.Update(depthFrame, colorFrame);
+         vector<float> pos = _objectTracker.Update(depthFrame, colorFrame);
 
+        CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2], &_objectX, &_objectY, &_objectZ);
 
-        int a = CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2], &_objectX, &_objectY, &_objectZ);
-
-        /*if(counter % 10 == 0)
-        {
-            stringstream ss;
-            ss << _objectX;
-            ss << "    ";
-            ss  << _objectY;
-            ss << "    ";
-            ss << _objectZ;
-
-            Utilities::WriteMessage(ss.str(), Utilities::Normal);
-            counter = 1;
-        }
-        counter++;*/
-
-        vector<float> pos2(3);
-        pos2[0] = _objectX;
-        pos2[1] = _objectY;
-        pos2[2] = (_objectZ);
-        _userSkeleton.object = pos2;
+        //_userSkeleton.object = vector<float>  {_objectX, _objectY, _objectZ};
     }
 
     if(user)

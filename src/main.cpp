@@ -259,7 +259,7 @@ int Start(bool sample )
     }
 
     // Nao should say some phrase for introduction
-    //nao.SayIntroductionPhrase(tts);
+   //nao.SayIntroductionPhrase(tts);Nao_AdaptiveMotion
     //nao.SetMotionStiffness(motion);
     //run
     while(true)
@@ -279,7 +279,7 @@ int Start(bool sample )
 
 
         //Update and get the user
-        userState = kinect.Update(sample, true);
+        userState = kinect.Update(true, true);
 
         // check user state
         if(userState == nite::SKELETON_NONE)
@@ -290,7 +290,7 @@ int Start(bool sample )
         else if(userState == nite::SKELETON_CALIBRATING && first)
         {
             first = false;
-            // nao.SayInstructionPhrase(tts);
+           // nao.SayInstructionPhrase(tts);
         }
         else if(userState == nite::SKELETON_TRACKED)
         {
@@ -301,7 +301,7 @@ int Start(bool sample )
             if(!sample)
             {
                 //ckeck if confidence is high enough
-                if(lConfidence > 0.5)
+                if(lConfidence > 0.4)
                 {
                     //apply user arm angles to nao
 
@@ -309,7 +309,7 @@ int Start(bool sample )
                 }
             }
             //same for the right arm
-            if(rConfidence > 0.5)
+            if(rConfidence > 0.4)
             {
                 if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
                 if(mode == 2)

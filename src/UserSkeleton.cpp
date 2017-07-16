@@ -21,7 +21,7 @@ int UserSkeleton::Init(openni::Device &dev)
 	}
 
     Utilities::WriteMessage("Creating UserTracker...", Utilities::NewProcedure);
-	niteRc = userTracker.create();
+    niteRc = userTracker.create();
 	if (niteRc != nite::STATUS_OK)
 	{
         Utilities::WriteMessage("Couldn't create user tracker!", Utilities::Error);
@@ -72,7 +72,6 @@ nite::SkeletonState UserSkeleton::Update()
 
     nite::SkeletonState state = SKELETON_NONE;
     unsigned long long ts = userTrackerFrame.getTimestamp();
-
     if (users.getSize() > 0)
     {
         const nite::UserData& user = users[0];

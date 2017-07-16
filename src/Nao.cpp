@@ -139,6 +139,7 @@ int Nao::SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts)
 {
 	try
 	{
+        tts.setVolume(1);
 		tts.say("Hey Buddy");
 		tts.say("Stand in front of the camera");
         tts.say("And show me how you move your arms ");

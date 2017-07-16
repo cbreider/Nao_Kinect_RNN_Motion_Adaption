@@ -14,7 +14,7 @@ using namespace std;
 using namespace nite;
 
 #define M_PI           3.14159265358979323846
-#define MAX_USERS 1
+#define MAX_USERS  5
 #define USER_MESSAGE(msg) \
 	{printf("[%08llu] User #%d:\t%s\n",ts, user.getId(),msg);}
 
