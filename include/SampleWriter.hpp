@@ -19,6 +19,7 @@ class SampleWriter
     int Update(std::vector<float> angles, std::vector<float> object, bool caputerFlag);
     int UpdateOnlyUser(std::vector<float> angles, bool captureFlag);
     int Finalize();
+    string DataToString(std::vector<float> data);
 
     int WriteCostumFile(string output, string filename);
 
@@ -28,7 +29,6 @@ class SampleWriter
   private:
     bool IsLeftArmOverHead();
     void OpenStreams();
-    string DataToString(std::vector<float> data);
     string GetFilename(string type);
     //string DataToCSVString();
 

@@ -76,9 +76,9 @@ int Nao::InitTrainedNN(string path, NNType::Type t)
     return 0;
 }
 
-void Nao::Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion)
+void Nao::Reproduce(vector<float> firstPose)
 {
-    SetRightArm(naosNeuralNetwork->PredictNextStep(Object, firstPose), motion);
+    naosNeuralNetwork->PredictNextStep(Object, firstPose);
 }
 
 void Nao::SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion)
@@ -139,6 +139,7 @@ int Nao::SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts)
 {
 	try
 	{
+        tts.setVolume(1);
 		tts.say("Hey Buddy");
 		tts.say("Stand in front of the camera");
         tts.say("And show me how you move your arms ");

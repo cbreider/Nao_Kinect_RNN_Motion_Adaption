@@ -35,11 +35,11 @@ RecurrentNeuralNetworkWrapper::RecurrentNeuralNetworkWrapper(NNType::Type type, 
     }
 }
 
-std::vector<float> RecurrentNeuralNetworkWrapper::PredictNextStep(std::vector<float> object, std::vector<float> angles)
+void RecurrentNeuralNetworkWrapper::PredictNextStep(std::vector<float> object, std::vector<float> angles)
 {
+    //if(passNr == 80) passNr = 0;
     passNr++;
-    if(passNr == 80) passNr = 0;
-    return neuralnetwork->RunOneTime(0, object, passNr, angles);
+    neuralnetwork->RunAfterTraining(0, 80, 0, false, true, true, angles);
 }
 
 /*int RecurrentNeuralNetwork::InitRNNPB()
@@ -97,33 +97,35 @@ void RNNCLWrapper::Init()
     Utilities::WriteMessage("Setting ip Neural network...", Utilities::NewProcedure);
 
     //Creating Layers
-    layers = new Layer*[6];
+    layers = new Layer*[4];
     // input Layer
 
     layers[0] = new Layer(4);  // input prev arm angles
-    layers[1] = new Layer(3);  // input object position
-    layers[2] = new Layer(Utilities::Parameters.contextUnitCount, NULL, false, false, 20, NULL); //context loop x
-    layers[3] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::TANH);      //hidden Layer
-    layers[4] = new Layer(4); // output - 4DOF
-    layers[5] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
+    layers[1] = new Layer(Utilities::Parameters.hiddenUnitsCount,  ActivationFunction::SIGMOID, false, false, Utilities::Parameters.fTau, NULL); //context loop x
+    layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID);      //hidden Layer
+    layers[3] = new Layer(4); // output - 4DOF
+    //layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
 
     //Set Trainalgorithm
     cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, 0.0);
 
     //Init network
-    neuralnetwork = new RNN(6, layers, cbpt_alg);
+    neuralnetwork = new RNN(4, layers, cbpt_alg);
 
     RandomInitialization rand_init(Utilities::Parameters.minInit, Utilities::Parameters.maxInit);
 
     //Build synapsis (connect neurons/layers)
     //1. hidden layer
-    neuralnetwork->ConnectLayerToLayer(0, 3, &rand_init, true); // connect input to hidden layer
-    neuralnetwork->ConnectLayerToLayer(1, 3, &rand_init, true); //connect PB-Layer to hidden layer
-    neuralnetwork->ConnectLayerToLayer(2, 3, &rand_init, true); //connect PB-Layer to hidden layer
+    neuralnetwork->ConnectLayerToLayer(0, 2, &rand_init, true); // connect input to hidden layer
+    neuralnetwork->ConnectLayerToLayer(1, 2, &rand_init, true); //connect PB-Layer to hidden layer
 
-    neuralnetwork->ConnectLayerToLayer(3, 4, &rand_init, true); // connect hidden layer to output layer
-    neuralnetwork->ConnectLayerToLayer(3, 5, &rand_init, true); // connect hidden layer to context loop x+1
-
+    neuralnetwork->ConnectLayerToLayer(2, 3, &rand_init, true); // connect hidden layer to output layer
+    neuralnetwork->ConnectLayerToLayer(2, 1, &rand_init, true); // connect hidden layer to context loop x+1
+    //neuralnetwork->ConnectLayerToLayer(4, 1, &rand_init, true); // connect hidden layer to context loop x+1
+    for(int i = 0; i< Utilities::Parameters.hiddenUnitsCount; i++)
+    {
+        neuralnetwork->ConnectUnitToUnit(2, i,  1, i, Initialization::GenerateRandomWeight(-0.5, 0.5), true);
+    }
     Utilities::WriteMessage("Neural netork successfully created", Utilities::OK);
     Utilities::WriteBlankLine();
 }
@@ -132,9 +134,8 @@ void RNNCLWrapper::LoadWeights()
 {
     StaticDataSource context(10, 4);
     StaticDataSource context2(10, 3);
-    neuralnetwork->SetInput(0, 0, &context, 4, 0);
-    neuralnetwork->SetInput(0, 1, &context2, -1, 0);
-    neuralnetwork->SetInput(0, 2, &context, 5, 0 );
+    neuralnetwork->SetInput(0, 0, &context, 3, 0);
+    //neuralnetwork->SetInput(0, 1, &context2, 4, 0);
     neuralnetwork->ImportWeights(Path);
     passNr =-1;
 }
@@ -154,9 +155,8 @@ void RNNCLWrapper::TrainFromSource()
     StaticDataSource context(number_of_lines, 4);
 
     neuralnetwork->SetInput(0, 0, &ds_inA, -1, 0);
-    neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
-    neuralnetwork->SetInput(0, 2, &context, 5, 0 );
-    neuralnetwork->SetOutput(4, &ds_out, false);
+    //neuralnetwork->SetInput(0, 1, &ds_in, -1, 0);
+    neuralnetwork->SetOutput(3, &ds_out, false);
 
     neuralnetwork->ExportWeights(false, Path);
     neuralnetwork->Train(number_of_lines);
@@ -177,8 +177,8 @@ void RNNWrapper::Init()
     // input Layer
 
     //layers[0] = new Layer(4);  // input prev arm angles
-    layers[0] = new Layer(3);  // input object position
-    layers[1] = new Layer(8);  // input object position
+    layers[0] = new Layer(4);  // input object position
+    layers[1] = new Layer(3);  // input object position
     //hidden Layer
     layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID);
 
@@ -245,21 +245,21 @@ void RNNPBWrapper::Init()
     Utilities::WriteMessage("Setting ip Neural network...", Utilities::NewProcedure);
 
     //Creating Layers
-    layers = new Layer*[6];
+    layers = new Layer*[5];
     // input Layer
 
     layers[0] = new Layer(4);  // input prev arm angles
-    layers[1] = new Layer(Utilities::Parameters.contextUnitCount, NULL, false, false, 20, NULL); //context loop x
-    layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::TANH);      //hidden Layer
+    layers[1] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID, false, false, Utilities::Parameters.fTau, NULL); //context loop x
+    layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID);      //hidden Layer
     layers[3] = new Layer(4); // output - 4DOF
-    layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
-    layers[5] = new Layer(4, ActivationFunction::SIGMOID, true); //pblayer
+    //layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
+    layers[4] = new Layer(2, ActivationFunction::SIGMOID, true); //pblayer
 
     //Set Trainalgorithm
-    cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, Utilities::Parameters.lRate);
+    cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, 0.1);
 
     //Init network
-    neuralnetwork = new RNN(6, layers, cbpt_alg, 4);
+    neuralnetwork = new RNN(5, layers, cbpt_alg, 4);
 
     RandomInitialization rand_init(Utilities::Parameters.minInit, Utilities::Parameters.maxInit);
 
@@ -267,10 +267,13 @@ void RNNPBWrapper::Init()
     //1. hidden layer
     neuralnetwork->ConnectLayerToLayer(0, 2, &rand_init, true); // connect input to hidden layer
     neuralnetwork->ConnectLayerToLayer(1, 2, &rand_init, true); //connect PB-Layer to hidden layer
-    neuralnetwork->ConnectLayerToLayer(5, 2, &rand_init, false);
+    neuralnetwork->ConnectLayerToLayer(4, 2, &rand_init, false);
     neuralnetwork->ConnectLayerToLayer(2, 3, &rand_init, true); // connect hidden layer to output layer
-    neuralnetwork->ConnectLayerToLayer(2, 4, &rand_init, true); // connect hidden layer to context loop x+1
-
+    //neuralnetwork->ConnectLayerToLayer(2, 4, &rand_init, true); // connect hidden layer to context loop x+1
+    for(int i = 0; i< Utilities::Parameters.hiddenUnitsCount; i++)
+    {
+        neuralnetwork->ConnectUnitToUnit(2, i,  1, i, Initialization::GenerateRandomWeight(-0.5, 0.5), true);
+    }
     Utilities::WriteMessage("Neural netork successfully created", Utilities::OK);
     Utilities::WriteBlankLine();
 }
@@ -279,7 +282,7 @@ void RNNPBWrapper::LoadWeights()
 {
     StaticDataSource context(10, 4);
     neuralnetwork->SetInput(0, 0, &context, 3, 0);
-    neuralnetwork->SetInput(0, 1, &context, 4, 0 );
+    //neuralnetwork->SetInput(0, 1, &context, 4, 0 );
     neuralnetwork->ImportWeights(Path);
     passNr =-1;
 }

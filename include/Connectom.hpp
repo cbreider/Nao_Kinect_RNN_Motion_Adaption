@@ -34,7 +34,7 @@ class RecurrentNeuralNetworkWrapper
         virtual void LoadWeights() = 0;
 
         int Reset(){}
-        std::vector<float> PredictNextStep(std::vector<float> object, std::vector<float> angles);
+        void PredictNextStep(std::vector<float> object, std::vector<float> angles);
 
         NNType::Type NNtype;
 
@@ -43,7 +43,7 @@ class RecurrentNeuralNetworkWrapper
         RNN* neuralnetwork;
         Layer** layers;
         BPTT *cbpt_alg;
-        int passNr;
+        int passNr = -1;
         std::string Path;
 
         friend class RNNWrapper;

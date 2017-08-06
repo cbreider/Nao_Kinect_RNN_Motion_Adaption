@@ -21,7 +21,7 @@ int UserSkeleton::Init(openni::Device &dev)
 	}
 
     Utilities::WriteMessage("Creating UserTracker...", Utilities::NewProcedure);
-	niteRc = userTracker.create();
+    niteRc = userTracker.create();
 	if (niteRc != nite::STATUS_OK)
 	{
         Utilities::WriteMessage("Couldn't create user tracker!", Utilities::Error);
@@ -72,7 +72,6 @@ nite::SkeletonState UserSkeleton::Update()
 
     nite::SkeletonState state = SKELETON_NONE;
     unsigned long long ts = userTrackerFrame.getTimestamp();
-
     if (users.getSize() > 0)
     {
         const nite::UserData& user = users[0];
@@ -152,9 +151,10 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
     angles[2] = elbowRoll;
 	angles[3] = elbowYaw;
 
+    vector<float>object(3);
     if(rightOrLeft == 1 && Sample)
     {
-       if(object[2] > 0 && hand->getPositionConfidence() > 0.5 && elbow->getPositionConfidence() > 0.5 && shoulder->getPositionConfidence() > 0.5)  sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y + 200);
+       if( hand->getPositionConfidence() > 0.5 && elbow->getPositionConfidence() > 0.5 && shoulder->getPositionConfidence() > 0.5)  sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y + 200);
     }
 
 	return angles;

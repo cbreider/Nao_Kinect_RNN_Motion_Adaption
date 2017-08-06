@@ -20,6 +20,12 @@ public:
 
     int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
+    int InitNNAndStartLearning(string path, NNType::Type t);
+    void Reproduce(vector<float> firstPose);
+    int InitTrainedNN(string path, NNType::Type t);
+    std::vector<float> Object;
+    std::vector<float> rAngles;
+    
     void SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion);
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
     int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
@@ -29,12 +35,9 @@ public:
     int Close(AL::ALMotionProxy &motion);
     int SetMotionStiffness(AL::ALMotionProxy &motion);
 
-    int InitTrainedNN(string path, NNType::Type t);
-    int InitNNAndStartLearning(string path, NNType::Type t);
-    void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
 
-    std::vector<float> Object;
-    std::vector<float> rAngles;
+
+
     std::string IPAddress;
 
 private:

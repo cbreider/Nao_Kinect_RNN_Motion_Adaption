@@ -68,7 +68,7 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                 {
                     vector<float> tmp(3);
 
-                    if(object[2] > 0 && object[2] < 4000)
+                    //if(object[2] > 0 && object[2] < 4000)
                     {
                         tmp[0] = (object[0] - _lastObjectPosition[0]);
                         tmp[1] = (object[1] - _lastObjectPosition[1]);
@@ -154,7 +154,11 @@ int SampleWriter::Finalize()
 //not implemented
 int SampleWriter::WriteCostumFile(string output, string filename)
 {
-  return 1;
+    ofstream st;
+    st.open(filename.c_str());
+    st <<output;
+    st.close();
+    return 0;
 }
 
 //writes the data of a vector into a whitespace-seperated string with linebrack at the end

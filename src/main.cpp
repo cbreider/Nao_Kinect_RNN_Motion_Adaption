@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
          Utilities::WriteMessage("4: Recproducing-Mode", Utilities::Normal);
          Utilities::WriteMessage("Any other Key: Exit", Utilities::Normal);
 
-         int mode = Utilities::GetIntergerInput();
+         int mode = Utilities::GetIntergerInput();;
 
          if(mode < 1 || mode > 5)
          {
@@ -126,12 +126,12 @@ int StartReproducing()
     // Setting Nao's proxies for motion and speech
     std::string text = "Nao's IP-Address: "  + ip;
     Utilities::WriteMessage(text, Utilities::NewProcedure);
-    AL::ALMotionProxy motion(ip, 9559);
-    AL::ALTextToSpeechProxy tts(ip, 9559);
+    //AL::ALMotionProxy motion(ip, 9559);
+    //AL::ALTextToSpeechProxy tts(ip, 9559);
 
     //status = nao.Init(motion);
     //nao.Close(motion);
-    status = nao.Init(motion);
+    //status = nao.Init(motion);
     status = 0;
     if(status == 1)
     {
@@ -141,7 +141,7 @@ int StartReproducing()
     nao.InitTrainedNN(folder, type );
 
     std::ifstream io;
-    io.open((folder + Utilities::NNfiles.initposeFile).c_str());
+    io.open((folder + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), 3)).c_str());
     std::vector<float> initialPose(4);
     io >>  initialPose[0];
     std::cout << initialPose[0];
@@ -151,12 +151,12 @@ int StartReproducing()
     std::cout << initialPose[2];
     io >>  initialPose[3];
     std::cout << initialPose[3];
-    nao.SetRightArm(initialPose, motion);
+    //nao.SetRightArm(initialPose, motion);
 
 
     //Initialize kinect
 
-    status = kinect.InitKinect(false);
+    //status = kinect.InitKinect(false);
     if(status == 1)
     {
         printf("Failed to initialize Kinect \n");
@@ -178,8 +178,8 @@ int StartReproducing()
     diff[0] = 0;
     diff[1] = 0;
     diff[2] = 0;
-
-    while(true)
+    nao.Reproduce(initialPose);
+   /* while(true)
     {
         int key = cv::waitKey(1);
         if(key==27)
@@ -188,14 +188,14 @@ int StartReproducing()
         }
 
         //Update and get the user
-        userState = kinect.Update(true, false);
-        if(count > 150)
+        //userState = kinect.Update(true, false);
+        if(count < 170)
         {
             if(first) Utilities::WriteMessage("Now", Utilities::Info);
             first = false;
             if(count % Utilities::Parameters.timeScaling == 0)
             {
-                diff[0] = round(kinect._objectX - ob[0]);
+                /*diff[0] = round(kinect._objectX - ob[0]);
                 diff[1] = round(kinect._objectY - ob[1]);
                 diff[2] = round(kinect._objectZ - ob[2]);
 
@@ -204,22 +204,22 @@ int StartReproducing()
                 ob[2] = kinect._objectZ;
                 nao.Object = diff;
 
-                nao.Reproduce(initialPose, motion);
             }
             else
             {
-                nao.SetRightArm(nao.rAngles, motion);
+                //nao.SetRightArm(nao.rAngles, motion);
             }
         }
         else
         {
-            nao.SetRightArm(initialPose, motion);
+            break;
+            //nao.SetRightArm(initialPose, motion);
         }
 
         count++;
-    }
-    nao.Close(motion);
-    kinect.CleanUpAndClose();
+    }*/
+    //nao.Close(motion);
+    //kinect.CleanUpAndClose();
 }
 
 int Start(bool sample )
@@ -259,7 +259,7 @@ int Start(bool sample )
     }
 
     // Nao should say some phrase for introduction
-    //nao.SayIntroductionPhrase(tts);
+   //nao.SayIntroductionPhrase(tts);Nao_AdaptiveMotion
     //nao.SetMotionStiffness(motion);
     //run
     while(true)
@@ -290,7 +290,7 @@ int Start(bool sample )
         else if(userState == nite::SKELETON_CALIBRATING && first)
         {
             first = false;
-            // nao.SayInstructionPhrase(tts);
+           // nao.SayInstructionPhrase(tts);
         }
         else if(userState == nite::SKELETON_TRACKED)
         {
@@ -301,7 +301,7 @@ int Start(bool sample )
             if(!sample)
             {
                 //ckeck if confidence is high enough
-                if(lConfidence > 0.5)
+                if(lConfidence > 0.4)
                 {
                     //apply user arm angles to nao
 
@@ -309,7 +309,7 @@ int Start(bool sample )
                 }
             }
             //same for the right arm
-            if(rConfidence > 0.5)
+            if(rConfidence > 0.4)
             {
                 if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
                 if(mode == 2)
