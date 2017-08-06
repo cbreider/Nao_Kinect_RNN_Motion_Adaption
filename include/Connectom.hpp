@@ -32,7 +32,7 @@ class RecurrentNeuralNetworkWrapper
         virtual void Init() = 0;
         virtual void TrainFromSource() = 0;
         virtual void LoadWeights() = 0;
-
+        virtual void Test() = 0;
         int Reset(){}
         void PredictNextStep(std::vector<float> object, std::vector<float> angles);
 
@@ -59,7 +59,8 @@ class RNNWrapper : RecurrentNeuralNetworkWrapper
 
         void Init();
         void TrainFromSource();
-        void LoadWeights();        
+        void LoadWeights();
+        void Test();
         friend class RecurrentNeuralNetworkWrapper;
 };
 
@@ -70,6 +71,7 @@ class RNNCLWrapper : RecurrentNeuralNetworkWrapper
         void Init();
         void TrainFromSource();
         void LoadWeights();
+        void Test();
 
         friend class RecurrentNeuralNetworkWrapper;
 };
@@ -81,6 +83,7 @@ class RNNPBWrapper : RecurrentNeuralNetworkWrapper
         void Init();
         void TrainFromSource();
         void LoadWeights();
+        void Test();
 
         friend class RecurrentNeuralNetworkWrapper;
 };

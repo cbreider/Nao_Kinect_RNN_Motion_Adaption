@@ -1,12 +1,12 @@
 
-Number_of_hidden_units: 50
+Number_of_hidden_units: 35
 Number_of_training_passes: 40000000
-Epoch_size: 30
-Learning_rate: 0.1
+Epoch_size: 20
+Learning_rate: 0.9
 Min_init: -1
 Max_int: 1
 Number_of_Context_units: 12
-Context_loop_Timeconstant: 20
+Context_loop_Timeconstant: 50
 Pb_learn_rate: 0.1
 Sample_SpaceScaling: 0.5
 Sample_TimeScaling: 1

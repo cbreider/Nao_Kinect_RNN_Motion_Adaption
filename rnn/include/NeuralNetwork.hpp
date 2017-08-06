@@ -18,7 +18,7 @@ class NeuralNetwork
         void CopyOutputTo (int, int, bool);
         void SetDefState (int, int, int, double);
         void SetDefStates (int, int, vec*);
-        void RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsTest, bool bReset, bool bResetPbs, vector<float> firstAngles);
+        void RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, vector<float> firstangles, vector<float> pbs);
         void ConnectLayerToLayer (int, int);
         void ConnectLayerToLayer (int, int, Initialization*, bool);
         void ConnectLayerToLayer (int, int, mat*, bool);

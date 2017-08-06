@@ -32,7 +32,7 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
             if (net->data_out[nSeq][src_layer])
             {
                 e = trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
-                sum_e[nSeq] += e[0] + e[1] + e[2] + e[3];
+                sum_e[nSeq] += (e[0] * e[0]) + (e[1] * e[1]) + (e[2] * e[2]) + (e[3] * e[3]);
 
             }
             else
@@ -115,7 +115,7 @@ void BPTT::UpdatePbs (RNN* net, int nSeq, int nEpochSize, double fPbLearningRate
                 for (t = 0; t < nEpochSize - 1; t++)
                     sum += g[nSeq][l][t] (unit);
 
-              net->u_def[nSeq][l] (unit) += fPbLearningRate * sum + net->u_def[nSeq][l] (unit) * (1-fPbLearningRate);
+              net->u_def[nSeq][l] (unit) = fPbLearningRate * sum + net->u_def[nSeq][l] (unit) * (1);
 
 
 

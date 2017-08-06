@@ -35,11 +35,13 @@ RecurrentNeuralNetworkWrapper::RecurrentNeuralNetworkWrapper(NNType::Type type, 
     }
 }
 
+
+
 void RecurrentNeuralNetworkWrapper::PredictNextStep(std::vector<float> object, std::vector<float> angles)
 {
     //if(passNr == 80) passNr = 0;
-    passNr++;
-    neuralnetwork->RunAfterTraining(0, 80, 0, false, true, true, angles);
+    //passNr++;
+    //neuralnetwork->RunAfterTraining(0, 50, 0, false, true, true, angles);
 }
 
 /*int RecurrentNeuralNetwork::InitRNNPB()
@@ -163,6 +165,10 @@ void RNNCLWrapper::TrainFromSource()
     neuralnetwork->ExportWeights(true, Path);
 }
 
+void RNNCLWrapper::Test()
+{
+}
+
 RNNWrapper::RNNWrapper(std::string path) : RecurrentNeuralNetworkWrapper(NNType::RNNT, path)
 {
 
@@ -234,6 +240,9 @@ void RNNWrapper::TrainFromSource()
     neuralnetwork->ExportWeights(true, Path);
 }
 
+void RNNWrapper::Test()
+{
+}
 
 RNNPBWrapper::RNNPBWrapper(std::string path) : RecurrentNeuralNetworkWrapper(NNType::RNNPB, path)
 {
@@ -249,14 +258,14 @@ void RNNPBWrapper::Init()
     // input Layer
 
     layers[0] = new Layer(4);  // input prev arm angles
-    layers[1] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID, false, false, Utilities::Parameters.fTau, NULL); //context loop x
+    layers[1] = new Layer(Utilities::Parameters.contextUnitCount, ActivationFunction::SIGMOID, false, false, Utilities::Parameters.fTau, NULL); //context loop x
     layers[2] = new Layer(Utilities::Parameters.hiddenUnitsCount, ActivationFunction::SIGMOID);      //hidden Layer
     layers[3] = new Layer(4); // output - 4DOF
-    //layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
     layers[4] = new Layer(2, ActivationFunction::SIGMOID, true); //pblayer
+    //layers[4] = new Layer(Utilities::Parameters.contextUnitCount); //context loop x+1
 
     //Set Trainalgorithm
-    cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, 0.1);
+    cbpt_alg = new BPTT(Utilities::Parameters.passes, Utilities::Parameters.epoch, Utilities::Parameters.lRate, Utilities::Parameters.pbLRate);
 
     //Init network
     neuralnetwork = new RNN(5, layers, cbpt_alg, 4);
@@ -270,9 +279,9 @@ void RNNPBWrapper::Init()
     neuralnetwork->ConnectLayerToLayer(4, 2, &rand_init, false);
     neuralnetwork->ConnectLayerToLayer(2, 3, &rand_init, true); // connect hidden layer to output layer
     //neuralnetwork->ConnectLayerToLayer(2, 4, &rand_init, true); // connect hidden layer to context loop x+1
-    for(int i = 0; i< Utilities::Parameters.hiddenUnitsCount; i++)
+    for(int i = 0; i< Utilities::Parameters.contextUnitCount; i++)
     {
-        neuralnetwork->ConnectUnitToUnit(2, i,  1, i, Initialization::GenerateRandomWeight(-0.5, 0.5), true);
+        neuralnetwork->ConnectUnitToUnit(2, i,  1, i, Initialization::GenerateRandomWeight(Utilities::Parameters.minInit, Utilities::Parameters.maxInit), true);
     }
     Utilities::WriteMessage("Neural netork successfully created", Utilities::OK);
     Utilities::WriteBlankLine();
@@ -282,6 +291,9 @@ void RNNPBWrapper::LoadWeights()
 {
     StaticDataSource context(10, 4);
     neuralnetwork->SetInput(0, 0, &context, 3, 0);
+    neuralnetwork->SetInput(1, 0, &context, 3, 0);
+    neuralnetwork->SetInput(2, 0, &context, 3, 0);
+    neuralnetwork->SetInput(3, 0, &context, 3, 0);
     //neuralnetwork->SetInput(0, 1, &context, 4, 0 );
     neuralnetwork->ImportWeights(Path);
     passNr =-1;
@@ -329,7 +341,7 @@ void RNNPBWrapper::TrainFromSource()
 
     neuralnetwork->ExportWeights(false, Path);
     neuralnetwork->Train(number_of_lines);
-    neuralnetwork->ExportWeights(true, Path);
+    neuralnetwork->ExportWeightsAndPBs(true, Path, 4);
 
     /*for(int  i = 1; i< 50000; ++i)
     {
@@ -338,5 +350,50 @@ void RNNPBWrapper::TrainFromSource()
         neuralnetwork->Train();
         neuralnetwork->ExportWeights(true, Path);
     }*/
+}
+
+void RNNPBWrapper::Test()
+{
+    std::vector<int> number_of_lines(4);
+    std::string line;
+
+    std::vector<string> files_in(4);
+    std::vector<string> files_out(4);
+
+    std::vector<vector<float>> pb(4, vector<float>(2));
+    std::ifstream iopb;
+    iopb.open((Path + Utilities::NNfiles.PBfile).c_str());
+
+    for(int i = 0; i<4; i++ )
+    {
+        std::ifstream io;
+        io.open((Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), i+1)).c_str());
+        std::vector<float> initialPose(4);
+        io >>  initialPose[0];
+        std::cout << initialPose[0]<< " ";
+        io >>  initialPose[1];
+        std::cout << initialPose[1]<< " ";
+        io >>  initialPose[2];
+        std::cout << initialPose[2]<< " ";
+        io >>  initialPose[3];
+        std::cout << initialPose[3] << endl;
+
+        iopb >> pb[i][0];
+        std::cout << pb[i][0] << " ";
+        iopb >> pb[i][1];
+        std::cout << pb[i][1]<< endl;
+
+       number_of_lines.push_back(0);
+       files_in[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), i+1).c_str());
+       files_out[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesOutFile.c_str(), i+1).c_str());
+       Utilities::WriteMessage(files_in[i], Utilities::Info);
+       ifstream file(files_in[i].c_str());
+        while (std::getline(file, line))
+            ++number_of_lines[i];
+
+
+        neuralnetwork->RunAfterTraining(i, number_of_lines[i], 0, true, true, initialPose, pb[i]);
+    }
+
 }
 

@@ -81,6 +81,11 @@ void Nao::Reproduce(vector<float> firstPose)
     naosNeuralNetwork->PredictNextStep(Object, firstPose);
 }
 
+void Nao::Test()
+{
+    naosNeuralNetwork->Test();
+}
+
 void Nao::SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion)
 {
     try

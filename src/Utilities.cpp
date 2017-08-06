@@ -116,6 +116,10 @@ std::string Utilities::NNFolder;
         std::cout << foo << Parameters.fTau << endl;
 
         io >> foo;
+        io >> Parameters.pbLRate;
+        std::cout << foo << Parameters.pbLRate << endl;
+
+        io >> foo;
         io >> Parameters.spaceScaling;
         std::cout << foo << Parameters.spaceScaling << endl;
 

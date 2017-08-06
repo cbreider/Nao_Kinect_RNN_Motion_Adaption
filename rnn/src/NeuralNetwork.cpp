@@ -253,7 +253,9 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
                     if (copy_output[dst_layer] > -1 && bIsTest && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                    {
                         cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
+                    }
                     else
                         data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
                 }
@@ -297,7 +299,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
     }
 }
 
-void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsTest, bool bReset, bool bResetPbs, vector<float> firstangles)
+void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, vector<float> firstangles, vector<float> pbs)
 {
     int dst_layer, src_layer;
     SampleWriter sw;
@@ -320,11 +322,12 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsT
             {
                 if (data_in[nSeq][dst_layer]) // If this is an input layer...
                 {
-
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
-                    if (copy_output[dst_layer] > -1 && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                    if (copy_output[dst_layer] > -1)
+                    {
                         cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
+                    }
                     else
                         data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
                     if(dst_layer == 0 && t == 0)
@@ -337,19 +340,15 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsT
                 }
 
                 // If this is an output layer, write the desired output into matrix d after the initial network states were washed out
-                if (data_out[nSeq][dst_layer])
-                {
-                    data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &temp[dst_layer]);
-
-                    if (t >= nSkip)
-                        d[nSeq][dst_layer].row (t - nSkip) = trans (temp[dst_layer]);
-                }
 
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
                 {
-                    cur_u[nSeq][dst_layer](0) = 7.06245;
-                    cur_u[nSeq][dst_layer](0) = -6.2071;
+                    for(int i = 0; i < pbs.size(); i++)
+                    {
+                        u_def[nSeq][dst_layer](i) = pbs[i];
+                        cur_u[nSeq][dst_layer](i) = pbs[i];
+                    }
                 }
 
                 // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
@@ -376,15 +375,21 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsT
             }
             if(dst_layer == 3)
             {
-                    ret[0] = y[nSeq][dst_layer][0];
-                    ret[1] = y[nSeq][dst_layer][1];
-                    ret[2] = y[nSeq][dst_layer][2];
-                    ret[3] = y[nSeq][dst_layer][3];
+                    ret[0] = y[nSeq][dst_layer](0);
+                    ret[1] = y[nSeq][dst_layer](1);
+                    ret[2] = y[nSeq][dst_layer](2);
+                    ret[3] = y[nSeq][dst_layer](3);
                     out += sw.DataToString(ret);
             }
         }
     }
-    sw.WriteCostumFile(out, "est.txt");
+
+    stringstream ss;
+    ss << "test";
+    ss << nSeq;
+    ss << ".txt";
+
+    sw.WriteCostumFile(out, ss.str().c_str());
 }
 
 void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, std::vector<int> samplecounter, bool firstP)
@@ -727,14 +732,14 @@ void NeuralNetwork::ExportWeightsAndPBs(bool afterTraining, std::string path, in
         {
             std::ofstream io_pb;
             io_pb.open((path + Utilities::NNfiles.PBfile).c_str());
-                    for(int sq = 0; sq < nseq; sq++)
+           for(int sq = 0; sq < nseq; sq++)
             {
                 if(sq != 0) io << br;
                 for (int unit = 0; unit < layers[src_layer]->GetSize (); unit++)
                 {
                     std::stringstream ss_pb;
 
-                    ss_pb <<u_def[sq][dst_layer] (unit);
+                    ss_pb <<u_def[sq][src_layer] (unit);
                     ss_pb << " ";
                     io_pb << ss_pb.str();
                 }

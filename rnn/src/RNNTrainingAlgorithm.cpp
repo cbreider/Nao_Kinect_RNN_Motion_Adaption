@@ -80,9 +80,11 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
             }
             if(p%1000 == 0)
             {
+                float err = 0;
                 std::cout << "PassNr.: " << p << endl;
                 for(int i = 0; i< net->num_seq; i++)
                 {
+                    err += sum_e[i];
                     std::cout << "Seq: " << i<< " error: "<< sum_e[i] / (1000 * epoch_size) << endl;
                     sum_e[i] = 0;
                     for(int ii = 0; ii < 2; ii++)
@@ -95,6 +97,7 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
                     }
 
                 }
+                std::cout << endl << "overall error: " << err / (1000 * epoch_size);
                 std::cout << "\n \n";
             }
             UpdateWeights (net);

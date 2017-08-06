@@ -25,7 +25,7 @@ public:
     int InitTrainedNN(string path, NNType::Type t);
     std::vector<float> Object;
     std::vector<float> rAngles;
-    
+    void Test();
     void SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion);
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
     int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);

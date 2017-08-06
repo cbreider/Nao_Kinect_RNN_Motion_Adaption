@@ -140,8 +140,8 @@ int StartReproducing()
 
     nao.InitTrainedNN(folder, type );
 
-    std::ifstream io;
-    io.open((folder + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), 3)).c_str());
+    /*std::ifstream io;
+    io.open((folder + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), 1)).c_str());
     std::vector<float> initialPose(4);
     io >>  initialPose[0];
     std::cout << initialPose[0];
@@ -151,7 +151,7 @@ int StartReproducing()
     std::cout << initialPose[2];
     io >>  initialPose[3];
     std::cout << initialPose[3];
-    //nao.SetRightArm(initialPose, motion);
+    //nao.SetRightArm(initialPose, motion);*/
 
 
     //Initialize kinect
@@ -178,7 +178,7 @@ int StartReproducing()
     diff[0] = 0;
     diff[1] = 0;
     diff[2] = 0;
-    nao.Reproduce(initialPose);
+    nao.Test();
    /* while(true)
     {
         int key = cv::waitKey(1);
@@ -231,8 +231,8 @@ int Start(bool sample )
     // Setting Nao's proxies for motion and speech
     std::string text = "Nao's IP-Address: "  + ip;
     Utilities::WriteMessage(text, Utilities::NewProcedure);
-    AL::ALMotionProxy motion(ip, 9559);
-    AL::ALTextToSpeechProxy tts(ip, 9559);
+    //AL::ALMotionProxy motion(ip, 9559);
+    //AL::ALTextToSpeechProxy tts(ip, 9559);
 
     int mode = 1;
     if(!sample)
@@ -244,10 +244,10 @@ int Start(bool sample )
     }
 
 
-    status = nao.Init(motion);
+    //status = nao.Init(motion);
     if(status == 1)
     {
-       return 1;
+       //return 1;
     }
 
     //Initialize kinect
@@ -305,24 +305,24 @@ int Start(bool sample )
                 {
                     //apply user arm angles to nao
 
-                    if(mode == 1) nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
+                    //if(mode == 1) nao.SetLeftArm(kinect.GetUser()->GetLeftArmAngles(), motion);
                 }
             }
             //same for the right arm
             if(rConfidence > 0.4)
             {
-                if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
+                //if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
                 if(mode == 2)
                 {
                     vector<float> pos = kinect.GetUser()->GetArmPosition();
-                    nao.SetRightHand(pos, motion );
+                    //nao.SetRightHand(pos, motion );
                     //std::cout << pos[2] << " " << pos[0]  << " " <<pos[1] << std::endl;
                 }
             }
         }
     }
     // Close Nao and kinect and exit
-    nao.Close(motion);
+    //nao.Close(motion);
     kinect.CleanUpAndClose();
 }
 

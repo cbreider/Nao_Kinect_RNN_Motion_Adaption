@@ -38,6 +38,7 @@ struct NNParams
     double fTau;
     float spaceScaling;
     int timeScaling;
+    float pbLRate;
 };
 
 
