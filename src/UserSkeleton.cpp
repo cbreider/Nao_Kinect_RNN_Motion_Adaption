@@ -151,9 +151,10 @@ std::vector<float> UserSkeleton::calculateArmAngles(int rightOrLeft, SkeletonJoi
     angles[2] = elbowRoll;
 	angles[3] = elbowYaw;
 
+    vector<float>object(3);
     if(rightOrLeft == 1 && Sample)
     {
-       if(object[2] > 0 && hand->getPositionConfidence() > 0.5 && elbow->getPositionConfidence() > 0.5 && shoulder->getPositionConfidence() > 0.5)  sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y + 200);
+       if( hand->getPositionConfidence() > 0.5 && elbow->getPositionConfidence() > 0.5 && shoulder->getPositionConfidence() > 0.5)  sampler.Update(angles, object, lHand.getPosition().y > head.getPosition().y + 200);
     }
 
 	return angles;

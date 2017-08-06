@@ -303,7 +303,7 @@ void RNNPBWrapper::TrainFromSource()
        files_in[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesInFile.c_str(), i+1).c_str());
        files_out[i] = (Path + Utilities::GetMoreFilenames(Utilities::NNfiles.anglesOutFile.c_str(), i+1).c_str());
        Utilities::WriteMessage(files_in[i], Utilities::Info);
-       ifstream file(files_in[i].c_str());
+       ifstream file(files_in[.c_str());
         while (std::getline(file, line))
             ++number_of_lines[i];
     }

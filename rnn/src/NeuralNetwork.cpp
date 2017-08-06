@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "SampleWriter.hpp"
 #include "Utilities.hpp";
 
 /**
@@ -238,10 +239,10 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
 
     for (int t = 0; t < nSkip+nPasses; t++)
     {
-    	for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
-    	{
-    	    // cur_u denotes the induced local fields of the current layer at the current time-step
-    		cur_u[nSeq][dst_layer].zeros ();
+        for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+        {
+            // cur_u denotes the induced local fields of the current layer at the current time-step
+            cur_u[nSeq][dst_layer].zeros ();
 
             if (data_out[nSeq][dst_layer] && use_tf[nSeq][dst_layer]) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
                 data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &y[nSeq][dst_layer]);
@@ -251,8 +252,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                 {
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
-
-                    if (copy_output[dst_layer] > -1  && bIsTest && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                    if (copy_output[dst_layer] > -1 && bIsTest && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
                         cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                     else
                         data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
@@ -269,10 +269,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
 
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
-                {
-                    u_def[nSeq][dst_layer] = 0.0337;
                     cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
-                }
 
                 // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
                 for (src_layer = 0; src_layer < num_layers; src_layer++)
@@ -282,7 +279,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                         cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
                     }
 
-                // If a time constant greather than 1 is used, 5the previous induced local fields will affect the current output
+                // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
                 cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
                 cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
 
@@ -296,8 +293,98 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
                 s[nSeq][dst_layer].row (t - nSkip) = trans (y[nSeq][dst_layer]);
                 u[nSeq][dst_layer].col (t - nSkip) = cur_u[nSeq][dst_layer];
             }
-    	}
+        }
     }
+}
+
+void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bIsTest, bool bReset, bool bResetPbs, vector<float> firstangles)
+{
+    int dst_layer, src_layer;
+    SampleWriter sw;
+    string out;
+    std::vector<float> ret(4);
+
+    if (bReset)
+        Reset (nSeq, nPasses, bResetPbs);
+
+    for (int t = 0; t < nSkip+nPasses; t++)
+    {
+        for (dst_layer = 0; dst_layer < num_layers; dst_layer++)
+        {
+            // cur_u denotes the induced local fields of the current layer at the current time-step
+            cur_u[nSeq][dst_layer].zeros ();
+
+            if (data_out[nSeq][dst_layer] && use_tf[nSeq][dst_layer]) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
+                data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &y[nSeq][dst_layer]);
+            else
+            {
+                if (data_in[nSeq][dst_layer]) // If this is an input layer...
+                {
+
+                    // If the outout of another layer is to be used as input, copy the output into the induced local fields
+                    // Otherwise, read data from the specified data source
+                    if (copy_output[dst_layer] > -1 && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                        cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
+                    else
+                        data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
+                    if(dst_layer == 0 && t == 0)
+                    {
+                         cur_u[nSeq][dst_layer][0] = firstangles[0];
+                         cur_u[nSeq][dst_layer][1] = firstangles[1];
+                         cur_u[nSeq][dst_layer][2] = firstangles[2];
+                         cur_u[nSeq][dst_layer][3] = firstangles[3];
+                    }
+                }
+
+                // If this is an output layer, write the desired output into matrix d after the initial network states were washed out
+                if (data_out[nSeq][dst_layer])
+                {
+                    data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &temp[dst_layer]);
+
+                    if (t >= nSkip)
+                        d[nSeq][dst_layer].row (t - nSkip) = trans (temp[dst_layer]);
+                }
+
+                // If this is a PB layer, use the PB units' internal states as the induced local fields
+                if (layers[dst_layer]->IsPbLayer ())
+                {
+                    cur_u[nSeq][dst_layer](0) = 7.06245;
+                    cur_u[nSeq][dst_layer](0) = -6.2071;
+                }
+
+                // Multiply the weight matrices by the outputs to compute the inouts applied to the neurons
+                for (src_layer = 0; src_layer < num_layers; src_layer++)
+                    if (w[dst_layer][src_layer])
+                    {
+                        temp[dst_layer] = (*w[dst_layer][src_layer]) * y[nSeq][src_layer];
+                        cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
+                    }
+
+                // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
+                cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
+                cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
+
+                prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];
+                layers[dst_layer]->ComputeActivations (&cur_u[nSeq][dst_layer], &y[nSeq][dst_layer]);
+            }
+
+            // Collect the activations and induced local fields after the initial washout
+            if (t >= nSkip)
+            {
+                s[nSeq][dst_layer].row (t - nSkip) = trans (y[nSeq][dst_layer]);
+                u[nSeq][dst_layer].col (t - nSkip) = cur_u[nSeq][dst_layer];
+            }
+            if(dst_layer == 3)
+            {
+                    ret[0] = y[nSeq][dst_layer][0];
+                    ret[1] = y[nSeq][dst_layer][1];
+                    ret[2] = y[nSeq][dst_layer][2];
+                    ret[3] = y[nSeq][dst_layer][3];
+                    out += sw.DataToString(ret);
+            }
+        }
+    }
+    sw.WriteCostumFile(out, "est.txt");
 }
 
 void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, std::vector<int> samplecounter, bool firstP)
@@ -328,7 +415,7 @@ void NeuralNetwork::RunWithRecurrentConnections (int nSeq, int nPasses, int nSki
                     //int foo3 = copy_output_after[dst_layer];
                     if (copy_output[dst_layer] > -1  && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
                     {
-                        if(firstP)// if(samplecounter[nSeq] % passCounter == 0)
+                       if(firstP)// if(samplecounter[nSeq] % passCounter == 0)
                         {
 
                             cur_u[nSeq][dst_layer][0] = 0;
@@ -482,7 +569,7 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
 
                 s[nSeq][dst_layer].row (0 )= trans (y[nSeq][dst_layer]);
                 u[nSeq][dst_layer].col (0 ) = cur_u[nSeq][dst_layer];
-                if(dst_layer == 4)
+                if(dst_layer == 3)
                 {
                     ret[0] = y[nSeq][dst_layer][0];
                     ret[1] = y[nSeq][dst_layer][1];

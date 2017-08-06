@@ -74,7 +74,7 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
         {
             for (int seq = 0; seq < net->num_seq; seq++)
             {
-                net->RunWithRecurrentConnections (seq, epoch_size, 0, (p == 0), (p == 0), samplecounter, p==0); // collect states, reset network only before first pass
+                net->Run (seq, epoch_size, 0, false, (p == 0), (p == 0)); // collect states, reset network only before first pass
                 ComputeGradients (net, seq, epoch_size);
                 UpdatePbs (net, seq, epoch_size, lr_pb);
             }
@@ -83,16 +83,17 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
                 std::cout << "PassNr.: " << p << endl;
                 for(int i = 0; i< net->num_seq; i++)
                 {
-                    for(int ii = 0; ii < 4; ii++)
+                    std::cout << "Seq: " << i<< " error: "<< sum_e[i] / (1000 * epoch_size) << endl;
+                    sum_e[i] = 0;
+                    for(int ii = 0; ii < 2; ii++)
                     {
                         for(int iii = 0; iii< net->num_layers; iii++)
                         {
                             if(net->layers[iii]->IsPbLayer())
-                                std::cout << "PB" << i <<": "<< net->u_def[i][iii] (ii) << endl;
+                                std::cout << "     PB" << ii <<": "<< net->u_def[i][iii] (ii) << endl;
                         }
                     }
-                        std::cout << sum_e[i] << endl;
-                        sum_e[i] = 0;
+
                 }
                 std::cout << "\n \n";
             }

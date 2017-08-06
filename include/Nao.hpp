@@ -21,7 +21,7 @@ public:
     int SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion);
     int SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion);
     int InitNNAndStartLearning(string path, NNType::Type t);
-    void Reproduce(vector<float> firstPose, AL::ALMotionProxy &motion);
+    void Reproduce(vector<float> firstPose);
     int InitTrainedNN(string path, NNType::Type t);
     std::vector<float> Object;
     std::vector<float> rAngles;

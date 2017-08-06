@@ -62,7 +62,7 @@ void BPTT::UpdateWeights (RNN* net)
 {
     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
     double sum;
-
+    double tmp_lr;
     // Iterate over all synapses and adjust the trainable weights
     for (src_layer = 0; src_layer < net->num_layers; src_layer++)
         for (dst_layer = 0; dst_layer < net->num_layers; dst_layer++)
@@ -78,9 +78,15 @@ void BPTT::UpdateWeights (RNN* net)
                             for (seq = 0; seq < net->num_seq; seq++)
                                 for (t = 1; t < epoch_size-1; t++)
                                     sum += g[seq][dst_layer][t] (dst_unit) * net->s[seq][src_layer] (src_layer < dst_layer ? t : t-1, src_unit);
-
-
-                            (*net->w[dst_layer][src_layer]) (dst_unit, src_unit) += lr * sum / net->num_seq; // adjust the weights using the learning rate lr
+                            if(net->data_in[0][src_layer])
+                             {
+                                tmp_lr = lr;
+                            }
+                            else
+                            {
+                                tmp_lr = 0.01;
+                            }
+                            (*net->w[dst_layer][src_layer]) (dst_unit, src_unit) += tmp_lr * sum / net->num_seq; // adjust the weights using the learning rate lr
                         }
 
 
@@ -109,7 +115,7 @@ void BPTT::UpdatePbs (RNN* net, int nSeq, int nEpochSize, double fPbLearningRate
                 for (t = 0; t < nEpochSize - 1; t++)
                     sum += g[nSeq][l][t] (unit);
 
-              net->u_def[nSeq][l] (unit) += fPbLearningRate * sum;
+              net->u_def[nSeq][l] (unit) += fPbLearningRate * sum + net->u_def[nSeq][l] (unit) * (1-fPbLearningRate);
 
 
 
