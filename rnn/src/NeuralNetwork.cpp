@@ -267,6 +267,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
 
                     if (t >= nSkip)
                         d[nSeq][dst_layer].row (t - nSkip) = trans (temp[dst_layer]);
+
                 }
 
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
@@ -299,7 +300,7 @@ void NeuralNetwork::Run (int nSeq, int nPasses, int nSkip, bool bIsTest, bool bR
     }
 }
 
-void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, vector<float> firstangles, vector<float> pbs)
+void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bReset, bool bResetPbs, vector<vector<float> > firstangles, vector<vector<float> > firstanglesout, vector<float> pbs, vector<vector<float> > object)
 {
     int dst_layer, src_layer;
     SampleWriter sw;
@@ -316,10 +317,8 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
             // cur_u denotes the induced local fields of the current layer at the current time-step
             cur_u[nSeq][dst_layer].zeros ();
 
-            if (data_out[nSeq][dst_layer] && use_tf[nSeq][dst_layer]) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
-                data_out[nSeq][dst_layer]->GetSetAt (data_out_index[nSeq][dst_layer]++, &y[nSeq][dst_layer]);
-            else
-            {
+
+
                 if (data_in[nSeq][dst_layer]) // If this is an input layer...
                 {
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
@@ -328,14 +327,21 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
                     {
                         cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                     }
-                    else
-                        data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
-                    if(dst_layer == 0 && t == 0)
+                    //else
+                        //data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
+
+                    if(dst_layer == 0 && t < 10)
                     {
-                         cur_u[nSeq][dst_layer][0] = firstangles[0];
-                         cur_u[nSeq][dst_layer][1] = firstangles[1];
-                         cur_u[nSeq][dst_layer][2] = firstangles[2];
-                         cur_u[nSeq][dst_layer][3] = firstangles[3];
+                         cur_u[nSeq][dst_layer](0) = firstangles[t][0];
+                         cur_u[nSeq][dst_layer](1) = firstangles[t][1];
+                         cur_u[nSeq][dst_layer](2) = firstangles[t][2];
+                         cur_u[nSeq][dst_layer](3) = firstangles[t][3];
+                    }
+                    if(dst_layer == 1 && data_in[nSeq][dst_layer])
+                    {
+                         cur_u[nSeq][dst_layer](0) = object[t][0] /2;
+                         cur_u[nSeq][dst_layer](1) = object[t][1]/2;
+                         cur_u[nSeq][dst_layer](2) = object[t][2]/2;
                     }
                 }
 
@@ -356,7 +362,7 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
                     if (w[dst_layer][src_layer])
                     {
                         temp[dst_layer] = (*w[dst_layer][src_layer]) * y[nSeq][src_layer];
-                        cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
+                            cur_u[nSeq][dst_layer] += temp[dst_layer];  // doesn't work if the right-hand side of the above assignment is added to cur_u directly
                     }
 
                 // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
@@ -365,7 +371,15 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
 
                 prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];
                 layers[dst_layer]->ComputeActivations (&cur_u[nSeq][dst_layer], &y[nSeq][dst_layer]);
-            }
+
+                if (dst_layer == 5 &&t < 10) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
+                {
+                        y[nSeq][dst_layer](0) = firstanglesout[t][0];
+                        y[nSeq][dst_layer](1) = firstanglesout[t][1];
+                        y[nSeq][dst_layer](2) = firstanglesout[t][2];
+                        y[nSeq][dst_layer](3) = firstanglesout[t][3];
+                }
+
 
             // Collect the activations and induced local fields after the initial washout
             if (t >= nSkip)
@@ -373,12 +387,12 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
                 s[nSeq][dst_layer].row (t - nSkip) = trans (y[nSeq][dst_layer]);
                 u[nSeq][dst_layer].col (t - nSkip) = cur_u[nSeq][dst_layer];
             }
-            if(dst_layer == 3)
+            if(dst_layer == 5)
             {
-                    ret[0] = y[nSeq][dst_layer](0);
-                    ret[1] = y[nSeq][dst_layer](1);
-                    ret[2] = y[nSeq][dst_layer](2);
-                    ret[3] = y[nSeq][dst_layer](3);
+                    ret[0] = y[nSeq][dst_layer](0) ;
+                    ret[1] = y[nSeq][dst_layer](1) ;
+                    ret[2] = y[nSeq][dst_layer](2) ;
+                    ret[3] = y[nSeq][dst_layer](3) ;
                     out += sw.DataToString(ret);
             }
         }
@@ -563,7 +577,7 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                     }
 
                 // If a time constant greather than 1 is used, the previous induced local fields will affect the current output
-                cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
+                //cur_u[nSeq][dst_layer] /= layers[dst_layer]->GetTimeConstant ();
                 cur_u[nSeq][dst_layer] += prv_u[nSeq][dst_layer] * (1.0 - 1.0 / layers[dst_layer]->GetTimeConstant ());
 
                 prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];

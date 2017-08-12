@@ -251,6 +251,11 @@ void RNN::ConnectUnitToUnit (int nSrcLayer, int nSrcUnit, int nDstLayer, int nDs
     Utilities::Assert(nDstUnit >= 0 && nDstUnit < layers[nDstLayer]->GetSize (), (char*) "ERROR: nDstUnit out of range in RNN::ConnectUnitToUnit!");
     #endif
 
+    if (!w[nDstLayer][nSrcLayer])
+        w[nDstLayer][nSrcLayer] = new mat (layers[nDstLayer]->GetSize (), layers[nSrcLayer]->GetSize ());
+
+    (*w[nDstLayer][nSrcLayer]) (nDstLayer, nSrcUnit)  = fWeight;
+
     synapses[nDstLayer][nDstUnit][nSrcLayer][nSrcUnit] = true;
     trainable[nDstLayer][nDstUnit][nSrcLayer][nSrcUnit] = bTrainable;
 }

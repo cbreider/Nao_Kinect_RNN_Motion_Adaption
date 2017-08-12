@@ -23,7 +23,7 @@ IdentityActivation* ActivationFunction::IDENTITY = new IdentityActivation ();
 void SigmoidActivation::ComputeActivations (const vec* x, vec* y)
 {
     for (int i = 0; i < (int) (*x).n_rows; i++)
-    	(*y) (i) = 1 / (1 + exp (-(*x) (i)));
+        (*y) (i) = 1 / (1 + exp (-(*x) (i)));
 }
 
 /**

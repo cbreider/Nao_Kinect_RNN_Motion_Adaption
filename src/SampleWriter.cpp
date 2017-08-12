@@ -61,8 +61,8 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
                 cout << "Capturing Sample" << _sampleNr << "..." << endl;
             }
             //check if object was detected correctly
-            //if((object[2] > 500) && (object[2] < 2000))
-            //{
+            if((object[2] > 500) && (object[2] < 4000))
+            {
                 //capture differnce of objectPosition
                 if(!_firstFrame)
                 {
@@ -90,7 +90,7 @@ int SampleWriter::Update(std::vector<float> angles, std::vector<float> object, b
 
                 }
                 _lastObjectPosition = object;
-            //}
+            }
             if (_firstFrame)
             {
             }

@@ -1,9 +1,9 @@
-M = dlmread('anglesIn.txt3');
+M = dlmread('anglesIn.txt4');
 sp = M(:,1);
 sr = M(:,2);
 ep = M(:,3);
 ey = M(:,4);
-M_est = dlmread('est.txt');
+M_est = dlmread('test3.txt');
 sp_est = M_est(:,1);
 sr_est = M_est(:,2);
 ep_est = M_est(:,3);

@@ -20,6 +20,11 @@ RNNTrainingAlgorithm::RNNTrainingAlgorithm (int nPasses, int nEpochSize, double 
     epoch_size = nEpochSize;
     lr = fLearningRate;
     lr_pb = fPbLearningRate;
+
+    sum_e.push_back(0);
+    sum_e.push_back(0);
+    sum_e.push_back(0);
+    sum_e.push_back(0);
 }
 
 /**
@@ -87,17 +92,19 @@ void RNNTrainingAlgorithm::Train (RNN* net, std::vector<int> samplecounter)
                     err += sum_e[i];
                     std::cout << "Seq: " << i<< " error: "<< sum_e[i] / (1000 * epoch_size) << endl;
                     sum_e[i] = 0;
-                    for(int ii = 0; ii < 2; ii++)
+                    for(int iii = 0; iii< net->num_layers; iii++)
                     {
-                        for(int iii = 0; iii< net->num_layers; iii++)
-                        {
-                            if(net->layers[iii]->IsPbLayer())
+                         if(net->layers[iii]->IsPbLayer())
+                         {
+                            for(int ii = 0; ii < net->layers[iii]->GetSize(); ii++)
+                            {
                                 std::cout << "     PB" << ii <<": "<< net->u_def[i][iii] (ii) << endl;
-                        }
+                            }
+                         }
                     }
 
                 }
-                std::cout << endl << "overall error: " << err / (1000 * epoch_size);
+                std::cout << endl << "overall error: " << err / (1000 * epoch_size );
                 std::cout << "\n \n";
             }
             UpdateWeights (net);

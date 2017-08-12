@@ -1,13 +1,11 @@
 #include <vector>
+#include <cmath>
 /**
   * Constructor; See RNNTrainingAlgorithm (this class's parent class) for information about the parameters.
   */
 BPTT::BPTT (int nPasses, int nEpochSize, double fLearningRate, double fPbLearningRate) : RNNTrainingAlgorithm (nPasses, nEpochSize, fLearningRate, fPbLearningRate)
 {
-        sum_e.push_back(0);
-        sum_e.push_back(0);
-        sum_e.push_back(0);
-        sum_e.push_back(0);
+
 }
 
 /**
@@ -19,7 +17,7 @@ BPTT::BPTT (int nPasses, int nEpochSize, double fLearningRate, double fPbLearnin
   */
 void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
 {
-    vec vec_u, sum, e;
+    vec vec_u, sum, e, e_tmp;
 
     // Iterate over all time-steps and layers
     for (int t = nEpochSize - 1; t >= 0; t--)
@@ -31,9 +29,11 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
             // Compute the error; if the layer is not an output layer, set the error to zero
             if (net->data_out[nSeq][src_layer])
             {
-                e = trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
-                sum_e[nSeq] += (e[0] * e[0]) + (e[1] * e[1]) + (e[2] * e[2]) + (e[3] * e[3]);
+                //if(nSeq== 0)
+                  // std::cout << net->d[nSeq][src_layer].row (t)<< endl;
 
+                e= trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
+                sum_e[nSeq] += std::abs(e[0])  + std::abs(e[1])   + std::abs(e[2])+  std::abs(e[3]);
             }
             else
                 e.zeros (net->layers[src_layer]->GetSize ());
@@ -84,7 +84,7 @@ void BPTT::UpdateWeights (RNN* net)
                             }
                             else
                             {
-                                tmp_lr = 0.01;
+                                tmp_lr =lr;
                             }
                             (*net->w[dst_layer][src_layer]) (dst_unit, src_unit) += tmp_lr * sum / net->num_seq; // adjust the weights using the learning rate lr
                         }

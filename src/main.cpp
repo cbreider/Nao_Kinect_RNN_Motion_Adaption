@@ -311,10 +311,11 @@ int Start(bool sample )
             //same for the right arm
             if(rConfidence > 0.4)
             {
+                kinect.GetUser()->GetRightArmAngles();
                 //if(mode == 1) nao.SetRightArm(kinect.GetUser()->GetRightArmAngles(), motion);
                 if(mode == 2)
                 {
-                    vector<float> pos = kinect.GetUser()->GetArmPosition();
+                    //vector<float> pos = kinect.GetUser()->GetArmPosition();
                     //nao.SetRightHand(pos, motion );
                     //std::cout << pos[2] << " " << pos[0]  << " " <<pos[1] << std::endl;
                 }

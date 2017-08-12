@@ -27,7 +27,8 @@ void CBPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
             if (net->data_out[nSeq][src_layer])
             {
                 g[nSeq][src_layer][t] = trans (net->s[nSeq][src_layer].row (t) - net->d[nSeq][src_layer].row (t));
-
+                e= trans (net->d[nSeq][src_layer].row (t) - net->s[nSeq][src_layer].row (t));
+                sum_e[nSeq] += (e[0] * e[0]) + (e[1] * e[1]) + (e[2] * e[2]) + (e[3] * e[3]);
                 if (t < nEpochSize - 1)
                 {
                     temp.ones (net->layers[src_layer]->GetSize ());

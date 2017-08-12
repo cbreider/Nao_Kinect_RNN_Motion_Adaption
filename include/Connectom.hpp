@@ -84,7 +84,9 @@ class RNNPBWrapper : RecurrentNeuralNetworkWrapper
         void TrainFromSource();
         void LoadWeights();
         void Test();
-
+   private:
+        int pb_count = 0;
+        int nr_seq = 0;
         friend class RecurrentNeuralNetworkWrapper;
 };
 

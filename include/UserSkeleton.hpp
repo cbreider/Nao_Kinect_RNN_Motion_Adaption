@@ -33,7 +33,7 @@ public:
     std::vector<float> GetArmPosition();
 	float GetRightArmPositionConfidence();
 	float GetLeftArmPositionConfidence();
-    //std::vector<float> object;
+    std::vector<float> object;
     SkeletonState Update();
     bool Sample;
 	void Close();

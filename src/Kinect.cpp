@@ -1,3 +1,4 @@
+
 #include "../include/Kinect.hpp"
 #include "OpenNI.h"
 #include <iostream>
@@ -73,7 +74,10 @@ SkeletonState Kinect::Update(bool object, bool user)
 
         CoordinateConverter::convertDepthToWorld(depth, pos[0], pos[1], pos[2], &_objectX, &_objectY, &_objectZ);
 
-        //_userSkeleton.object = vector<float>  {_objectX, _objectY, _objectZ};
+        _userSkeleton.object = vector<float> (3);
+        _userSkeleton.object[0] = _objectX;
+        _userSkeleton.object[1] = _objectY;
+        _userSkeleton.object[2] = _objectZ;
     }
 
     if(user)
