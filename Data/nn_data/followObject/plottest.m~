@@ -1,0 +1,75 @@
+M1 = dlmread('anglesIn.txt1');
+sp1 = M1(:,1);
+sr1 = M1(:,2);
+ep1 = M1(:,3);
+ey1 = M1(:,4);
+s = size(sp1, 1);
+s1 = size(sp1, 1);
+sp_est1 = zeros(s1, 1);%M_est(:,1);
+sr_est1 = zeros(s1,1 );%M_est(:,2);
+ep_est1 = zeros(s1,1);%M_est(:,3);
+ey_est1 =zeros(s1,1);%&M_est(:,4);
+time = zeros(s1,1);
+time2 = zeros(s,1) -20 ;
+
+M2 = dlmread('anglesOut.txt1');
+sp2 = M2(:,1);
+sr2 = M2(:,2);
+ep2 = M2(:,3);
+ey2 = M2(:,4);
+sp_est2 = zeros(s1,1);%M_est(:,1);
+sr_est2 = zeros(s1,1);%M_est(:,2);
+ep_est2 = zeros(s1,1);%M_est(:,3);
+ey_est2 = zeros(s1,1);%&M_est(:,4);
+
+M3 = dlmread('objectPos.txt1');
+x = M3(:,1);
+y = M3(:,2);
+z = M3(:,3);
+x_es = zeros(s1,1);%M_est(:,1);
+y_es = zeros(s1,1);%M_est(:,2);
+z_es = zeros(s1,1);%M_est(:,3);
+
+for i=1:s
+time(i) = i;
+sp_est1(i) = sp1(i);
+sr_est1(i) = sr1(i) /10;
+ep_est1(i) = ep1(i) /10;
+ey_est1(i) =ep1(i) /10;
+
+sp_est2(i) = sp2(i) ;
+sr_est2(i) = sr2(i) /10;
+ep_est2(i) = ep2(i) /10;
+ey_est2(i) = ep2(i) /10;
+
+x_es(i) = x(i) /10 ;
+y_es(i) = y(i);
+z_es(i) = z(i) /10;
+
+end
+
+f1=figure;
+plot(time, sp1, time, sp_est1)
+legend('Demonstration','Neural Net');
+f2=figure;
+plot(time, sr1, time, sr_est1)
+legend('Demonstration','Neural Net');
+f3=figure;
+plot(time, ep1, time, ep_est1 )
+legend('Demonstration','Neural Net');
+f4=figure;
+plot(time, ey1, time, ey_est1)
+legend('Demonstration','Neural Net');
+
+f5=figure;
+plot(time, x, time, x_es)
+legend('Demonstration','Neural Net');
+f6=figure;
+plot(time, y, time, y_es )
+legend('Demonstration','Neural Net');
+f7=figure;
+plot(time, z, time, z_es)
+legend('Demonstration','Neural Net');
+
+
+

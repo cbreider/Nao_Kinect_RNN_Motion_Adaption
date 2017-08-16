@@ -293,7 +293,6 @@ void RNNWrapper::Test()
                  io_ob >> ob[a][0];
                  io_ob >> ob[a][1];
                  io_ob >> ob[a][2];
-                 io_ob >> ob[a][3];
             }
             ++number_of_lines;
             a++;

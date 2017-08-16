@@ -603,6 +603,11 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                 }
 
         }
+
+
+
+
+
         return ret;
 }
 

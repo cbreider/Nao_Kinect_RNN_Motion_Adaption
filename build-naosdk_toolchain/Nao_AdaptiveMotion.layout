@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Nao_AdaptiveMotion" />
-	<File name="../src/Connectom.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../include/Kinect.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5840" topLine="134" />
+			<Cursor1 position="312" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="../rnn/src/RNN.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,14 +12,24 @@
 			<Cursor1 position="2226" topLine="46" />
 		</Cursor>
 	</File>
-	<File name="../src/Nao.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../include/UserSkeleton.hpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1787" topLine="41" />
+			<Cursor1 position="416" topLine="7" />
 		</Cursor>
 	</File>
-	<File name="../include/armadillo_bits/debug.hpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../include/Nao.hpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1631" topLine="127" />
+			<Cursor1 position="401" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../rnn/src/RNNTrainingAlgorithm.cpp" open="1" top="1" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2985" topLine="57" />
+		</Cursor>
+	</File>
+	<File name="../include/Utilities.hpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="../CMakeLists.txt" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -32,34 +42,9 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../src/UserSkeleton.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../src/Nao.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9670" topLine="234" />
-		</Cursor>
-	</File>
-	<File name="../rnn/src/RNNTrainingAlgorithm.cpp" open="1" top="1" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2985" topLine="57" />
-		</Cursor>
-	</File>
-	<File name="../include/UserSkeleton.hpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="416" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="../src/Kinect.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1243" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="../include/Kinect.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="312" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../include/Nao.hpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="401" topLine="0" />
+			<Cursor1 position="1787" topLine="41" />
 		</Cursor>
 	</File>
 	<File name="../include/Connectom.hpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -67,24 +52,39 @@
 			<Cursor1 position="288" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="../include/Utilities.hpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="../rnn/src/NeuralNetwork.cpp" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14343" topLine="297" />
-		</Cursor>
-	</File>
 	<File name="../include/armadillo_bits/fn_min.hpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="507" topLine="21" />
 		</Cursor>
 	</File>
+	<File name="../src/Kinect.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1243" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="../include/armadillo_bits/debug.hpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1631" topLine="127" />
+		</Cursor>
+	</File>
 	<File name="../src/main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5699" topLine="329" />
+		</Cursor>
+	</File>
+	<File name="../rnn/src/NeuralNetwork.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14343" topLine="297" />
+		</Cursor>
+	</File>
+	<File name="../src/UserSkeleton.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9670" topLine="234" />
+		</Cursor>
+	</File>
+	<File name="../src/Connectom.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5840" topLine="134" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

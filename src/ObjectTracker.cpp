@@ -27,15 +27,16 @@ int ObjectTracker::Init()
       posX = 0;
       posY = 0;
 
-      H_MIN = 7;
-      H_MAX = 26;
-      S_MIN = 148;
-      S_MAX = 256;
-      V_MIN = 135;
-      V_MAX = 256;
+      H_MIN = 0;
+      H_MAX = 40;
+      S_MIN = 152;
+      S_MAX = 235;
+      V_MIN = 106;
+      V_MAX =217;
       trackbarWindowName = "HSV ColorPicker";
       FRAME_WIDTH = 640;
       FRAME_HEIGHT = 480;
+      namedWindow("color", WINDOW_AUTOSIZE);
       //createTrackbars();
       return 1;
 }
@@ -44,11 +45,13 @@ int ObjectTracker::Init()
 vector<float> ObjectTracker::Update(openni::VideoFrameRef depthFrame, openni::VideoFrameRef colorFrame)
 {
     cameraFeed.data = (uchar*)colorFrame.getData();
+    show = cameraFeed.clone();
     cv::Mat depthImage(depthFrame.getHeight(), depthFrame.getWidth(), CV_16UC1);
     depthImage.data = (uchar*)depthFrame.getData();
     Mat depthImage2;
     depthImage.convertTo(depthImage2, CV_8U, 0.1);
     cvtColor(cameraFeed, cameraFeed, CV_BGR2RGB);
+
     cvtColor(cameraFeed, HSV, COLOR_BGR2HSV);
     inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), thresholdMat);
     cvtColor(depthImage2, coloredDepth, CV_GRAY2RGB);
@@ -58,6 +61,7 @@ vector<float> ObjectTracker::Update(openni::VideoFrameRef depthFrame, openni::Vi
     depth = depthImage.at<u_int16_t>(posY, posX);
     //float posZ = ((float)4000 * ((float)depth) / (float)65535) + 400;
     float posZ = (float)depth ;
+
     //imshow("RGB", cameraFeed);
     cv::imshow("depth", coloredDepth);
     //cv::imshow("Threshold", thresholdMat);
@@ -110,8 +114,7 @@ void ObjectTracker::Objecttracking()
 		{
 			cvDrawContours(drawingIpl, biggestContour, color, color, -1, thickness, lineType, cvPoint(0, 0));
 		}
-
-			cvMoments(drawingIpl, colorMoment, 1);
+            cvMoments(drawingIpl, colorMoment, 1);
 			if (true)
 			{
 
@@ -123,6 +126,8 @@ void ObjectTracker::Objecttracking()
 
 			posX = (moment10 / area);
 			posY = moment01 / area;
+            drawObject(posX, posY, show);
+
             float xd = posX -320;
             float yd = posY -240;
             float xd2, yd2;

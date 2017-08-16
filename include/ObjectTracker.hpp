@@ -28,26 +28,7 @@ class ObjectTracker
 
   private:
     void Objecttracking();
-  /*  void createTrackbars()
-    {
-    		namedWindow(trackbarWindowName,0);
 
-    		char TrackbarName[100];
-    		printf(TrackbarName, "Hue_MIN", H_MIN);
-    		printf(TrackbarName, "Hue_MAX", H_MAX);
-    		printf(TrackbarName, "Saturation_MIN", S_MIN);
-    		printf(TrackbarName, "Saturation_MAX", S_MAX);
-    		printf(TrackbarName, "Value_MIN", V_MIN);
-    		printf(TrackbarName, "Value_MAX", V_MAX);
-
-
-    		createTrackbar("Hue_MIN", trackbarWindowName, &H_MIN, 256, on_trackbar);
-    		createTrackbar("Hue_MAX", trackbarWindowName, &H_MAX, 256, on_trackbar);
-    		createTrackbar("Saturation_MIN", trackbarWindowName, &S_MIN, 256, on_trackbar);
-    		createTrackbar("Saturation_MAX", trackbarWindowName, &S_MAX, 256, on_trackbar);
-    		createTrackbar("Value_MIN", trackbarWindowName, &V_MIN, 256, on_trackbar);
-    		createTrackbar("Value_MAX", trackbarWindowName, &V_MAX, 256, on_trackbar);
-    }*/
         void drawObject(int x, int y, Mat &frame);
     void on_trackbar(int, void*);
 
@@ -70,6 +51,8 @@ class ObjectTracker
      int FRAME_WIDTH;
      int FRAME_HEIGHT;
     float x, y, z;
+    Mat show{640, 480, CV_8UC3, NULL};
+
 };
 
 #endif
