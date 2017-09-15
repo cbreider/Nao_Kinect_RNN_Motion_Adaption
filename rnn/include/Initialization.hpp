@@ -20,10 +20,12 @@ class RandomInitialization : public Initialization
     public:
         RandomInitialization (double, double);
         void Initialize (mat*);
+        void InitializeStatic (mat*);
 
     protected:
         double min, max;
 };
+
 
 /**
   * When passed as an argument to an appropriate method (e.g. RNN::ConnectLayerToLayer), objects of this class randomly creates sparse sparse internal connections in an ESNLayer, assigning random weights to them.

@@ -4,6 +4,7 @@
 #include <alproxies/altexttospeechproxy.h>
 #include <stdio.h>
 #include "Utilities.hpp"
+#include <unistd.h>
 
 int Nao::Init(AL::ALMotionProxy &motion)
 {
@@ -78,7 +79,9 @@ int Nao::InitTrainedNN(string path, NNType::Type t)
 
 void Nao::Reproduce(vector<float> firstPose)
 {
-    naosNeuralNetwork->PredictNextStep(Object, firstPose);
+    rAngles_prev = rAngles;
+    rAngles=  naosNeuralNetwork->PredictNextStep(Object, firstPose);
+
 }
 
 void Nao::Test()
@@ -112,18 +115,45 @@ void Nao::SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion)
 
 int Nao::SetRightArm(std::vector<float> rArm, AL::ALMotionProxy &motion)
 {
+    rAngles_prev = rAngles;
+
 	try
 	{
 		//printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
-        rAngles = rArm;
+        //rAngles = rArm;
 		AL::ALValue targetAngles = AL::ALValue::array(rArm[0], rArm[1], rArm[2], rArm[3]);
 		motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
 		return 0;
 	}
 	catch(const AL::ALError& e)
 	{
+        std::cout << e.toString() << endl;
 		return 1;
 	}
+}
+
+int Nao::SetRightArmSlow(std::vector<float> rArm, AL::ALMotionProxy &motion)
+{
+    int scale = 1;
+
+    float inc;
+     inc = (rAngles_prev[0] - rAngles[0]) / scale;
+
+     for(int i = 1; i <= scale; i++)
+     {
+    try
+    {
+        //printf("%0.3f, %0.3f \n", rArm[0], rArm[1]);
+        rArm = rAngles_prev;
+        AL::ALValue targetAngles = AL::ALValue::array(rArm[0] + inc * scale, rArm[1], rArm[2], rArm[3]);
+        motion.setAngles(jointNamesRightArm, targetAngles, fractionMaxSpeedA);
+    }
+    catch(const AL::ALError& e)
+    {
+    }
+         usleep(33);
+     }
+     return 1;
 }
 
 int Nao::SetLeftArm(std::vector<float> lArm, AL::ALMotionProxy &motion)

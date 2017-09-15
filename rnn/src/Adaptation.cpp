@@ -1,10 +1,5 @@
 
-/**
-  * Constructor
-  *
-  * @param fMu The mu used in Intrinsic Plasticity Adaptation
-  * @param fLearningRate The learning rate to be used during Intrinsic Plasticity adaptation
-  */
+
 Adaptation::Adaptation (double fMu, double fLearningRate)
 {
     size = 0;
@@ -14,20 +9,14 @@ Adaptation::Adaptation (double fMu, double fLearningRate)
     b = NULL;
 }
 
-/**
-  * Destructor; deletes the arrays of A and B parameters
-  */
+
 Adaptation::~Adaptation ()
 {
     delete [] a;
     delete [] b;
 }
 
-/**
-  * Sets the number of units (the layer's size) whose activation functions are to be adapted; is only called by ESNLayer
-  *
-  * @param nSize Size of the layer whose activation function is to be adapted
-  */
+
 void Adaptation::Resize (int nSize)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -51,12 +40,7 @@ void Adaptation::Resize (int nSize)
     }
 }
 
-/**
-  * Returns the A parameter of a unit whose activation function was adapted using Intrinsic Plasticity
-  *
-  * @param The unit's index in the layer
-  * @return The unit's A parameter
-  */
+
 inline double Adaptation::GetA (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -66,12 +50,7 @@ inline double Adaptation::GetA (int nUnit)
     return a[nUnit];
 }
 
-/**
-  * Returns the B parameter of a unit whose activation function was adapted using Intrinsic Plasticity
-  *
-  * @param The unit's index in the layer
-  * @return The unit's B parameter
-  */
+
 inline double Adaptation::GetB (int nUnit)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -81,12 +60,7 @@ inline double Adaptation::GetB (int nUnit)
     return b[nUnit];
 }
 
-/**
-  * Adapts the A and B parameters of the layer's activation function using Intrinsic Plasticity. Called after each step for which the network is run during the adaptation phase.
-  *
-  * @param x The layer's induced local fields at the current time-step
-  * @param y The layer's activation at the current time-step
-  */
+
 void Adaptation::Adapt (vec* x, vec* y)
 {
     for (int i = 0; i < size; i++)

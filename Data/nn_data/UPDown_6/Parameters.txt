@@ -4,7 +4,7 @@ Epoch_size: 60
 Learning_rate: 0.00003
 Min_init: -0.6
 Max_int: 0.6
-Number_of_Context_units: 2
+Number_of_Context_units: 4
 Context_loop_Timeconstant: 1
 Sample_SpaceScaling: 0.35
 Sample_TimeScaling: 1

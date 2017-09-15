@@ -1,20 +1,12 @@
 #include <vector>
 #include <cmath>
-/**
-  * Constructor; See RNNTrainingAlgorithm (this class's parent class) for information about the parameters.
-  */
+
 BPTT::BPTT (int nPasses, int nEpochSize, double fLearningRate, double fPbLearningRate) : RNNTrainingAlgorithm (nPasses, nEpochSize, fLearningRate, fPbLearningRate)
 {
 
 }
 
-/**
-  * Computes the gradients of a given RNN for one training epoch. If multiple patterns are to be learned, the method needs to be invoked or each pattern individually.
-  *
-  * @param net The RNN for which the gradients will be computed
-  * @param nSeq The number of the pattern for which the gradients will be computed
-  * @param nEpochSize Number of time-steps in the current training epoch
-  */
+
 void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
 {
     vec vec_u, sum, e, e_tmp;
@@ -53,11 +45,7 @@ void BPTT::ComputeGradients (RNN* net, int nSeq, int nEpochSize)
         }
 }
 
-/**
-  * Updates the weights of a given RNN based on the gradients computed by ComputeGradients().
-  *
-  * @param net The RNN whose weights will be updated
-  */
+
 void BPTT::UpdateWeights (RNN* net)
 {
     int src_layer, dst_layer, src_unit, dst_unit, seq, t;
@@ -92,14 +80,6 @@ void BPTT::UpdateWeights (RNN* net)
 
 }
 
-/**
-  * Updates the PB values of a given RNN based on a learning rate parameter. Needs to be invoked individually for each pattern after each training epoch.
-  *
-  * @param The RNN whose PB values will be adjusted
-  * @param nSeq The number of the pattern for which the PB values will be adjusted
-  * @param nEpochSize The number of time-steps in the current training epoch
-  * @param fPbLearningRate The learning rate to be used in the update equation
-  */
 void BPTT::UpdatePbs (RNN* net, int nSeq, int nEpochSize, double fPbLearningRate)
 {
     int t, unit;

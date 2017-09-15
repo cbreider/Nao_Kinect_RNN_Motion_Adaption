@@ -16,6 +16,7 @@ class RNN : public NeuralNetwork
         void ConnectLayerToLayer (int, int);
         void ConnectLayerToLayer (int, int, Initialization*, bool);
         void ConnectLayerToLayer (int, int, mat*, bool);
+        void ConnectLayerToLayerStatic(int nSrcLayer, int nDstLayer, RandomInitialization* initFunc, bool bTrainable);
         void ConnectUnitToLayer (int, int, int);
         void ConnectUnitToLayer (int, int, int, Initialization*, bool);
         void ConnectUnitToLayer (int, int, int, rowvec*, bool);

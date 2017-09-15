@@ -22,7 +22,7 @@ class NeuralNetwork
         void ConnectLayerToLayer (int, int);
         void ConnectLayerToLayer (int, int, Initialization*, bool);
         void ConnectLayerToLayer (int, int, mat*, bool);
-
+        void ConnectLayerToLayerStatic(int, int, RandomInitialization*, bool);
         void ExportWeightsAndPBs(bool afterTraining, std::string, int);
         void ExportWeights(bool afterTraining, std::string);
         void ImportWeights(std::string);

@@ -1,13 +1,6 @@
 #include <vector>
 
-/**
-  * Creates a new recurrent neural network consisting of nLayers layers stored in layerArray; the network will be able to learn nSequences trajectories using the training algorithm specified by rnnAlg.
-  *
-  * @param nLayers The number of layers in the network
-  * @param layerArray An array containing pointers to the Layer objects which the network will be used as the network's layers
-  * @param rnnAlg The training algorithm to be used
-  * @param nSequences The number of a trajectories the network will be able to learn
-  */
+
 RNN::RNN (int nLayers, Layer** layerArray, RNNTrainingAlgorithm* rnnAlg, int nSequences) : NeuralNetwork (nLayers, layerArray, nSequences)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -44,9 +37,7 @@ RNN::RNN (int nLayers, Layer** layerArray, RNNTrainingAlgorithm* rnnAlg, int nSe
     }
 }
 
-/**
-  * Trains the network using the algorithm passed to the constructor.
-  */
+
 void RNN::Train (int samplecount)
 {
     alg->Train (this, samplecount);
@@ -57,17 +48,7 @@ void RNN::Train (std::vector<int> samplecount)
     alg->Train (this, samplecount);
 }
 
-/**
-  * Tests the network's performance in reproducing a certain trajectory.
-  *
-  * @param nSequence The trajectory on whose data the network will be tested
-  * @param nPasses The number of steps during which error data will be collected
-  * @param nEpochSize The size of one epoch; this is only relevant if the Parametric Bias (PB) units are to be trained, as their values will be adjusted after nEpochSize steps
-  * @param nSkip The number of epochs for which the network will be run before error data is collected
-  * @param bResetPbs Specifies whether the PB units should be reset to their original values (true) or not (false)
-  * @param bTrainPbs Specifies whether the PB units should be trained (true) or not (false)
-  * @param fPbLearningRate Specifies the learning rate to be used for training the PB units
-  */
+
 NetworkErrorData* RNN::Test (int nSequence, int nPasses, int nEpochSize, int nSkip, bool bResetPbs, bool bTrainPbs, double fPbLearningRate)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -79,21 +60,12 @@ NetworkErrorData* RNN::Test (int nSequence, int nPasses, int nEpochSize, int nSk
     return alg->Test (this, nSequence, nPasses, nEpochSize, nSkip, bResetPbs, bTrainPbs, fPbLearningRate);
 }
 
-/**
-  * Calls Test (int nSequence, int nPasses, int nEpochSize, int nSkip, bool bResetPbs, bool bTrainPbs, double fPbLearningRate) with nSequence=0. See the doumentation of that method for information about the parameters.
-  */
 NetworkErrorData* RNN::Test (int nPasses, int nEpochSize, int nSkip, bool bResetPbs, bool bTrainPbs, double fPbLearningRate)
 {
     return Test (0, nPasses, nEpochSize, nSkip, bResetPbs, bTrainPbs, fPbLearningRate);
 }
 
-/**
-  * Connects one layer (nSrcLayer) to another layer (nDstLayer), specifying whether the connections will be trainable or not.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
+
 void RNN::MarkLayerToLayerConnection (int nSrcLayer, int nDstLayer, bool bTrainable)
 {
     for (int dst_unit = 0; dst_unit < layers[nDstLayer]->GetSize (); dst_unit++)
@@ -104,14 +76,7 @@ void RNN::MarkLayerToLayerConnection (int nSrcLayer, int nDstLayer, bool bTraina
         }
 }
 
-/**
-  * Connects one unit to a layer, specifying whether the connections will be trainable or not.
-  *
-  * @param nSrcLayer The zero-based index of the source unit's layer
-  * @param nSrcUnit The unit's zero-based index inside nSrcLayer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
+
 void RNN::MarkUnitToLayerConnection (int nSrcLayer, int nSrcUnit, int nDstLayer, bool bTrainable)
 {
     for (int dst_unit = 0; dst_unit < layers[nDstLayer]->GetSize (); dst_unit++)
@@ -121,12 +86,7 @@ void RNN::MarkUnitToLayerConnection (int nSrcLayer, int nSrcUnit, int nDstLayer,
     }
 }
 
-/**
-  * Connects one layer to another layer; the connections will be trainable. Overwrites the inherited method because some functionality still needed to be added.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nDstLayer The zero-based index of the destination layer
-  */
+
 void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer)
 {
     NeuralNetwork::ConnectLayerToLayer (nSrcLayer, nDstLayer);
@@ -134,14 +94,6 @@ void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer)
     MarkLayerToLayerConnection (nSrcLayer, nDstLayer, true);
 }
 
-/**
-  * Connects one layer to another layer, initializing the connection weights and specifying whether they will be trainable or not. Overwrites the inherited method because some functionality still needed to be added.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param initFunc The initialization method to be used for initializing the connections
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
 void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, Initialization* initFunc, bool bTrainable)
 {
     NeuralNetwork::ConnectLayerToLayer (nSrcLayer, nDstLayer, initFunc, bTrainable);
@@ -149,14 +101,7 @@ void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, Initialization* ini
     MarkLayerToLayerConnection (nSrcLayer, nDstLayer, bTrainable);
 }
 
-/**
-  * Connects one layer (nSrcLayer) to another layer (nDstLayer), initializing the connection weights and specifying whether they will be trainable or not. Overwrites the inherited method because some functionality still needed to be added.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param weights A matrix containing the connection weights; entry (x, y) specifies the weight to be used for the connection from unit x in nSrcLayer to unit y in nDstLayer
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
+
 void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weights, bool bTrainable)
 {
     NeuralNetwork::ConnectLayerToLayer (nSrcLayer, nDstLayer, weights, bTrainable);
@@ -165,13 +110,6 @@ void RNN::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, mat* weights, bool 
 }
 
 
-/**
-  * Connects one unit to a layer; the connections will be trainable.
-  *
-  * @param nSrcLayer The zero-based index of the source unit's layer
-  * @param nSrcUnit The unit's zero-based index inside nSrcLayer
-  * @param nDstLayer The zero-based index of the destination layer
-  */
 void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING
@@ -186,16 +124,14 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer)
     w[nDstLayer][nSrcLayer]->zeros ();
     MarkUnitToLayerConnection (nSrcLayer, nSrcUnit, nDstLayer, true);
 }
+void RNN::ConnectLayerToLayerStatic(int nSrcLayer, int nDstLayer, RandomInitialization* initFunc, bool bTrainable)
+{
 
-/**
-  * Connects one unit to a layer, initializing the connection weights and specifying whether they will be trainable or not.
-  *
-  * @param nSrcLayer The zero-based index of the unit's layer
-  * @param nSrcUnit The unit's zero-based index inside nSrcLayer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param initFunc The initialization method to be used for initializing the connections
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
+    NeuralNetwork::ConnectLayerToLayerStatic (nSrcLayer, nDstLayer, initFunc, bTrainable);
+
+    MarkLayerToLayerConnection (nSrcLayer, nDstLayer, bTrainable);
+}
+
 void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, Initialization* initFunc, bool bTrainable)
 {
     ConnectUnitToLayer (nSrcLayer, nSrcUnit, nDstLayer);
@@ -210,15 +146,7 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, Initia
     MarkUnitToLayerConnection (nSrcLayer, nSrcUnit, nDstLayer, bTrainable);
 }
 
-/**
-  * Connects one unit to a layer, initializing the connection weights and specifying whether they will be trainable or not.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nSrcUnit The unit's zero-based index inside nSrcLayer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param weights A row vector containing the connection weights; entry x specifies the weight to be used for the connection from nSrcUnit to unit x in nDstLayer
-  * @param bTrainable Specifies whether the connections will be trainable (true) or not (false)
-  */
+
 void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, rowvec* weights, bool bTrainable)
 {
     ConnectUnitToLayer (nSrcLayer, nSrcUnit, nDstLayer);
@@ -232,16 +160,7 @@ void RNN::ConnectUnitToLayer (int nSrcLayer, int nSrcUnit, int nDstLayer, rowvec
     MarkUnitToLayerConnection (nSrcLayer, nSrcUnit, nDstLayer, bTrainable);
 }
 
-/**
-  * Connects one unit to another unit, setting the connection weight and specifying whether it will be trainable or not.
-  *
-  * @param nSrcLayer The zero-based index of the source layer
-  * @param nSrcUnit The source unit's zero-based index inside nSrcLayer
-  * @param nDstLayer The zero-based index of the destination layer
-  * @param nSrcUnit The destination unit's zero-based index inside nSrcLayer
-  * @param fWeight The weight to be assigned to the connection
-  * @param bTrainable Specifies whether the connection will be trainable (true) or not (false)
-  */
+
 void RNN::ConnectUnitToUnit (int nSrcLayer, int nSrcUnit, int nDstLayer, int nDstUnit, double fWeight, bool bTrainable)
 {
     #ifndef NNLIB_NO_ERROR_CHECKING

@@ -17,21 +17,25 @@ sum2 = 0;
 sum3 = 0;
 sum4 = 0;
 for i=1:s
-%     time2(s) = s;
-% 	sum1 = sum1 +sp1(i);
-%     sum2 = sum2 +sr1(i);
-%     sum3 = sum3 +ep1(i);
-%     sum4 = sum4 +ey1(i);
-% if(mod(i, 10) == 0)
-%     time(i /10) =i/10;   
-%     sp_est1(i/ 10) = sum1 /10;
-%     sr_est1(i / 10) = sum2 /10;
-%     ep_est1(i/ 10) = sum3 /10;
-%     ey_est1(i /10) = sum4 /10;
-%     sum1 = 0;
-%     sum2 = 0;
-%     sum3 = 0;
-%     sum4 = 0;
+    time2(s) = s;
+	sum1 = sum1 +sp1(i);
+    sum2 = sum2 +sr1(i);
+    sum3 = sum3 +ep1(i);
+    sum4 = sum4 +ey1(i);
+    sp_est1(i) = sum1 /10;
+    sr_est1(i ) = sum2 /10;
+    ep_est1(i) = sum3 /10;
+    ey_est1(i) = sum4 /10;
+if(mod(i, 10) == 0)
+    time(i /10) =i/10;   
+    sp_est1(i/ 10) = sum1 /10;
+    sr_est1(i / 10) = sum2 /10;
+    ep_est1(i/ 10) = sum3 /10;
+    ey_est1(i /10) = sum4 /10;
+    sum1 = 0;
+    sum2 = 0;
+    sum3 = 0;
+    sum4 = 0;
  end
 end
 

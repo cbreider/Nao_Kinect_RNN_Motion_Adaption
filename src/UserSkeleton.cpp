@@ -304,7 +304,7 @@ nite::SkeletonState UserSkeleton::updateUserState(const nite::UserData& user, un
 			case nite::SKELETON_CALIBRATION_ERROR_HANDS:
 			case nite::SKELETON_CALIBRATION_ERROR_LEGS:
 			case nite::SKELETON_CALIBRATION_ERROR_HEAD:
-			case nite::SKELETON_CALIBRATION_ERROR_TORSO:
+            case nite::SKELETON_CALIBRATION_ERROR_TORSO:
 				USER_MESSAGE("Calibration Failed... :-|")
 					return nite::SKELETON_NONE;
 					break;
@@ -313,8 +313,20 @@ nite::SkeletonState UserSkeleton::updateUserState(const nite::UserData& user, un
 	return g_skeletonStates;
 }
 
+void UserSkeleton::Reset()
+{
+    NiTE::shutdown();
+    NiTE::initialize();
+    niteRc = userTracker.create();
+
+    if (niteRc != nite::STATUS_OK)
+    {
+        Utilities::WriteMessage("Couldn't create user tracker!", Utilities::Error);
+    }
+}
+
 void UserSkeleton::Close()
 {
-	//this->userTracker.destroy();
-	NiTE::shutdown();
+    //this->userTracker.destroy();
+    NiTE::shutdown();
 }

@@ -25,11 +25,12 @@ public:
     int InitTrainedNN(string path, NNType::Type t);
     std::vector<float> Object;
     std::vector<float> rAngles;
+    std::vector<float> rAngles_prev;
     void Test();
     void SetRightHand(vector<float> rHandPosition, AL::ALMotionProxy &motion);
     int SayIntroductionPhrase(AL::ALTextToSpeechProxy &tts);
     int SayInstructionPhrase(AL::ALTextToSpeechProxy &tts);
-
+    int SetRightArmSlow(std::vector<float> rArm, AL::ALMotionProxy &motion);
     int SetHead(AL::ALMotionProxy &motion);
 
     int Close(AL::ALMotionProxy &motion);

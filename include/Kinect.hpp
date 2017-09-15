@@ -21,7 +21,7 @@ public:
     float _objectX = 0;
     float _objectY = 0;
     float _objectZ = 0;
-
+    void Reset();
 private:
 	UserSkeleton _userSkeleton;
 	ObjectTracker _objectTracker;

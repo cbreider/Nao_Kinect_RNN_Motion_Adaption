@@ -218,7 +218,7 @@ public:
     {
         int t;
         string chose;
-        string rnn = "Recurrent Neural Network";
+        string rnn = "Recurrent Neural Network for following Object";
         string rnncl = "Recurrent Neural Network with Context-Loop";
         string rnnpb = "Recurrent Neural Network with Context-Loop and PB";
         Utilities::WriteMessage("Choose a type for the NN:", Utilities::Normal);

@@ -14,7 +14,7 @@ int Kinect::InitKinect(bool sample)
     Utilities::WriteMessage("Kinect initialization...", Utilities::NewProcedure);
     _userSkeleton.Sample = sample;
     int status = _userSkeleton.Init(device);
-    if(status == 0)
+   /* if(status == 0)
     {
         openni::Status rc = OpenNI::initialize();
         status = rc;
@@ -46,7 +46,7 @@ int Kinect::InitKinect(bool sample)
             video.setPixelFormat(PIXEL_FORMAT_RGB888);
             color.setVideoMode(video);
         }
-    }
+    }*/
     Utilities::WriteBlankLine();
     if(status == 0)
 	{
@@ -92,6 +92,11 @@ UserSkeleton *Kinect::GetUser()
 	return &_userSkeleton;
 }
 
+void Kinect::Reset()
+{
+    _userSkeleton.Reset();
+}
+
 void Kinect::CleanUpAndClose()
 {
 	this->_userSkeleton.Close();
@@ -100,5 +105,5 @@ void Kinect::CleanUpAndClose()
 	//this->color.destroy();
     //this->device.close();
 
-	//openni::OpenNI::shutdown();
+    //openni::OpenNI::shutdown();
 }

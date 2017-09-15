@@ -330,7 +330,7 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
                     //else
                         //data_in[nSeq][dst_layer]->GetSetAt (data_in_index[nSeq][dst_layer]++, &cur_u[nSeq][dst_layer]);
 
-                    if(dst_layer == 0 && t < 10)
+                    if(dst_layer == 0 && t < 50)
                     {
                          cur_u[nSeq][dst_layer](0) = firstangles[t][0];
                          cur_u[nSeq][dst_layer](1) = firstangles[t][1];
@@ -372,11 +372,11 @@ void NeuralNetwork::RunAfterTraining(int nSeq, int nPasses, int nSkip, bool bRes
                 prv_u[nSeq][dst_layer] = cur_u[nSeq][dst_layer];
                 layers[dst_layer]->ComputeActivations (&cur_u[nSeq][dst_layer], &y[nSeq][dst_layer]);
 
-                if (dst_layer == 5 &&t < 10) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
+                if (dst_layer == 5 &&t < 50) // If this is an outout layer for which teacher forcing is to be used, write the desired outputs into the layer
                 {
                         y[nSeq][dst_layer](0) = firstanglesout[t][0];
                         y[nSeq][dst_layer](1) = firstanglesout[t][1];
-                        y[nSeq][dst_layer](2) = firstanglesout[t][2];
+                       y[nSeq][dst_layer](2) = firstanglesout[t][2];
                         y[nSeq][dst_layer](3) = firstanglesout[t][3];
                 }
 
@@ -528,35 +528,25 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                 {
                     // If the outout of another layer is to be used as input, copy the output into the induced local fields
                     // Otherwise, read data from the specified data source
-                    if (copy_output[dst_layer] > -1 && data_in_index[nSeq][dst_layer] >= copy_output_after[dst_layer])
+                    if (dst_layer == 0)
                     {
-                        if(passNr > 0)
+                        if(passNr > 20)
                         {
                             cur_u[nSeq][dst_layer] = y[nSeq][copy_output[dst_layer]];
                         }
                         else
                         {
-                               if(dst_layer == 0)
-                               {
                                     cur_u[nSeq][dst_layer][0] = firstangles[0];
-                                    cur_u[nSeq][dst_layer][1] = firstangles[1];
-                                    cur_u[nSeq][dst_layer][2] = firstangles[2];
-                                    cur_u[nSeq][dst_layer][3] = firstangles[3];
-                               }
-                               else
-                               {
-                                   cur_u[nSeq][dst_layer][0] = 0;
-                                   cur_u[nSeq][dst_layer][1] = 0;
-                                   cur_u[nSeq][dst_layer][2] = 0;
-                                   cur_u[nSeq][dst_layer][3] = 0;
-                               }
+                                    //cur_u[nSeq][dst_layer][1] = firstangles[1];
+                                    //cur_u[nSeq][dst_layer][2] = firstangles[2];
+                                    //cur_u[nSeq][dst_layer][3] = firstangles[3];
                         }
                     }
                     else
                     {
                         cur_u[nSeq][dst_layer][0] = object[0];
-                        cur_u[nSeq][dst_layer][1] = object[1];
-                        cur_u[nSeq][dst_layer][2] = object[2];
+                       // cur_u[nSeq][dst_layer][1] = object[1];
+                       // cur_u[nSeq][dst_layer][2] = object[2];
                         //std::cout <<  object[0] << "   " << object[1] << "   " <<  object[2] <<endl;
                     }
                 }
@@ -564,7 +554,7 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                 // If this is a PB layer, use the PB units' internal states as the induced local fields
                 if (layers[dst_layer]->IsPbLayer ())
                 {
-                    u_def[nSeq][dst_layer](0) = 0.95;
+                    u_def[nSeq][dst_layer](passNr) = 0.95;
                     cur_u[nSeq][dst_layer] = u_def[nSeq][dst_layer];
                 }
 
@@ -588,12 +578,12 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
 
                 s[nSeq][dst_layer].row (0 )= trans (y[nSeq][dst_layer]);
                 u[nSeq][dst_layer].col (0 ) = cur_u[nSeq][dst_layer];
-                if(dst_layer == 3)
+                if(dst_layer == 5)
                 {
                     ret[0] = y[nSeq][dst_layer][0];
-                    ret[1] = y[nSeq][dst_layer][1];
-                    ret[2] = y[nSeq][dst_layer][2];
-                    ret[3] = y[nSeq][dst_layer][3];
+                    //ret[1] = y[nSeq][dst_layer][1];
+                    //ret[2] = y[nSeq][dst_layer][2];
+                    //ret[3] = y[nSeq][dst_layer][3];
 
                    // std::cout <<  y[nSeq][dst_layer] <<endl;
                     /*ret[0] = s[nSeq][dst_layer].row (0 )[0];
@@ -603,6 +593,11 @@ std::vector<float> NeuralNetwork::RunOneTime (int nSeq, std::vector<float> objec
                 }
 
         }
+
+
+
+
+
         return ret;
 }
 
@@ -701,6 +696,17 @@ void NeuralNetwork::ConnectLayerToLayer (int nSrcLayer, int nDstLayer, Initializ
     #endif
 
     initFunc->Initialize (w[nDstLayer][nSrcLayer]);
+}
+
+void NeuralNetwork::ConnectLayerToLayerStatic(int nSrcLayer, int nDstLayer, RandomInitialization* initFunc, bool bTrainable)
+{
+    ConnectLayerToLayer (nSrcLayer, nDstLayer);
+
+    #ifndef NNLIB_NO_ERROR_CHECKING
+    Utilities::Assert(initFunc != NULL, (char*) "ERROR: initFunc is NULL in NeuralNetwork::SetLayerToLayerWeights!");
+    #endif
+
+    initFunc->InitializeStatic (w[nDstLayer][nSrcLayer]);
 }
 
 /**

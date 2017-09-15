@@ -34,7 +34,7 @@ class RecurrentNeuralNetworkWrapper
         virtual void LoadWeights() = 0;
         virtual void Test() = 0;
         int Reset(){}
-        void PredictNextStep(std::vector<float> object, std::vector<float> angles);
+        std::vector<float> PredictNextStep(std::vector<float> object, std::vector<float> angles);
 
         NNType::Type NNtype;
 

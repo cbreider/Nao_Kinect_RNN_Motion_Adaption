@@ -37,10 +37,10 @@ public:
     SkeletonState Update();
     bool Sample;
 	void Close();
-
+    void Reset();
 
 private:
-
+     int  uid = 0;
     bool _shouldCapture;
     SampleWriter sampler;
 	Status niteRc;
